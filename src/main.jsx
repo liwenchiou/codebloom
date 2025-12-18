@@ -7,9 +7,10 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 //模組導入
 import App from "./App.jsx";
+import TsetSwiper from "./test/TestSwiper.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <App />
+    <TsetSwiper />
   </StrictMode>
 );
