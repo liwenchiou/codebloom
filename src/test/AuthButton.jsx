@@ -1,49 +1,140 @@
-import React, { useEffect, useState, useRef } from "react"
-import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min"
+import React, { useEffect, useState, useRef } from "react";
+import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min";
+import { supabase } from "../tools/SupaBase";
+import md5 from "blueimp-md5";
 
 function AuthButton() {
-  const anthModalRef = useRef(null)
+  const anthModalRef = useRef(null);
 
   //登入表單
+  const [isAuth, setIsAuth] = useState(false); //存放登入狀態
+  const [userName, setUserName] = useState(null); //存放登入後取得的資料
   const defaultLogin = {
     loginEmail: "",
     loginPassword: "",
-  }
-  const [loginData, setLoginData] = useState(defaultLogin)
+  };
+  const [loginData, setLoginData] = useState(defaultLogin);
 
   const handleLoginInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setLoginData({
       ...loginData,
       [name]: value,
-    })
-  }
+    });
+  };
+
+  //送出登入
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    console.log("送出登入");
+    userLogin();
+  };
+
+  //登入API
+  const userLogin = async () => {
+    console.log(loginData.loginEmail, md5(loginData.loginPassword));
+    const { data, error } = await supabase
+      .from("member")
+      .select("*")
+      .eq("loginName", loginData.loginEmail)
+      .eq("loginPass", md5(loginData.loginPassword));
+    // console.log(data, error);
+    if (error) {
+      alert("登入失敗!!");
+      console.log(`登入失敗: ${error.message}`);
+    } else if (data.length > 0) {
+      alert(`登入成功！歡迎 ${data[0].Name}`);
+      setIsAuth(true);
+      handleCloseAuthModal();
+      setUserName(data[0].Name);
+      console.log(`登入成功！歡迎 ${JSON.stringify(data[0])}`);
+    } else {
+      alert(`帳號或密碼錯誤`);
+      console.log(`帳號或密碼錯誤`);
+    }
+  };
 
   //註冊表單
   const defaultRegister = {
     registerName: "",
     registerEmail: "",
     registerPassword: "",
-  }
-  const [registerData, setregisterData] = useState(defaultRegister)
+  };
+  const [registerData, setregisterData] = useState(defaultRegister);
 
   const handleRegisterInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setregisterData({
       ...registerData,
       [name]: value,
-    })
-  }
+    });
+  };
+
+  //送出註冊表單
+  const handleRegisterSubmit = (e) => {
+    e.preventDefault();
+    console.log("送出註冊");
+    userRegister();
+    
+  };
+
+  const userRegister = async () => {
+    // 先檢查是否已有相同 loginName
+    const { data: existing, error: checkError } = await supabase
+      .from("member")
+      .select("*")
+      .eq("loginName", registerData.registerEmail);
+
+    if (checkError) {
+      alert("檢查失敗: " + checkError.message);
+      return;
+    }
+
+    if (existing.length > 0) {
+      alert("會員已存在，請勿重複新增！");
+      return;
+    }
+
+    // 送出註冊
+    // 若不存在才新增
+    const { error } = await supabase
+      .from("member")
+      .insert([{
+        loginName:registerData.registerEmail,
+        loginPass:md5(registerData.registerPassword),
+        Name:registerData.registerName
+
+      }]);
+
+    if (error) {
+      alert("新增失敗: " + error.message);
+    } else {
+      alert("新增成功!");
+      setIsAuth(true);
+      handleCloseAuthModal();
+      setUserName(registerData.registerName);
+      console.log(`登入成功！歡迎 ${registerData.registerName}`);
+    }
+  };
 
   useEffect(() => {
-    new Modal(anthModalRef.current)
-  }, [])
+    new Modal(anthModalRef.current);
+  }, []);
 
   //開啟modal
   const handleOpenAuthModal = () => {
-    const modalInstance = Modal.getInstance(anthModalRef.current)
-    modalInstance.show()
-  }
+    const modalInstance = Modal.getInstance(anthModalRef.current);
+    modalInstance.show();
+  };
+  //關閉modal
+  const handleCloseAuthModal = () => {
+    const modalInstance = Modal.getInstance(anthModalRef.current);
+    modalInstance.hide();
+  };
+  //登出
+  const handleLogout = () => {
+    setIsAuth(false);
+  };
 
   return (
     <>
@@ -56,13 +147,22 @@ function AuthButton() {
       >
         登入/註冊
       </button> */}
-      <button
-        type="button"
-        className="btn btn-primary"
-        onClick={handleOpenAuthModal}
-      >
-        JS 開啟modal
-      </button>
+      {isAuth ? (
+        <>
+          <p>登入成功！歡迎 {userName}</p>
+          <button class="btn btn-danger" onClick={handleLogout}>
+            登出
+          </button>
+        </>
+      ) : (
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={handleOpenAuthModal}
+        >
+          JS 開啟modal
+        </button>
+      )}
 
       {/* <!-- Modal --> */}
       <div
@@ -159,7 +259,11 @@ function AuthButton() {
                             onChange={handleLoginInputChange}
                           />
                         </div>
-                        <button type="submit" className="btn btn-primary w-100">
+                        <button
+                          onClick={handleLoginSubmit}
+                          type="button"
+                          className="btn btn-primary w-100"
+                        >
                           登入
                         </button>
                       </form>
@@ -203,7 +307,11 @@ function AuthButton() {
                             onChange={handleRegisterInputChange}
                           />
                         </div>
-                        <button type="submit" className="btn btn-success w-100">
+                        <button
+                          type="submit"
+                          className="btn btn-success w-100"
+                          onClick={handleRegisterSubmit}
+                        >
                           註冊
                         </button>
                       </form>
@@ -226,7 +334,7 @@ function AuthButton() {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default AuthButton
+export default AuthButton;
