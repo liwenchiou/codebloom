@@ -32,7 +32,7 @@ const TestSwiper = () => {
         borderRadius: "10px",
       }}
     >
-      <h2>獨立的輪播組件 (TestSwiper)</h2>
+      <h1>獨立的輪播組件 (TestSwiper)</h1>
 
       <Swiper
         // 配置輪播模組
