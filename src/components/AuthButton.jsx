@@ -11,7 +11,7 @@ function AuthButton() {
   // }
   //登入表單
   const [isAuth, setIsAuth] = useState(false); //存放登入狀態
-  const [userName, setUserName] = useState(null); //存放登入後取得的資料
+  // const [userName, setUserName] = useState(null); //存放登入後取得的資料
   const defaultLogin = {
     loginEmail: "",
     loginPassword: "",
@@ -49,7 +49,8 @@ function AuthButton() {
       alert(`登入成功！歡迎 ${data[0].Name}`);
       setIsAuth(true);
       handleCloseAuthModal();
-      setUserName(data[0].Name);
+      setLoginData(defaultLogin);
+      // setUserName(data[0].Name);
       console.log(`登入成功！歡迎 ${JSON.stringify(data[0])}`);
     } else {
       alert(`帳號或密碼錯誤`);
@@ -115,7 +116,8 @@ function AuthButton() {
       alert("新增成功!");
       setIsAuth(true);
       handleCloseAuthModal();
-      setUserName(registerData.registerName);
+      setregisterData(defaultRegister);
+      // setUserName(registerData.registerName);
       console.log(`登入成功！歡迎 ${registerData.registerName}`);
     }
   };
@@ -152,7 +154,7 @@ function AuthButton() {
       </button> */}
       {isAuth ? (
         <>
-          <p>登入成功！歡迎 {userName}</p>
+          {/* <p>登入成功！歡迎 {userName}</p> */}
           <button class="btn btn-danger" onClick={handleLogout}>
             登出
           </button>

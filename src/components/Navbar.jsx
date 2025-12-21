@@ -1,27 +1,37 @@
 import React from "react";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
+import AuthButton from "./AuthButton";
 
 function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-          <Link className="navbar-brand" to='/'>CodeBloom</Link>
+        <Link className="navbar-brand" to="/">
+          CodeBloom
+        </Link>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-link active" to='/Projects'>作品列表</Link>
+              <Link className="nav-link active" to="/Projects">
+                作品列表
+              </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to='/Articles'>技術文章</Link>
+              <Link className="nav-link" to="/Articles">
+                技術文章
+              </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to='/Qna'>問答社群</Link>
+              <Link className="nav-link" to="/Qna">
+                問答社群
+              </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to='/Dashboard'>創作中心</Link>
+              <Link className="nav-link" to="/Dashboard">
+                創作中心
+              </Link>
             </li>
-            
           </ul>
           <form className="d-flex">
             <input
@@ -34,6 +44,9 @@ function Navbar() {
               Search
             </button>
           </form>
+          <div className="ms-3">
+            <AuthButton />
+          </div>
         </div>
       </div>
     </nav>

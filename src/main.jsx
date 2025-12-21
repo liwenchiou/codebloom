@@ -11,8 +11,6 @@ import "./main.scss";
 //模組導入
 import App from "./App.jsx";
 import TsetSwiper from "./test/TestSwiper.jsx";
-import AuthButton from "./test/AuthButton.jsx";
-
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
