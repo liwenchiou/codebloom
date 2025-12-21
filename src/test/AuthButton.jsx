@@ -5,7 +5,10 @@ import md5 from "blueimp-md5";
 
 function AuthButton() {
   const anthModalRef = useRef(null);
-
+  const count1=1;
+  // if(aa==1){
+  //   console.log(aa);
+  // }
   //登入表單
   const [isAuth, setIsAuth] = useState(false); //存放登入狀態
   const [userName, setUserName] = useState(null); //存放登入後取得的資料
