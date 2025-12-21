@@ -1,0 +1,13 @@
+{
+  "member": [
+    {
+      "id": 1,
+      "loginName": "test@gmail.com",
+      "loginPassword": "47ec2dd791e31e2ef2076caf64ed9b3d",
+      "name": "test"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
