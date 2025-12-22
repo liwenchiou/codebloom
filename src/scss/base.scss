@@ -1,5 +1,105 @@
-$primary-color: #646cff;
+// 導入 google font noto sans
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap");
+body {
+  font-family: "Noto Sans", sans-serif;
+  letter-spacing: 0;
+  font-weight: 400;
+}
 
-h1 {
-  color: $primary-color;
+// 定義顏色 map
+$colors: (
+  primary-50: #e9fbfb,
+  primary-100: #baf1fa,
+  primary-200: #99ebf7,
+  primary-300: #6be2f4,
+  primary-400: #4edcf1,
+  primary-500: #22d3ee,
+  primary-600: #1fc0d9,
+  primary-700: #1896a9,
+  primary-800: #137483,
+  primary-900: #0e5964,
+
+  indo-fav-400: #ed4d4d,
+
+  info-green-300: #5fd0ab,
+  info-green-400: #40c79a,
+
+  info-yellow-300: #f1cc5a,
+  info-yellow-400: #eec239,
+
+  neutral-white: #ffffff,
+  neutral-50: #e7e7e8,
+  neutral-100: #b4b5b7,
+  neutral-200: #909294,
+  neutral-300: #5d6064,
+  neutral-400: #3d4145,
+  neutral-500: #0d1117,
+  neutral-600: #0c0f15,
+  neutral-700: #090c10,
+  neutral-800: #07090d,
+  neutral-900: #05070a,
+  neutral-black: #000000,
+);
+
+// 產生背景色 class
+@each $name, $color in $colors {
+  .bg-#{$name} {
+    background-color: $color;
+  }
+}
+
+// 產生文字色 class
+@each $name, $color in $colors {
+  .text-#{$name} {
+    color: $color;
+  }
+}
+
+//字型
+.text-5xl {
+  font-size: 40px;
+  line-height: 60px;
+}
+.text-4xl {
+  font-size: 32px;
+  line-height: 48px;
+}
+.text-3xl {
+  font-size: 28px;
+  line-height: 42px;
+}
+.text-2xl {
+  font-size: 24px;
+  line-height: 36px;
+}
+.text-xl {
+  font-size: 20px;
+  line-height: 30px;
+}
+.text-lg {
+  font-size: 18px;
+  line-height: 27px;
+}
+.text-base {
+  font-size: 16px;
+  line-height: 24px;
+}
+.text-sm {
+  font-size: 14px;
+  line-height: 21px;
+}
+.text-xs {
+  font-size: 12px;
+  line-height: 18px;
+}
+
+//測試用
+.outline {
+  outline: 1px solid red;
+}
+
+//navbar
+.form-control::placeholder {
+  color: #909294; /* 你想要的顏色 */
+  opacity: 1; /* 預設有透明度，建議設為 1 */
 }

@@ -12,11 +12,11 @@ function App() {
     <Navbar/>
       <div className="container mt-3">
         <Routes>
-          <Route path='/' element={<Home/>}></Route>
-          <Route path='/Dashboard' element={<Dashboard/>}></Route>
-          <Route path='/Articles' element={<Articles/>}></Route>
-          <Route path='/Projects' element={<Projects/>}></Route>
-          <Route path='/Qna' element={<Qna/>}></Route>
+          <Route path='codebloom/' element={<Home/>}></Route>
+          <Route path='codebloom/Dashboard' element={<Dashboard/>}></Route>
+          <Route path='codebloom/Articles' element={<Articles/>}></Route>
+          <Route path='codebloom/Projects' element={<Projects/>}></Route>
+          <Route path='codebloom/Qna' element={<Qna/>}></Route>
         </Routes>
       </div>
     </>

@@ -162,10 +162,10 @@ function AuthButton() {
       ) : (
         <button
           type="button"
-          className="btn btn-primary"
+          className="btn bg-primary-400"
           onClick={handleOpenAuthModal}
         >
-          JS 開啟modal
+          註冊/登入
         </button>
       )}
 
