@@ -162,7 +162,7 @@ function AuthButton() {
       ) : (
         <button
           type="button"
-          className="btn bg-primary-400"
+          className="btn bg-primary-400 auth-btn"
           onClick={handleOpenAuthModal}
         >
           註冊/登入

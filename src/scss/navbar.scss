@@ -1,0 +1,39 @@
+//navbar
+.form-control::placeholder {
+  color: #909294; /* 你想要的顏色 */
+  opacity: 1; /* 預設有透明度，建議設為 1 */
+}
+
+//搜尋框
+.search-span{
+  border-top: 1px solid #3d4145;
+  border-left: 1px solid #3d4145;
+  border-bottom: 1px solid #3d4145;
+
+}
+.search-input{
+  border-top: 1px solid #3d4145;
+  border-right: 1px solid #3d4145;
+  border-bottom: 1px solid #3d4145;
+  border-left: 0px solid #000;
+}
+.search-input:focus{
+    background-color: #0d1117;
+    color:#909294;
+    box-shadow: 2px 2px 20px 0 rgba(78, 220, 241, 0.5);
+}
+
+//登入註冊按鈕
+.auth-btn:hover{
+    background-color: #4edcf1;
+    box-shadow: 2px 2px 20px 0 rgba(78, 220, 241, 0.5);
+}
+
+//Link
+ .navbar-link{
+    display: block;
+    color:#e7e7e8;
+ }
+  .navbar-link:hover{
+    color:#22d3ee;
+ }
