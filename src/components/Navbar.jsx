@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AuthButton from "./AuthButton";
+import logoPC from '../images/logo-PC.png';
+// import logoMobile from '../images/logo-Mobile.png';
 
 function Navbar() {
   return (
@@ -8,7 +10,7 @@ function Navbar() {
       <div className="container py-3">
         <Link className="navbar-brand " to="codebloom/">
           <img
-            src="./src/images/logo-PC.png"
+            src={logoPC}
             alt="logo"
             style={{ width: "196px", height: "28px" }}
           />
