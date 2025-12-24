@@ -1,4 +1,8 @@
-@use "./scss/reset.scss";
-@use "./scss/base";
-@use "./scss/spacing.scss";
-@use "./scss/navbar.scss";
+@use "./assets/scss/reset";
+@use "./assets/scss/base";
+@use "./assets/scss/spacing";
+
+
+
+//組件區
+@use "./components/Navbar/navbar";
