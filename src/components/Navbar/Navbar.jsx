@@ -8,7 +8,7 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg bg-neutral-700 p-0">
       <div className="container py-3">
-        <Link className="navbar-brand " to="codebloom/">
+        <Link className="navbar-brand " to="/">
           <img
             src={logoPC}
             alt="logo"
@@ -31,7 +31,7 @@ function Navbar() {
             <li className="nav-item">
               <Link
                 className=" text-base text-neutral-50 py-12px px-4 me-12px navbar-link"
-                to="codebloom/Projects"
+                to="/Projects"
               >
                 作品列表
               </Link>
@@ -39,7 +39,7 @@ function Navbar() {
             <li className="nav-item">
               <Link
                 className="text-base text-neutral-50 py-12px px-4 me-12px navbar-link"
-                to="codebloom/Articles"
+                to="/Articles"
               >
                 技術文章
               </Link>
@@ -48,7 +48,7 @@ function Navbar() {
             <li className="nav-item">
               <Link
                 className="text-base text-neutral-50 py-12px px-4 me-12px navbar-link "
-                to="codebloom/Qna"
+                to="/Qna"
               >
                 問答社群
               </Link>

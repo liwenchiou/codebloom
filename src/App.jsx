@@ -1,22 +1,25 @@
 import React from "react";
 import Navbar from "./components/Navbar/Navbar";
-import{Routes,Route} from 'react-router-dom';
+// 注意：這裡只 import Routes 和 Route，不要 import 任何 Router
+import { Routes, Route } from 'react-router-dom';
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Articles from "./pages/Articles";
 import Projects from "./pages/Projects";
 import Qna from "./pages/Qna";
+
 function App() {
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <div className="container mt-3">
         <Routes>
-          <Route path='codebloom/' element={<Home/>}></Route>
-          <Route path='codebloom/Dashboard' element={<Dashboard/>}></Route>
-          <Route path='codebloom/Articles' element={<Articles/>}></Route>
-          <Route path='codebloom/Projects' element={<Projects/>}></Route>
-          <Route path='codebloom/Qna' element={<Qna/>}></Route>
+          {/* 因為使用了 HashRouter，路徑直接從 / 開始即可 */}
+          <Route path="/" element={<Home />} />
+          <Route path="/Dashboard" element={<Dashboard />} />
+          <Route path="/Articles" element={<Articles />} />
+          <Route path="/Projects" element={<Projects />} />
+          <Route path="/Qna" element={<Qna />} />
         </Routes>
       </div>
     </>
