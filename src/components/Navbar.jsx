@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AuthButton from "./AuthButton";
-import logoPC from '../images/logo-PC.png';
+import logoPC from '../images/logo-PC2.png';
 // import logoMobile from '../images/logo-Mobile.png';
 
 function Navbar() {
