@@ -1,4 +1,20 @@
-$px-spacers: (12);
+$px-spacers: (
+  12
+);
+
+$mb-spacers: (
+  4,
+  8,
+  12,
+  16,
+  20,
+  24,
+  32,
+  40,
+  48,
+  56,
+  64
+);
 
 // ----------------------------
 // 迴圈生成 padding / margin 工具
@@ -8,33 +24,99 @@ $px-spacers: (12);
   // ------------------
   // Padding 正值
   // ------------------
-  .p-#{$val}px { padding: #{$val}px !important; }
-  .pt-#{$val}px { padding-top: #{$val}px !important; }
-  .pb-#{$val}px { padding-bottom: #{$val}px !important; }
-  .ps-#{$val}px { padding-left: #{$val}px !important; }
-  .pe-#{$val}px { padding-right: #{$val}px !important; }
-  .px-#{$val}px { padding-left: #{$val}px !important; padding-right: #{$val}px !important; }
-  .py-#{$val}px { padding-top: #{$val}px !important; padding-bottom: #{$val}px !important; }
+  .p-#{$val}px {
+    padding: #{$val}px !important;
+  }
+
+  .pt-#{$val}px {
+    padding-top: #{$val}px !important;
+  }
+
+  .pb-#{$val}px {
+    padding-bottom: #{$val}px !important;
+  }
+
+  .ps-#{$val}px {
+    padding-left: #{$val}px !important;
+  }
+
+  .pe-#{$val}px {
+    padding-right: #{$val}px !important;
+  }
+
+  .px-#{$val}px {
+    padding-left: #{$val}px !important;
+    padding-right: #{$val}px !important;
+  }
+
+  .py-#{$val}px {
+    padding-top: #{$val}px !important;
+    padding-bottom: #{$val}px !important;
+  }
 
   // ------------------
   // Margin 正值
   // ------------------
-  .m-#{$val}px { margin: #{$val}px !important; }
-  .mt-#{$val}px { margin-top: #{$val}px !important; }
-  .mb-#{$val}px { margin-bottom: #{$val}px !important; }
-  .ms-#{$val}px { margin-left: #{$val}px !important; }
-  .me-#{$val}px { margin-right: #{$val}px !important; }
-  .mx-#{$val}px { margin-left: #{$val}px !important; margin-right: #{$val}px !important; }
-  .my-#{$val}px { margin-top: #{$val}px !important; margin-bottom: #{$val}px !important; }
+  .m-#{$val}px {
+    margin: #{$val}px !important;
+  }
+
+  .mt-#{$val}px {
+    margin-top: #{$val}px !important;
+  }
+
+  .mb-#{$val}px {
+    margin-bottom: #{$val}px !important;
+  }
+
+  .ms-#{$val}px {
+    margin-left: #{$val}px !important;
+  }
+
+  .me-#{$val}px {
+    margin-right: #{$val}px !important;
+  }
+
+  .mx-#{$val}px {
+    margin-left: #{$val}px !important;
+    margin-right: #{$val}px !important;
+  }
+
+  .my-#{$val}px {
+    margin-top: #{$val}px !important;
+    margin-bottom: #{$val}px !important;
+  }
 
   // ------------------
   // Margin 負值
   // ------------------
-  .m-n#{$val}px { margin: -#{$val}px !important; }
-  .mt-n#{$val}px { margin-top: -#{$val}px !important; }
-  .mb-n#{$val}px { margin-bottom: -#{$val}px !important; }
-  .ms-n#{$val}px { margin-left: -#{$val}px !important; }
-  .me-n#{$val}px { margin-right: -#{$val}px !important; }
-  .mx-n#{$val}px { margin-left: -#{$val}px !important; margin-right: -#{$val}px !important; }
-  .my-n#{$val}px { margin-top: -#{$val}px !important; margin-bottom: -#{$val}px !important; }
+  .m-n#{$val}px {
+    margin: -#{$val}px !important;
+  }
+
+  .mt-n#{$val}px {
+    margin-top: -#{$val}px !important;
+  }
+
+  .mb-n#{$val}px {
+    margin-bottom: -#{$val}px !important;
+  }
+
+  .ms-n#{$val}px {
+    margin-left: -#{$val}px !important;
+  }
+
+  .me-n#{$val}px {
+    margin-right: -#{$val}px !important;
+  }
+
+  .mx-n#{$val}px {
+    margin-left: -#{$val}px !important;
+    margin-right: -#{$val}px !important;
+  }
+
+  .my-n#{$val}px {
+    margin-top: -#{$val}px !important;
+    margin-bottom: -#{$val}px !important;
+  }
 }

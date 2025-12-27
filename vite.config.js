@@ -11,4 +11,7 @@ export default defineConfig({
   base: `/${REPO_NAME}/`,
 
   plugins: [react()],
+  server: {
+    open: true
+  }
 });
