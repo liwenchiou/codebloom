@@ -14,7 +14,7 @@ function App() {
       <Navbar />
       <div className="container mt-3">
         <Routes>
-          {/* 因為使用了 HashRouter，路徑直接從 / 開始即可 */}
+          {/* 因為使用了 HashRouter，路徑直接從 / 開始即可  SSSS */}
           <Route path="/" element={<Home />} />
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/Articles" element={<Articles />} />
