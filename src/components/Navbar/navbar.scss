@@ -5,23 +5,23 @@
 }
 
 //搜尋框
-.search-span{
-  border-top: 1px solid #3d4145;
-  border-left: 1px solid #3d4145;
-  border-bottom: 1px solid #3d4145;
+// .search-span{
+//   border-top: 1px solid #3d4145;
+//   border-left: 1px solid #3d4145;
+//   border-bottom: 1px solid #3d4145;
 
-}
-.search-input{
-  border-top: 1px solid #3d4145;
-  border-right: 1px solid #3d4145;
-  border-bottom: 1px solid #3d4145;
-  border-left: 0px solid #000;
-}
-.search-input:focus{
-    background-color: #0d1117;
-    color:#909294;
-    box-shadow: 2px 2px 20px 0 rgba(78, 220, 241, 0.5);
-}
+// }
+// .search-input{
+//   border-top: 1px solid #3d4145;
+//   border-right: 1px solid #3d4145;
+//   border-bottom: 1px solid #3d4145;
+//   border-left: 0px solid #000;
+// }
+// .search-input:focus{
+//     background-color: #0d1117;
+//     color:#909294;
+//     box-shadow: 2px 2px 20px 0 rgba(78, 220, 241, 0.5);
+// }
 
 //登入註冊按鈕
 .auth-btn:hover{
@@ -37,3 +37,38 @@
   .navbar-link:hover{
     color:#22d3ee;
  }
+
+   /* 自定義聚焦效果 */
+  .custom-search-group {
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: 1px solid #3D4145; /* 預設邊框顏色 */
+    border-radius: 12px;
+    width: 324px;
+  }
+
+  /* 當內部的 input 聚焦時，改變整個群組的邊框 */
+  .custom-search-group:focus-within {
+    // border-color: #0d6efd; /* 這裡換成你想要的顏色，例如 Bootstrap primary */
+    // box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    border-color: #1FC0D9;
+    box-shadow: 0 2px 30px 0 rgba(#1FC0D9, 0.3); // X Y Blur Spread Color
+  }
+
+  /* 移除 input 本身預設的聚焦外框，讓視覺統整在 group 上 */
+  .custom-search-group .form-control {
+    border: 0px;
+    border-radius: 12px;
+    background: #0d1117;
+  }
+  
+  .custom-search-group .form-control:focus {
+    box-shadow: none;
+    color: #E7E7E8;
+  }
+
+  .custom-search-group .input-group-text {
+    background-color: #0D1117;
+    border-radius: 12px;
+    border: none;
+    padding-right: 0;
+  }
