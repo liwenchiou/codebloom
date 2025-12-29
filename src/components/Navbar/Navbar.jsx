@@ -27,10 +27,10 @@ function Navbar() {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse " id="navbarSupportedContent">
-          <ul className="navbar-nav ms-auto align-items-center">
+          <ul className="navbar-nav ms-auto align-items-center me-12px">
             <li className="nav-item">
               <Link
-                className=" text-base text-neutral-50 py-12px px-4 me-12px navbar-link"
+                className=" text-base text-neutral-50 me-12px cb-btn-text"
                 to="/Projects"
               >
                 作品列表
@@ -38,7 +38,7 @@ function Navbar() {
             </li>
             <li className="nav-item">
               <Link
-                className="text-base text-neutral-50 py-12px px-4 me-12px navbar-link"
+                className="text-base text-neutral-50 me-12px cb-btn-text"
                 to="/Articles"
               >
                 技術文章
@@ -47,7 +47,7 @@ function Navbar() {
 
             <li className="nav-item">
               <Link
-                className="text-base text-neutral-50 py-12px px-4 me-12px navbar-link "
+                className="text-base text-neutral-50 me-12px cb-btn-text"
                 to="/Qna"
               >
                 問答社群
@@ -56,7 +56,7 @@ function Navbar() {
           </ul>
 
 
-          <div className="input-group custom-search-group">
+          <div className="input-group custom-search-group me-12px">
             <span className="input-group-text py-12px pe-12px">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />

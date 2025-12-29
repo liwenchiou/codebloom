@@ -1,0 +1,48 @@
+  //實心按鈕
+  .cb-btn {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      padding-left: 24px;
+      padding-right: 24px;
+      background-color: #4EDCF1;
+      border-radius: 12px;
+  }
+
+  .cb-btn:hover {
+      border-color: #4EDCF1;
+      box-shadow: 0 2px 20px 0 rgba(#4EDCF1, 0.3);
+  }
+
+  //空心按鈕
+  .cb-btn-outline {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      padding-left: 24px;
+      padding-right: 24px;
+      background-color: transparent;
+      border-radius: 12px;
+      border: 1px solid #909294;
+      color: #ffffff;
+  }
+
+  .cb-btn-outline:hover {
+      border-color: #22D3EE;
+      box-shadow: 0 2px 20px 0 rgba(#4EDCF1, 0.3);
+  }
+
+  //文字按鈕
+  .cb-btn-text {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      padding-left: 24px;
+      padding-right: 24px;
+      background-color: transparent;
+      border-radius: 12px;
+      color: #ffffff;
+  }
+
+  .cb-btn-text:hover {
+      //   border-color: #22D3EE;
+      //   box-shadow: 0 2px 20px 0 rgba(#4EDCF1, 0.3);
+      color: #22d3ee;
+  }
