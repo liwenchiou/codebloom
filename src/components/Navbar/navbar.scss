@@ -76,3 +76,41 @@
   border: none;
   padding-right: 0;
 }
+
+//漢堡選單
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* 當選單展開時的樣式 */
+.navbar-collapse.show {
+  height: 100vh;
+  /* 佔滿全螢幕高度 */
+  width: 100vw;
+  /* 佔滿全螢幕寬度 */
+  position: fixed;
+  /* 固定位置 */
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  /* 確保在最上層 */
+  background-color: #000;
+  /* 設定背景顏色，否則會透明 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* 讓選單文字垂直置中 */
+  align-items: center;
+  /* 讓選單文字水平置中 */
+}
+
+/* 為了讓「關閉鈕」或「導覽列標題」能被看到，可能需要調整 navbar 結構 */
+.navbar {
+  position: relative;
+}
+
+.navbar-toggler {
+  z-index: 1001;
+  /* 比選單內容更高 */
+  position: relative;
+}

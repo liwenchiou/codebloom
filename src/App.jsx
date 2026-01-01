@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
 // 注意：這裡只 import Routes 和 Route，不要 import 任何 Router
 import { Routes, Route } from 'react-router-dom';
 import Home from "./pages/Home";
@@ -12,7 +13,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="container mt-3">
+      <div className="container-fluid p-0 bg-dark">
         <Routes>
           {/* 因為使用了 HashRouter，路徑直接從 / 開始即可  SSSS */}
           <Route path="/" element={<Home />} />
@@ -22,6 +23,7 @@ function App() {
           <Route path="/Qna" element={<Qna />} />
         </Routes>
       </div>
+      <Footer />
     </>
   );
 }

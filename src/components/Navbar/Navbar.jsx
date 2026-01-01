@@ -4,6 +4,9 @@ import AuthButton from "../Button/AuthButton";
 import logoPC from '../../assets/images/logo-PC2.png';
 // import logoMobile from '../images/logo-Mobile.png';
 
+
+//TODO:RWD 狀態的漢堡選單未完成....力文
+
 function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg bg-neutral-700 p-0">
@@ -16,7 +19,7 @@ function Navbar() {
           />
         </Link>
         <button
-          className="navbar-toggler"
+          className="navbar-toggler text-white"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
@@ -56,7 +59,7 @@ function Navbar() {
           </ul>
 
 
-          <div className="input-group custom-search-group me-12px">
+          <div className="input-group custom-search-group me-12px d-none d-lg-flex">
             <span className="input-group-text py-12px pe-12px">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
@@ -64,6 +67,7 @@ function Navbar() {
             </span>
             <input type="text" className="form-control" placeholder="搜尋作品、文章或問題..." aria-label="Search" />
           </div>
+
           <div className="ms-3">
             <AuthButton />
           </div>

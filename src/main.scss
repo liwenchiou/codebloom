@@ -2,7 +2,9 @@
 @use "./assets/scss/base";
 @use "./assets/scss/spacing";
 @use "./assets/scss/button";
+@use "./assets/scss/home";
 
 
 //組件區
 @use "./components/Navbar/navbar";
+@use "./components/IndexTop/IndexTop";
