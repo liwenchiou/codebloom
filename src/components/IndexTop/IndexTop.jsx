@@ -1,6 +1,36 @@
 //TODO:
 import bgpng from "../../assets/images/index/inTopBg.png";
+import WordCloudComponent from "../WordCloudComponent/WordCloudComponent";
 function IndexTop() {
+  const tagsData = [
+    ["JavaScript", 80],
+    ["React", 65],
+    ["Vue.js", 60],
+    ["Angular", 50],
+    ["Node.js", 55],
+    ["Python", 70],
+    ["TypeScript", 50],
+    ["CSS3", 45],
+    ["HTML5", 40],
+    ["Docker", 35],
+    ["Kubernetes", 30],
+    ["AWS", 45],
+    ["Firebase", 30],
+    ["Git", 35],
+    ["GraphQL", 25],
+    ["Next.js", 40],
+    ["Nuxt", 25],
+    ["Svelte", 20],
+    ["Tailwind", 35],
+    ["Bootstrap", 30],
+    ["MongoDB", 28],
+    ["SQL", 32],
+    ["Rust", 20],
+    ["Go", 25],
+    ["WebAssembly", 18],
+    ["AI/ML", 40],
+    ["DevOps", 35],
+  ];
   return (
     <div
       className="container-fulid p-0"
@@ -53,7 +83,7 @@ function IndexTop() {
             </div>
           </div>
           <div className="col-md-6 col-12">
-            
+            <WordCloudComponent data={tagsData} />
           </div>
         </div>
       </div>
