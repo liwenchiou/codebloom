@@ -15,11 +15,11 @@ const WordCloudComponent = ({ data }) => {
 
       // 設定 Canvas 大小 (RWD)
       canvas.width = container.offsetWidth;
-      canvas.height = 800;
+      canvas.height = 300;
 
       WordCloud(canvas, {
         list: data,
-        gridSize: 20,
+        gridSize: 10,
         weightFactor: (size) => {
           return canvas.width > 500 ? size * 1.8 : size * 1.0;
         },
