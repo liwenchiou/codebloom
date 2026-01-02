@@ -90,7 +90,7 @@ function IndexTop() {
                 </div>
                 {/* 手機板 */}
                 <div className="row pt-3 d-flex d-lg-none flex-column-reverse">
-                    <div className="col-12">
+                    <div className="col-12 mb-240px">
                         <div className="mt-56px">
                             <h1 className="IndexTop-title mb-12px">
                                 新手工程師的
@@ -123,7 +123,7 @@ function IndexTop() {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 mb-240px">
+                    <div className="col-12 ">
                         <WordCloudComponentMobile data={tagsData} />
                     </div>
                 </div>
