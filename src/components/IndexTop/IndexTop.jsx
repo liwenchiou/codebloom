@@ -123,7 +123,7 @@ function IndexTop() {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12">
+                    <div className="col-12 mb-240px">
                         <WordCloudComponentMobile data={tagsData} />
                     </div>
                 </div>
