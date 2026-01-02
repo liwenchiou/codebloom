@@ -13,7 +13,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="container-fluid p-0 bg-dark">
+      <div className="container-fluid p-0">
         <Routes>
           {/* 因為使用了 HashRouter，路徑直接從 / 開始即可  SSSS */}
           <Route path="/" element={<Home />} />
