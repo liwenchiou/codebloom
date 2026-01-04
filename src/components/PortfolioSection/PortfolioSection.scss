@@ -1,0 +1,67 @@
+@import "../../assets/scss/base.scss";
+
+.portfolio-section {
+  background-image: url("../../assets/images/index/section1BG.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  // 標題發光效果
+  .glow-title {
+    position: relative;
+    display: inline-block;
+    color: map-get($colors, primary-50);
+    text-shadow: 0 0 5px rgba(map-get($colors, primary-400), 0.5),
+      0 0 15px rgba(map-get($colors, primary-400), 0.3);
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120%;
+      height: 100%;
+      background: radial-gradient(
+        circle,
+        rgba(map-get($colors, primary-300), 0.2) 0%,
+        transparent 70%
+      );
+      z-index: -1;
+    }
+  }
+
+  .project-title {
+    color: white;
+    line-height: 1.4;
+  }
+
+  // 排名 icon
+  .rank-badge {
+    width: 56px;
+    height: auto;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
+  }
+
+  // 愛心按鈕
+  .btn-heart {
+    padding: 0;
+    border: none;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
+    transition: all 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.6);
+      transform: scale(1.1);
+    }
+  }
+}

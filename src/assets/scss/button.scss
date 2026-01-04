@@ -1,48 +1,82 @@
-  //實心按鈕
-  .cb-btn {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      padding-left: 24px;
-      padding-right: 24px;
-      background-color: #4EDCF1;
-      border-radius: 12px;
-  }
+//實心按鈕
+.cb-btn {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 24px;
+  padding-right: 24px;
+  background-color: #4edcf1;
+  border-radius: 12px;
+}
 
-  .cb-btn:hover {
-      border-color: #4EDCF1;
-      box-shadow: 0 2px 20px 0 rgba(#4EDCF1, 0.3);
-  }
+.cb-btn:hover {
+  border-color: #4edcf1;
+  box-shadow: 0 2px 20px 0 rgba(#4edcf1, 0.3);
+}
 
-  //空心按鈕
-  .cb-btn-outline {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      padding-left: 24px;
-      padding-right: 24px;
-      background-color: transparent;
-      border-radius: 12px;
-      border: 1px solid #909294;
-      color: #ffffff;
-  }
+//空心按鈕
+.cb-btn-outline {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 24px;
+  padding-right: 24px;
+  background-color: transparent;
+  border-radius: 12px;
+  border: 1px solid #909294;
+  color: #ffffff;
+}
 
-  .cb-btn-outline:hover {
-      border-color: #22D3EE;
-      box-shadow: 0 2px 20px 0 rgba(#4EDCF1, 0.3);
-  }
+.cb-btn-outline:hover {
+  border-color: #22d3ee;
+  box-shadow: 0 2px 20px 0 rgba(#4edcf1, 0.3);
+}
 
-  //文字按鈕
-  .cb-btn-text {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      padding-left: 24px;
-      padding-right: 24px;
-      background-color: transparent;
-      border-radius: 12px;
-      color: #ffffff;
-  }
+//文字按鈕
+.cb-btn-text {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 24px;
+  padding-right: 24px;
+  background-color: transparent;
+  border-radius: 12px;
+  color: #ffffff;
+}
 
-  .cb-btn-text:hover {
-      //   border-color: #22D3EE;
-      //   box-shadow: 0 2px 20px 0 rgba(#4EDCF1, 0.3);
-      color: #22d3ee;
+.cb-btn-text:hover {
+  //   border-color: #22D3EE;
+  //   box-shadow: 0 2px 20px 0 rgba(#4EDCF1, 0.3);
+  color: #22d3ee;
+}
+
+//tag按鈕
+.cb-tag {
+  // Layout
+  display: inline-flex; // 讓 gap 生效並保持行內特性
+  align-items: center; // 垂直置中
+  justify-content: center;
+  gap: 8px; // gap 8px
+
+  // Spacing & Shape
+  padding: 8px 12px; // top/bottom 8px, left/right 12px
+  border-radius: 100px; // radius 100px
+
+  // Colors
+  // 這裡使用你給的色碼，如果原本設計是 "主色調 10% 透明度"，也可以寫 rgba(#1FC0D9, 0.1)
+  background-color: rgba(#e9fbfd, 0.1);
+  color: #1fc0d9;
+
+  // Typography
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0;
+
+  // 預設邊框 (透明，避免如果有 hover border 造成跳動)
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+
+  // (選用) Hover 效果：滑鼠移過去稍微變深一點
+  &:hover {
+    background-color: darken(#e9fbfd, 3%);
+    // cursor: pointer; // 如果是可以點擊的，記得把這行打開
   }
+}
