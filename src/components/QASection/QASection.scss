@@ -1,0 +1,25 @@
+/* QASection.scss */
+
+.qa-section {
+    /* 手機版 Padding (Figma: 80px) */
+    padding-top: 80px;
+    padding-bottom: 80px;
+
+    @media (min-width: 992px) {
+        /* 桌機版 Padding (Figma: 160px) */
+        padding-top: 160px;
+        padding-bottom: 160px;
+    }
+}
+
+/* 自定義 Swiper 分頁圓點的顏色 (預設是藍色，改成設計稿的亮色) */
+:global(.swiper-pagination-bullet) {
+    background: #fff;
+    opacity: 0.5;
+}
+
+:global(.swiper-pagination-bullet-active) {
+    background: #00E5FF;
+    /* 你的主色調 */
+    opacity: 1;
+}
