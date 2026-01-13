@@ -1,4 +1,6 @@
-/* QASection.scss */
+.bg-neutral-700 {
+    background-color: #090C10;
+}
 
 .qa-section {
     /* 手機版 Padding (Figma: 80px) */
@@ -22,4 +24,36 @@
     background: #00E5FF;
     /* 你的主色調 */
     opacity: 1;
+}
+
+/* 👇 新增這段：解決卡片高度不一致的問題 */
+.swiper-wrapper {
+    /* 確保外層容器是 Flex，這樣 Slide 才會根據內容自動撐開高度 */
+    align-items: stretch;
+}
+
+.swiper-slide {
+    height: auto;
+    /* 關鍵：設定 auto 讓它自動跟隨最高的兄弟元素 */
+}
+
+@media (min-width: 992px) {
+    .qa-section .qa-title {
+        align-items: end;
+    }
+
+    .qa-section .qa-title h2 {
+        font-size: 40px;
+        line-height: 48px;
+    }
+}
+
+.glow-title {
+    /* text-shadow 語法: X偏移 Y偏移 模糊半徑 顏色 
+    對應 Figma: X=0, Y=0, Blur=16, Color=#4EDCF1
+  */
+    text-shadow: 0px 0px 16px #4EDCF1;
+
+    /* 如果覺得發光不夠強，可以疊加兩層 (專家技巧) */
+    /* text-shadow: 0 0 16px #4EDCF1, 0 0 30px rgba(78, 220, 241, 0.5); */
 }

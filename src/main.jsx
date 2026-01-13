@@ -4,6 +4,7 @@ import { HashRouter } from "react-router-dom";
 // 套件導入
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import 'bootstrap-icons/font/bootstrap-icons.css'
 //樣式導入
 import "./main.scss";
 
@@ -13,7 +14,7 @@ import App from "./App.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-<HashRouter> {/* 在最外層定義一次即可 */}
+    <HashRouter> {/* 在最外層定義一次即可 */}
       <App />
     </HashRouter>
   </StrictMode>

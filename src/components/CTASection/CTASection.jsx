@@ -1,4 +1,3 @@
-import "../CTASection/CTASection.scss";
 
 // Images
 import bgBinary from "../../assets/images/index/bg2-PC.png";
