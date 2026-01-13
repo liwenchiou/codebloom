@@ -1,5 +1,6 @@
 // 導入 google font noto sans
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap");
+
 body {
   font-family: "Noto Sans", sans-serif;
   letter-spacing: 0;
@@ -60,39 +61,84 @@ $colors: (
   font-size: 40px;
   line-height: 60px;
 }
+
 .text-4xl {
   font-size: 32px;
   line-height: 48px;
 }
+
 .text-3xl {
   font-size: 28px;
   line-height: 42px;
 }
+
 .text-2xl {
   font-size: 24px;
   line-height: 36px;
 }
+
 .text-xl {
   font-size: 20px;
   line-height: 30px;
 }
+
 .text-lg {
   font-size: 18px;
   line-height: 27px;
 }
+
 .text-base {
   font-size: 16px;
   line-height: 24px;
 }
+
 .text-sm {
   font-size: 14px;
   line-height: 21px;
 }
+
 .text-xs {
   font-size: 12px;
   line-height: 18px;
 }
-.text-fw-700{
+
+.text-fw-700 {
+  font-weight: 700;
+}
+
+.h1 {
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: 700;
+}
+
+.h2 {
+  font-size: 32px;
+  line-height: 38.4px;
+  font-weight: 700;
+}
+
+.h3 {
+  font-size: 28px;
+  line-height: 33.6px;
+  font-weight: 700;
+}
+
+.h4 {
+  font-size: 24px;
+  line-height: 28.8px;
+  font-weight: 700;
+}
+
+.h5 {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.h6 {
+  font-size: 16px;
+  line-height: 19.2px;
   font-weight: 700;
 }
 
@@ -100,5 +146,3 @@ $colors: (
 .outline {
   outline: 1px solid red;
 }
-
-
