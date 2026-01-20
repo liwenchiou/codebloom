@@ -14,6 +14,7 @@ import avatarSarah from "../../assets/images/index/avatar-sarah.png";
 import avatarYang from "../../assets/images/index/avatar-yang.png";
 import avatarOliver from "../../assets/images/index/avatar-oliver.png";
 import avatarLin from "../../assets/images/index/avatar-lin.png";
+import arrowIcon from "../../assets/images/index/arrow_triangle_right.png";
 
 // 模擬數據
 const popularList = [
@@ -68,17 +69,20 @@ const ProjectCard = ({ data }) => {
   return (
     <div className="card border-0 bg-transparent h-100">
       {/* 作品預覽圖 */}
-      <div className="position-relative rounded-4 overflow-hidden shadow-sm">
+      <div
+        className={`position-relative rounded-4 overflow-hidden shadow-sm ${
+          data.rank ? "img-wrapper" : ""
+        }`}
+      >
         <img
           src={data.image}
           className="w-100 object-fit-cover"
           alt={data.title}
-          style={{ aspectRatio: "16/10" }}
         />
 
         {/* 排名徽章 */}
         {data.rank && (
-          <div className="position-absolute top-0 start-0 m-2">
+          <div className="position-absolute top-0 start-0 m-3 z-2">
             <img
               src={data.rank === 1 ? rankGoldImg : rankSilverImg}
               alt={`Rank ${data.rank}`}
@@ -102,30 +106,27 @@ const ProjectCard = ({ data }) => {
         </button>
       </div>
 
-      {/* 作品詳情 */}
-      <div className="card-body px-0 pt-24px">
-        <div className="d-flex justify-content-between align-items-center mb-8px">
-          <h5 className="text-xl text-fw-700 m-0 text-neutral-500 me-12px project-title">
-            {data.title}
-          </h5>
+      {/* ProjectInfo */}
+      <div className="card-body px-0 project-info">
+        <div className="d-flex justify-content-between align-items-center header-row">
+          {/* 標題 */}
+          <h5 className="m-0 text-fw-700 project-title">{data.title}</h5>
 
-          <div className="d-flex align-items-center flex-shrink-0">
+          {/* 作者 */}
+          <div className="d-flex align-items-center flex-shrink-0 author-box">
             <img
               src={data.avatar}
               alt={data.author}
-              className="rounded-circle object-fit-cover shadow-sm"
-              width="32"
-              height="32"
+              className="rounded-circle object-fit-cover shadow-sm avatar-img"
             />
-            <span className="text-sm text-neutral-200 ms-8px">
-              {data.author}
-            </span>
+            <span className="text-neutral-200 author-name">{data.author}</span>
           </div>
         </div>
 
-        <div className="d-flex flex-wrap">
+        {/* Tags */}
+        <div className="d-flex flex-wrap tags-row">
           {data.tags.map((tag, i) => (
-            <span key={i} className="cb-tag mb-4px me-8px">
+            <span key={i} className="cb-tag">
               {tag}
             </span>
           ))}
@@ -137,22 +138,21 @@ const ProjectCard = ({ data }) => {
 
 const PortfolioSection = () => {
   return (
-    <section className="portfolio-section py-56px">
+    <section className="portfolio-section">
       <div className="container">
         {/* 熱門作品 */}
-        <div className="d-flex justify-content-between align-items-end mb-32px">
-          <h2 className="glow-title m-0 text-3xl text-fw-700 text-primary-50">
+        <div className="d-flex justify-content-between align-items-center mb-64px">
+          <h2 className="glow-title m-0 text-fw-700 text-primary-50">
             熱門作品
           </h2>
-          <a
-            href="/popular"
-            className="cb-btn-text text-sm text-decoration-none p-0"
-          >
+
+          <a href="/popular" className="view-more-btn text-decoration-none p-0">
             查看更多
+            <img src={arrowIcon} alt="arrow" width="5" />
           </a>
         </div>
 
-        <div className="row g-4 mb-56px">
+        <div className="row g-4 mb-96px">
           {popularList.map((item) => (
             <div key={item.id} className="col-12 col-md-6">
               <ProjectCard data={item} />
@@ -161,15 +161,14 @@ const PortfolioSection = () => {
         </div>
 
         {/* 最新作品 */}
-        <div className="d-flex justify-content-between align-items-end mb-32px">
-          <h2 className="glow-title m-0 text-3xl text-fw-700 text-primary-50">
+        <div className="d-flex justify-content-between align-items-center mb-64px">
+          <h2 className="glow-title m-0 text-fw-700 text-primary-50">
             最新作品
           </h2>
-          <a
-            href="/latest"
-            className="cb-btn-text text-sm text-decoration-none p-0"
-          >
+
+          <a href="/latest" className="view-more-btn text-decoration-none p-0">
             查看更多
+            <img src={arrowIcon} alt="arrow" width="5" />
           </a>
         </div>
 

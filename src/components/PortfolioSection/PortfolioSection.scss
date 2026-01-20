@@ -6,13 +6,23 @@
   background-position: center center;
   background-repeat: no-repeat;
 
-  // 標題發光效果
+  padding-top: 240px;
+  padding-bottom: 160px;
+
+  @media (max-width: 767px) {
+    padding-top: 80px;
+    padding-bottom: 60px;
+  }
+
   .glow-title {
     position: relative;
     display: inline-block;
     color: map-get($colors, primary-50);
-    text-shadow: 0 0 5px rgba(map-get($colors, primary-400), 0.5),
-      0 0 15px rgba(map-get($colors, primary-400), 0.3);
+    text-shadow: 0px 0px 16px #4edcf1;
+
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: 0.05em;
 
     &::before {
       content: "";
@@ -29,18 +39,78 @@
       );
       z-index: -1;
     }
+
+    @media (max-width: 767px) {
+      font-size: 24px;
+      line-height: 32px;
+    }
   }
 
-  .project-title {
-    color: white;
-    line-height: 1.4;
+  .mb-64px {
+    margin-bottom: 64px !important;
+    @media (max-width: 767px) {
+      margin-bottom: 32px !important;
+    }
   }
 
-  // 排名 icon
+  .mb-96px {
+    margin-bottom: 96px !important;
+    @media (max-width: 767px) {
+      margin-bottom: 48px !important;
+    }
+  }
+
+  .view-more-btn {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    img {
+      display: block;
+      margin-left: 8px;
+      margin-right: 33px;
+    }
+  }
+
+  // 卡片
+  .img-wrapper {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      background: radial-gradient(
+        circle at 0% 0%,
+        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0.2) 16%,
+        transparent 30%
+      );
+    }
+  }
+
+  // 排名
   .rank-badge {
     width: 56px;
     height: auto;
-    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
+    filter: brightness(1.2) contrast(1.1) saturate(1);
+
+    @media (max-width: 767px) {
+      width: 40px;
+    }
   }
 
   // 愛心按鈕
@@ -53,15 +123,66 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px);
     transition: all 0.2s ease;
     cursor: pointer;
-
     &:hover {
       background: rgba(0, 0, 0, 0.6);
       transform: scale(1.1);
+    }
+  }
+
+  .project-info {
+    padding-top: 24px;
+    @media (max-width: 767px) {
+      padding-top: 16px;
+    }
+  }
+
+  .header-row {
+    margin-bottom: 18px;
+  }
+
+  // 小標題
+  .project-title {
+    font-size: 20px;
+    line-height: 1.4;
+    margin-right: 12px;
+    color: #ffffff !important;
+
+    @media (max-width: 767px) {
+      font-size: 16px;
+    }
+  }
+
+  // 作者區塊
+  .author-box {
+    .avatar-img {
+      width: 36px;
+      height: 36px;
+    }
+    .author-name {
+      font-size: 16px;
+      margin-left: 8px;
+      font-weight: 700;
+      color: map-get($colors, neutral-200);
+
+      @media (max-width: 767px) {
+        font-size: 14px;
+      }
+    }
+  }
+
+  // Tags
+  .tags-row {
+    gap: 12px;
+  }
+
+  .cb-tag {
+    font-size: 14px;
+    @media (max-width: 767px) {
+      font-size: 14px;
     }
   }
 }
