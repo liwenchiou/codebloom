@@ -84,15 +84,15 @@
 
 /* 當選單展開時的樣式 */
 .navbar-collapse.show {
-  height: 100vh;
-  /* 佔滿全螢幕高度 */
-  width: 100vw;
-  /* 佔滿全螢幕寬度 */
-  position: fixed;
-  /* 固定位置 */
-  top: 0;
-  left: 0;
-  z-index: 1000;
+  // height: 100vh;
+  // /* 佔滿全螢幕高度 */
+  // width: 100vw;
+  // /* 佔滿全螢幕寬度 */
+  // position: fixed;
+  // /* 固定位置 */
+  // top: 0;
+  // left: 0;
+  // z-index: 1000;
   /* 確保在最上層 */
   background-color: #000;
   /* 設定背景顏色，否則會透明 */
