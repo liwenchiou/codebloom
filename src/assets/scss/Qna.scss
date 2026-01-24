@@ -1,0 +1,28 @@
+.qna-page-wrapper {
+    // 1. 設定滿版背景
+    width: 100%;
+    min-height: 100vh; // 確保高度至少撐滿整個螢幕
+
+    // 2. 背景圖設定 (請依實際路徑修改)
+    // 如果還沒匯出圖片，可以先用下面的漸層色頂著用
+    background-image: url('../images/index/section1BG.png');
+
+    // 備用方案：如果沒有圖片，用類似設計稿的深色漸層
+    // background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+
+    background-size: cover; // 讓圖片充滿容器
+    background-position: center; // 圖片置中
+    background-repeat: no-repeat; // 不要重複
+    background-attachment: fixed; // (選用) 讓背景固定，滾動時有視差感
+}
+
+.qna-mainbar {
+    padding-right: 0;
+}
+
+@media (min-width: 992px) {
+    .qna-mainbar {
+
+        padding-right: 40px;
+    }
+}
