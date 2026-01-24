@@ -104,7 +104,7 @@
 
   // 排名
   .rank-badge {
-    width: 56px;
+    width: 42px;
     height: auto;
     filter: brightness(1.2) contrast(1.1) saturate(1);
 
@@ -127,6 +127,11 @@
     backdrop-filter: blur(2px);
     transition: all 0.2s ease;
     cursor: pointer;
+
+    svg {
+      transform: translateY(0.5px);
+    }
+
     &:hover {
       background: rgba(0, 0, 0, 0.6);
       transform: scale(1.1);
@@ -165,7 +170,7 @@
     .author-name {
       font-size: 16px;
       margin-left: 8px;
-      font-weight: 700;
+      font-weight: 400;
       color: map-get($colors, neutral-200);
 
       @media (max-width: 767px) {
@@ -181,6 +186,16 @@
 
   .cb-tag {
     font-size: 14px;
+    transition: all 0.3s ease;
+    cursor: default;
+    background-color: #e9fbfd16;
+    border: 2px solid transparent;
+
+    &:hover {
+      background-color: #e9fbfd16;
+      border: 2px solid #3d414580;
+    }
+
     @media (max-width: 767px) {
       font-size: 14px;
     }

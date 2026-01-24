@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./PortfolioSection.scss";
 
 // Images
@@ -66,9 +66,20 @@ const latestList = [
 ];
 
 const ProjectCard = ({ data }) => {
+  const [isLiked, setIsLiked] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const handleClick = () => {
+    setIsLiked(!isLiked);
+    setIsAnimating(true);
+
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, 120);
+  };
+
   return (
     <div className="card border-0 bg-transparent h-100">
-      {/* 作品預覽圖 */}
       <div
         className={`position-relative rounded-4 overflow-hidden shadow-sm ${
           data.rank ? "img-wrapper" : ""
@@ -92,16 +103,31 @@ const ProjectCard = ({ data }) => {
         )}
 
         {/* 愛心按鈕 */}
-        <button className="position-absolute top-0 end-0 m-3 btn-heart rounded-circle text-white">
+        <button
+          onClick={handleClick}
+          className="position-absolute top-0 end-0 m-3 btn-heart rounded-circle text-white"
+          aria-label={isLiked ? "Unlike" : "Like"}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            fill="currentColor"
-            className="bi bi-heart"
-            viewBox="0 0 16 16"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill={isLiked ? "#ED4D4D" : "none"}
+            stroke={isLiked ? "#ED4D4D" : "currentColor"}
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{
+              transition: "all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+              transform: `translateY(0.5px) ${
+                isAnimating ? "scale(1.3)" : "scale(1)"
+              }`,
+
+              transformOrigin: "center",
+            }}
           >
-            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
           </svg>
         </button>
       </div>
@@ -109,10 +135,7 @@ const ProjectCard = ({ data }) => {
       {/* ProjectInfo */}
       <div className="card-body px-0 project-info">
         <div className="d-flex justify-content-between align-items-center header-row">
-          {/* 標題 */}
           <h5 className="m-0 text-fw-700 project-title">{data.title}</h5>
-
-          {/* 作者 */}
           <div className="d-flex align-items-center flex-shrink-0 author-box">
             <img
               src={data.avatar}
@@ -122,8 +145,6 @@ const ProjectCard = ({ data }) => {
             <span className="text-neutral-200 author-name">{data.author}</span>
           </div>
         </div>
-
-        {/* Tags */}
         <div className="d-flex flex-wrap tags-row">
           {data.tags.map((tag, i) => (
             <span key={i} className="cb-tag">
