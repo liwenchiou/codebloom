@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AuthButton from "../Button/AuthButton";
-import logoPC from '../../assets/images/logo-PC2.png';
+import logoPC from "../../assets/images/logo-PC2.png";
 // import logoMobile from '../images/logo-Mobile.png';
-
 
 //TODO:RWD 狀態的漢堡選單未完成....力文
 
@@ -29,8 +28,9 @@ function Navbar() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
+
         <div className="collapse navbar-collapse " id="navbarSupportedContent">
-          <ul className="navbar-nav ms-auto align-items-center me-12px">
+          <ul className="navbar-nav ms-auto align-items-center me-12px d-none d-lg-flex">
             <li className="nav-item">
               <Link
                 className=" text-base text-neutral-50 me-12px cb-btn-text"
@@ -58,19 +58,59 @@ function Navbar() {
             </li>
           </ul>
 
+          {/* 手機版 */}
+          <ul className="navbar-nav me-12px d-block d-lg-none  w-100 mb-5">
+            <li className="nav-item">
+              <Link
+                className=" text-base text-neutral-50 cb-btn-text ms-4 py-12px  d-block"
+                to="/Projects"
+              >
+                作品列表
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                className="text-base text-neutral-50 me-12px cb-btn-text ms-4 py-12px d-block"
+                to="/Articles"
+              >
+                技術文章
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className="text-base text-neutral-50 me-12px cb-btn-text ms-4 py-12px d-block"
+                to="/Qna"
+              >
+                問答社群
+              </Link>
+            </li>
+          </ul>
 
           <div className="input-group custom-search-group me-12px d-none d-lg-flex">
             <span className="input-group-text py-12px pe-12px">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="currentColor"
+                class="bi bi-search"
+                viewBox="0 0 16 16"
+              >
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
               </svg>
             </span>
-            <input type="text" className="form-control" placeholder="搜尋作品、文章或問題..." aria-label="Search" />
+            <input
+              type="text"
+              className="form-control"
+              placeholder="搜尋作品、文章或問題..."
+              aria-label="Search"
+            />
           </div>
 
-          <div className="ms-3">
-            <AuthButton />
-          </div>
+          {/* <div className="ms-3"> */}
+          <AuthButton />
+          {/* </div> */}
         </div>
       </div>
     </nav>

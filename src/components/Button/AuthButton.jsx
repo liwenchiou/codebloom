@@ -3,7 +3,7 @@ import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min";
 import { supabase } from "../tools/SupaBase";
 import { Link } from "react-router-dom";
 import md5 from "blueimp-md5";
-import person from '../../assets/images/Ellipse 3.png';
+import person from "../../assets/images/Ellipse 3.png";
 
 function AuthButton() {
   const loginModalRef = useRef(null);
@@ -82,7 +82,6 @@ function AuthButton() {
     e.preventDefault();
     console.log("送出註冊");
     userRegister();
-
   };
 
   const userRegister = async () => {
@@ -104,14 +103,13 @@ function AuthButton() {
 
     // 送出註冊
     // 若不存在才新增
-    const { error } = await supabase
-      .from("member")
-      .insert([{
+    const { error } = await supabase.from("member").insert([
+      {
         loginName: registerData.registerEmail,
         loginPass: md5(registerData.registerPassword),
-        Name: registerData.registerName
-
-      }]);
+        Name: registerData.registerName,
+      },
+    ]);
 
     if (error) {
       alert("註冊失敗: " + error.message);
@@ -169,7 +167,13 @@ function AuthButton() {
       {isAuth ? (
         <>
           <div className="d-flex align-items-center">
-            <img src={person} alt="person" width={36} height={36} className="me-12px" />
+            <img
+              src={person}
+              alt="person"
+              width={36}
+              height={36}
+              className="me-12px"
+            />
             <Link
               className="text-base text-neutral-white cb-btn-outline"
               to="/Dashboard"
@@ -177,19 +181,49 @@ function AuthButton() {
               創作中心
             </Link>
           </div>
-
         </>
       ) : (
         <>
-          <a href="javascript://" className="me-12px text-base text-neutral-white py-12px px-4 navbar-link d-inline" onClick={handleOpenRegisterModal}>註冊</a>
+          <div className="d-none d-md-inline">
+            <a
+              href="javascript://"
+              className="me-12px text-base text-neutral-white py-12px px-4 navbar-link d-inline"
+              onClick={handleOpenRegisterModal}
+            >
+              註冊
+            </a>
 
-          <button
-            type="button"
-            className="btn bg-primary-400 auth-btn"
-            onClick={handleOpenLoginModal}
-          >
-            登入
-          </button>
+            <button
+              type="button"
+              className="btn bg-primary-400 auth-btn"
+              onClick={handleOpenLoginModal}
+            >
+              登入
+            </button>
+          </div>
+
+          <div className="container-fluid d-md-none  p-0">
+            <div className="row gx-0">
+              <div className="col-12 mb-12px">
+                <a
+                  href="javascript://"
+                  className="text-base text-neutral-white py-12px d-block text-center"
+                  onClick={handleOpenRegisterModal}
+                >
+                  註冊
+                </a>
+              </div>
+              <div className="col-12 ">
+                <button
+                  type="button"
+                  className="btn bg-primary-400 auth-btn w-100"
+                  onClick={handleOpenLoginModal}
+                >
+                  登入
+                </button>
+              </div>
+            </div>
+          </div>
         </>
       )}
 
@@ -228,7 +262,6 @@ function AuthButton() {
 
                 {/* 右邊欄：分頁 */}
                 <div className="col-md-6">
-
                   <div className="tab-content mt-3" id="authTabsContent">
                     {/* 登入表單 */}
                     <div
@@ -368,9 +401,7 @@ function AuthButton() {
 
                 {/* 右邊欄：分頁 */}
                 <div className="col-md-6">
-
                   <div className="tab-content mt-3" id="authTabsContent">
-
                     {/* 註冊表單 */}
                     <div
                       className="tab-pane fade show active"
@@ -422,11 +453,9 @@ function AuthButton() {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
-
     </>
   );
 }
