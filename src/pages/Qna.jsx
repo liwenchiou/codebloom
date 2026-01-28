@@ -2,7 +2,7 @@ import React from 'react';
 // 引入剛剛做好的 QnaTop
 import QnaTop from '../components/Qna/QnaTop';
 import FilterBar from '../components/Qna/FilterBar';
-import QAList from '../components/Qna/QAList';
+import QnaList from '../components/Qna/QnaList';
 import Sidebar from '../components/Qna/Sidebar';
 import '../assets/scss/Qna.scss';
 
@@ -15,15 +15,15 @@ const Qna = () => {
 
                 <div className="row">
                     {/* --- 左側 Mainbar --- */}
-                    <main className="col-12 col-lg-9 qna-mainbar ">
+                    <main className="col-12 col-lg-8 qna-mainbar me-28px">
 
                         <QnaTop />
                         <FilterBar />
-                        <QAList />
+                        <QnaList />
                     </main>
 
                     {/* --- 右側 Sidebar --- */}
-                    <aside className="border-start border-secondary ps-40px py-84px col-lg-3 d-none d-lg-block">
+                    <aside className="border-start border-secondary ps-39px py-84px col-lg-auto d-none d-lg-block">
                         <Sidebar />
                     </aside>
                 </div>

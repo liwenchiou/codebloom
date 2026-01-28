@@ -61,46 +61,59 @@ const Leaderboard = () => {
 
     return (
         <div className="d-flex flex-column gap-3">
-            {LEADERBOARD_DATA.map((user) => (
-                <div key={user.id} className="d-flex align-items-center p-2 rounded hover-bg-dark">
+            {LEADERBOARD_DATA.map((user) => {
+                // 判斷是否為前三名
+                const isTopThree = user.rank <= 3;
 
-                    {/* 1. 頭像 */}
-                    <div className="me-3 position-relative">
-                        <img
-                            src={user.avatar}
-                            alt={user.name}
-                            className="rounded-circle"
-                            width="48"
-                            height="48"
-                            style={{ objectFit: 'cover' }}
-                        />
-                        {/* 如果你想把排名疊在頭像上，可以寫在這裡，但設計稿是在右邊 */}
-                    </div>
+                return (
+                    <div
+                        key={user.id}
+                        // ★ 修改重點在此：
+                        // 1. 保留原本的 d-flex align-items-center py-2 rounded
+                        // 2. 判斷 isTopThree ? 加上邊框和背景 : 加上原本的 hover-bg-dark
+                        className={`d-flex align-items-center py-2 rounded ${isTopThree
+                            ? 'border border-secondary border-opacity-50 bg-white bg-opacity-10'
+                            : 'hover-bg-dark'
+                            }`}
+                    >
 
-                    {/* 2. 中間資訊 */}
-                    <div className="flex-grow-1">
-                        <h6 className="mb-1 text-white fw-bold">{user.name}</h6>
-                        <div className="d-flex align-items-center text-secondary" style={{ fontSize: '0.85rem' }}>
-                            {/* 讚數 */}
-                            <span className="me-3">
-                                <i className="bi bi-hand-thumbs-up-fill me-1"></i>
-                                {user.likes}
-                            </span>
-                            {/* 瀏覽數 */}
-                            <span>
-                                <i className="bi bi-file-text-fill me-1"></i>
-                                {user.views}
-                            </span>
+                        {/* 1. 頭像 */}
+                        <div className="ps-12px me-3 position-relative">
+                            <img
+                                src={user.avatar}
+                                alt={user.name}
+                                className="rounded-circle"
+                                width="40"
+                                height="40"
+                                style={{ objectFit: 'cover' }}
+                            />
                         </div>
-                    </div>
 
-                    {/* 3. 右側排名 (金銀銅盃) */}
-                    <div className="ms-2">
-                        {getRankIcon(user.rank)}
-                    </div>
+                        {/* 2. 中間資訊 */}
+                        <div className="flex-grow-1">
+                            <h6 className="mb-1 text-white fw-bold">{user.name}</h6>
+                            <div className="d-flex align-items-center text-secondary" style={{ fontSize: '0.85rem' }}>
+                                {/* 讚數 */}
+                                <span className="me-3">
+                                    <i className="bi bi-hand-thumbs-up-fill me-1"></i>
+                                    {user.likes}
+                                </span>
+                                {/* 瀏覽數 */}
+                                <span>
+                                    <i className="bi bi-file-text-fill me-1"></i>
+                                    {user.views}
+                                </span>
+                            </div>
+                        </div>
 
-                </div>
-            ))}
+                        {/* 3. 右側排名 (金銀銅盃) */}
+                        <div className="ms-2">
+                            {getRankIcon(user.rank)}
+                        </div>
+
+                    </div>
+                );
+            })}
         </div>
     );
 };

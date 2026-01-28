@@ -25,6 +25,12 @@ const RecommendedUser = () => {
             name: '陸婉怡',
             avatar: 'https://i.pravatar.cc/150?img=24',
             bio: '前端跨後端。教你用 Node.js 與 Next.js'
+        },
+        {
+            id: 5,
+            name: '莊輝葦',
+            avatar: 'https://i.pravatar.cc/150?img=26',
+            bio: '前沿技術搬運工。翻譯並解讀最新的前端框架趨勢'
         }
     ];
 
@@ -37,13 +43,13 @@ const RecommendedUser = () => {
                     <img
                         src={user.avatar}
                         alt={user.name}
-                        className="rounded-circle me-3"
-                        width="48"
-                        height="48"
+                        className="rounded-circle me-16px ms-12px"
+                        width="40"
+                        height="40"
                     />
 
                     {/* 2. 名稱與簡介 (Bio) */}
-                    <div className="flex-grow-1" style={{ minWidth: 0 }}> {/* minWidth: 0 確保文字過長會換行/縮寫 */}
+                    <div className="flex-grow-1" style={{ width: 175 }}>
                         <h6 className="text-white mb-1 fw-bold">{user.name}</h6>
                         <p className="text-secondary mb-0 text-truncate" style={{ fontSize: '0.85rem' }}>
                             {user.bio}
@@ -51,7 +57,7 @@ const RecommendedUser = () => {
                     </div>
 
                     {/* 3. 追蹤按鈕 */}
-                    <button className="btn btn-dark btn-sm border-secondary text-info ms-2 px-3 rounded-pill">
+                    <button className="btn btn-neutral-400-50 text-primary-500 ms-12px rounded-2" style={{ width: 96 }}>
                         追蹤
                     </button>
                 </div>
