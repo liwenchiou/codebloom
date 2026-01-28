@@ -1,0 +1,163 @@
+//背景
+.sc-wrap {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(40, 120, 140, 0.25),
+    #0e0e0e 65%
+  );
+  padding: 140px 0;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+}
+
+
+.sc-stage {
+  width: min(920px, 92vw);
+}
+
+//卡片上方標題
+.feature-header {
+  text-align: center;
+  margin-bottom: 64px;
+  position: relative;
+  z-index: 2;
+}
+
+.feature-title {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.feature-subtitle {
+  margin-top: 16px;
+  font-size: 16px;
+  color: #9ca3af;
+}
+
+.text-CodeBloom{
+    color: #1FC0D9;
+    font-size: 40px;
+}
+
+
+.sc-card {
+  position: relative;
+  height: 72vh; 
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+}
+
+///容器
+.photo-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+
+.photo-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.photo-slide.active {
+  opacity: 1;
+  transform: translateY(0);
+  z-index: 10;
+}
+
+.photo-slide.last-active {
+  opacity: 1;
+  transform: translateY(0);
+  z-index: 5;
+}
+
+
+.feature-card {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 48px;
+  padding: 64px;
+}
+
+//左側文字
+.feature-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.feature-text h3 {
+  font-size: 28px;
+  margin-bottom: 16px;
+  color: #1FC0D9;
+}
+
+.feature-text p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #e5e7eb;
+}
+
+
+.feature-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.feature-visual img {
+  width: 240px;
+  height: 240px;
+  object-fit: contain;
+  user-select: none;
+}
+
+
+
+
+.frame.tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+.frame.tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+.frame.bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+.frame.br { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+
+
+
+.click-hint {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  font-size: 12px;
+  color: #1FC0D9;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+
+
+
+@media (max-width: 768px) {
+  .feature-card {
+    grid-template-columns: 1fr;
+    padding: 32px;
+    gap: 24px;
+  }
+
+  .feature-visual img {
+    width: 200px;
+    height: 200px;
+  }
+}
