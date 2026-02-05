@@ -250,7 +250,8 @@ function AuthButton() {
               ></button>
             </div>
             <div className="modal-body">
-              <div className="row">
+              <div className="container-fulid">
+                <div className="row">
                 {/* 左邊欄：範例圖 */}
                 <div className="col-md-6 d-flex align-items-center justify-content-center">
                   <img
@@ -351,6 +352,8 @@ function AuthButton() {
                   </div>
                 </div>
               </div>
+              </div>
+              
             </div>
 
             {/* <div className="modal-footer">

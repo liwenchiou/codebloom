@@ -150,3 +150,8 @@ $colors: (
 .btn-neutral-400-50 {
   background: #3D414580;
 }
+
+body.modal-open {
+  padding-right: 0 !important;
+  overflow: auto; /* 或配合需求調整 */
+}
