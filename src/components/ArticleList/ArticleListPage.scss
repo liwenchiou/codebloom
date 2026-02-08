@@ -1,14 +1,9 @@
 @import "../../assets/scss/base.scss";
 
-// ==============================================
-// 頁面整體佈局 (Page Layout)
-// ==============================================
 .article-list-page {
   background-color: #090c10;
   min-height: 100vh;
-  color: #fff;
 
-  // 背景圖設定 (固定上方 700px 不變形)
   position: relative;
   padding-top: 160px;
   padding-bottom: 80px;
@@ -33,14 +28,13 @@
     z-index: 1;
   }
 
-  // 左右分欄的分隔線 (大螢幕顯示，平板手機移除)
   .border-end-divider {
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     padding-right: 48px;
 
     @media (max-width: 991px) {
       border-right: none;
-      padding-right: 0; // 手機版不需要右內距
+      padding-right: 0;
       margin-bottom: 40px;
     }
   }
@@ -57,8 +51,6 @@
 
     &:hover {
       background-color: lighten(#4edcf1, 5%);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(78, 220, 241, 0.3);
     }
   }
 
@@ -92,9 +84,7 @@
     }
   }
 
-  // ==============================================
-  // 篩選器樣式
-  // ==============================================
+  // 篩選器
   .filter-section {
     .btn-toggle-filter {
       background: transparent;
@@ -211,11 +201,9 @@
     }
   }
 
-  // ==============================================
-  // 側邊欄樣式 (Sidebar)
-  // ==============================================
+  //側邊欄
 
-  // 墊片：平板以下隱藏
+  //平板以下隱藏
   .sidebar-spacer {
     height: 100px;
     display: block;
@@ -224,9 +212,8 @@
     }
   }
 
-  // 🔥 關鍵修改：排行榜與推薦區塊，在平板以下 (<= 991px) 隱藏
   .sidebar-section {
-    margin-bottom: 3rem; // 預設間距
+    margin-bottom: 3rem;
 
     @media (max-width: 991px) {
       display: none;
@@ -325,9 +312,6 @@
             height: 42px;
           }
         }
-      }
-      &:hover {
-        background-color: rgba(93, 96, 100, 0.4);
       }
     }
   }
