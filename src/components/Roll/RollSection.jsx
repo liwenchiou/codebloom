@@ -1,4 +1,6 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./RollSection.scss";
 
 import img1 from "../../assets/images/index/Image card.png";
@@ -6,10 +8,10 @@ import img2 from "../../assets/images/index/Image card-1.png";
 import img3 from "../../assets/images/index/Image card-2.png";
 import img4 from "../../assets/images/index/Image card-3.png";
 
+gsap.registerPlugin(ScrollTrigger);
 
 export default function RollSection() {
-  const slidesRef = useRef([]);
-  const animatingRef = useRef(false);
+  const containerRef = useRef(null);
 
   const cards = [
     {
@@ -34,73 +36,106 @@ export default function RollSection() {
     },
   ];
 
-  const nextSlide = () => {
-    if (animatingRef.current) return;
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
 
-    const slides = slidesRef.current;
-    if (!slides.length) return;
+    const sections = Array.from(container.querySelectorAll(".roll-card-section"));
+    const animations = [];
 
-    let activeIndex = slides.findIndex((el) =>
-      el.classList.contains("active")
-    );
-    if (activeIndex === -1) {
-      slides[0].classList.add("active");
-      return;
-    }
-
-    const nextIndex = (activeIndex + 1) % slides.length;
-
-    slides.forEach((el) => el.classList.remove("last-active"));
-
-    const current = slides[activeIndex];
-    const next = slides[nextIndex];
-
-    animatingRef.current = true;
-
-    current.classList.remove("active");
-    current.classList.add("last-active");
-    next.classList.add("active");
-
-    const onEnd = (e) => {
-      if (e.propertyName !== "transform") return;
-      animatingRef.current = false;
-      next.removeEventListener("transitionend", onEnd);
+    const setActiveSection = (target) => {
+      sections.forEach((section) => section.classList.remove("roll-section-active"));
+      if (target) target.classList.add("roll-section-active");
     };
 
-    next.addEventListener("transitionend", onEnd);
-  };
+    const containerTrigger = ScrollTrigger.create({
+      trigger: container,
+      start: "top bottom",
+      end: "bottom top",
+      onLeave: () => setActiveSection(null),
+      onLeaveBack: () => setActiveSection(null),
+    });
+    animations.push(containerTrigger);
+
+    sections.forEach((section, index) => {
+      const card = section.querySelector(".roll-card");
+      if (!card) return;
+
+      const activeTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: "top 70%",
+        end: "bottom 30%",
+        onToggle: (self) => {
+          if (self.isActive) setActiveSection(section);
+        },
+      });
+      animations.push(activeTrigger);
+
+      if (index === sections.length - 1) {
+        gsap.set(card, { opacity: 1, scale: 1 });
+        return;
+      }
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+          pin: true,
+          pinSpacing: false,
+        },
+      });
+
+      tl.set(card, { opacity: 1, scale: 1, force3D: true });
+      tl.to(card, { opacity: 0, scale: 0.6, ease: "none", force3D: true }, 0);
+      animations.push(tl);
+    });
+
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+      const activeNow =
+        sections.find((section) => {
+          const rect = section.getBoundingClientRect();
+          return rect.top < window.innerHeight * 0.7 && rect.bottom > window.innerHeight * 0.3;
+        }) || sections[0];
+      setActiveSection(activeNow);
+    });
+
+    return () => {
+      animations.forEach((item) => {
+        item.scrollTrigger?.kill?.();
+        item.kill?.();
+      });
+      ScrollTrigger.refresh();
+    };
+  }, []);
 
   return (
     <section className="sc-wrap">
       <div className="sc-stage">
-
-        {/*卡片上方標題*/}
         <div className="feature-header">
           <h2 className="feature-title">
-            從萌芽到綻放，<span className="text-CodeBloom">CodeBloom</span> 讓您的技術價值被看見
+            從萌芽到綻放，<span className="text-CodeBloom">CodeBloom</span>{" "}
+            讓您的技術價值被看見
           </h2>
           <p className="feature-subtitle">
             我們不僅是作品展示平台，更是助您變現技能、加速成長的全方位工程師社群。
           </p>
         </div>
+      </div>
 
-        {/* ===== 卡片本體（原本邏輯，未動） ===== */}
-        <div className="sc-card" onClick={nextSlide}>
-          <div className="photo-frame">
-            {cards.map((card, i) => (
-              <div
-                key={i}
-                className={`photo-slide ${i === 0 ? "active" : ""}`}
-                ref={(el) => (slidesRef.current[i] = el)}
-              >
+      <div className="roll-cards-container" ref={containerRef}>
+        {cards.map((card, i) => (
+          <div key={i} className="roll-card-section">
+            <div className="roll-card-wrap" style={{ zIndex: cards.length - i }}>
+              <div className="roll-glow" aria-hidden="true" />
+              <div className="roll-card">
                 <div className="feature-card">
-                  {/* 左側文字 */}
                   <div className="feature-text">
                     <h3>{card.title}</h3>
                     <p>{card.desc}</p>
                   </div>
-
-                  {/* 右側圖片 */}
                   <div className="feature-visual">
                     <img src={card.img} alt={card.title} />
                     <span className="frame tl" />
@@ -110,11 +145,9 @@ export default function RollSection() {
                   </div>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
-
-          <div className="click-hint">Click to Switch ⟳</div>
-        </div>
+        ))}
       </div>
     </section>
   );
