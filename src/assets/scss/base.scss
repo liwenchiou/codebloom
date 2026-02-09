@@ -5,6 +5,12 @@ body {
   font-family: "Noto Sans", sans-serif;
   letter-spacing: 0;
   font-weight: 400;
+  background: #090c10;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
 }
 
 // 定義顏色 map
@@ -149,9 +155,4 @@ $colors: (
 
 .btn-neutral-400-50 {
   background: #3D414580;
-}
-
-body.modal-open {
-  padding-right: 0 !important;
-  overflow: auto; /* 或配合需求調整 */
 }
