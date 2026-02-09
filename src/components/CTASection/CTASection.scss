@@ -1,0 +1,28 @@
+/* App.css 或 component 對應的 css */
+
+.cta-section {
+    /* 手機版 (Mobile First) */
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+/* 桌機版斷點 (Desktop) - 對應 Bootstrap 的 lg (992px) */
+@media (min-width: 992px) {
+    .cta-section {
+        padding-top: 160px;
+        padding-bottom: 160px;
+    }
+
+    /* 如果你需要桌機版字體再大一點 */
+    .cta-section .section-title {
+        font-size: 40px;
+        line-height: 48px;
+        margin-bottom: 28px;
+    }
+
+    .cta-section .section-text {
+        font-size: 24px;
+        line-height: 36px;
+        margin-bottom: 56px;
+    }
+}

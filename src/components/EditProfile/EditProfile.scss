@@ -1,0 +1,19 @@
+.EditProfile-input{
+    border:1px solid #3D4145;
+    padding: 12px;
+    border-radius: 12px;
+}
+
+.EditProfile-input:hover{
+    border:1px solid #1FC0D9;
+}
+
+.EditProfile-input:focus{
+    border:1px solid #1FC0D9;
+    $input-shadow: 0px 2px 30px 0px rgba(153, 235, 247, 0.3);
+    background:#0D1117;
+    color: #E7E7E8;
+}
+.EditProfile-container{
+    max-width: 636px;
+}
