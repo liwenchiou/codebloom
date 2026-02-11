@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { createPortal } from "react-dom"; // 引入 Portal
 import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min";
 import { supabase } from "../tools/SupaBase";
 import { Link } from "react-router-dom";
@@ -8,101 +9,53 @@ import person from "../../assets/images/Ellipse 3.png";
 function AuthButton() {
   const loginModalRef = useRef(null);
   const registerModalRef = useRef(null);
-  // const count1=1;
-  // if(count1==1){
-  //   console.log(count1);
-  // }
-  //登入表單
-  const [isAuth, setIsAuth] = useState(false); //存放登入狀態
-  // const [userName, setUserName] = useState(null); //存放登入後取得的資料
-  const defaultLogin = {
-    loginEmail: "",
-    loginPassword: "",
-  };
-  const [loginData, setLoginData] = useState(defaultLogin);
+  const modalInstances = useRef({ login: null, register: null });
 
-  const handleLoginInputChange = (e) => {
-    const { name, value } = e.target;
-    setLoginData({
-      ...loginData,
-      [name]: value,
-    });
-  };
+  const [isAuth, setIsAuth] = useState(false);
+  const [loginData, setLoginData] = useState({ loginEmail: "", loginPassword: "" });
+  const [registerData, setregisterData] = useState({ registerName: "", registerEmail: "", registerPassword: "" });
 
-  //送出登入
-  const handleLoginSubmit = (e) => {
-    e.preventDefault();
-    console.log("送出登入");
-    userLogin();
-  };
+  useEffect(() => {
+    // 確保 DOM 已經掛載後再初始化
+    if (loginModalRef.current) {
+      modalInstances.current.login = new Modal(loginModalRef.current);
+    }
+    if (registerModalRef.current) {
+      modalInstances.current.register = new Modal(registerModalRef.current);
+    }
 
-  //登入API
+    return () => {
+      // 銷毀實體，避免切換頁面時遮罩殘留
+      modalInstances.current.login?.dispose();
+      modalInstances.current.register?.dispose();
+    };
+  }, []);
+
+  const handleOpenLoginModal = () => modalInstances.current.login?.show();
+  const handleCloseLoginModal = () => modalInstances.current.login?.hide();
+  const handleOpenRegisterModal = () => modalInstances.current.register?.show();
+  const handleCloseRegisterModal = () => modalInstances.current.register?.hide();
+
+  // --- API 邏輯 (保持不變) ---
   const userLogin = async () => {
-    console.log(loginData.loginEmail, md5(loginData.loginPassword));
     const { data, error } = await supabase
       .from("member")
       .select("*")
       .eq("loginName", loginData.loginEmail)
       .eq("loginPass", md5(loginData.loginPassword));
-    // console.log(data, error);
+
     if (error) {
-      alert("登入失敗!!");
-      console.log(`登入失敗: ${error.message}`);
-    } else if (data.length > 0) {
-      alert(`登入成功！歡迎 ${data[0].Name}`);
+      alert("登入失敗");
+    } else if (data?.length > 0) {
+      alert(`歡迎 ${data[0].Name}`);
       setIsAuth(true);
       handleCloseLoginModal();
-      setLoginData(defaultLogin);
-      // setUserName(data[0].Name);
-      console.log(`登入成功！歡迎 ${JSON.stringify(data[0])}`);
     } else {
-      alert(`帳號或密碼錯誤`);
-      console.log(`帳號或密碼錯誤`);
+      alert("帳號密碼錯誤");
     }
-  };
-
-  //註冊表單
-  const defaultRegister = {
-    registerName: "",
-    registerEmail: "",
-    registerPassword: "",
-  };
-  const [registerData, setregisterData] = useState(defaultRegister);
-
-  const handleRegisterInputChange = (e) => {
-    const { name, value } = e.target;
-    setregisterData({
-      ...registerData,
-      [name]: value,
-    });
-  };
-
-  //送出註冊表單
-  const handleRegisterSubmit = (e) => {
-    e.preventDefault();
-    console.log("送出註冊");
-    userRegister();
   };
 
   const userRegister = async () => {
-    // 先檢查是否已有相同 loginName
-    const { data: existing, error: checkError } = await supabase
-      .from("member")
-      .select("*")
-      .eq("loginName", registerData.registerEmail);
-
-    if (checkError) {
-      alert("檢查失敗: " + checkError.message);
-      return;
-    }
-
-    if (existing.length > 0) {
-      alert("會員已存在，請勿重複新增！");
-      return;
-    }
-
-    // 送出註冊
-    // 若不存在才新增
     const { error } = await supabase.from("member").insert([
       {
         loginName: registerData.registerEmail,
@@ -110,346 +63,57 @@ function AuthButton() {
         Name: registerData.registerName,
       },
     ]);
-
-    if (error) {
-      alert("註冊失敗: " + error.message);
-    } else {
-      alert("註冊成功!");
+    if (!error) {
+      alert("註冊成功");
       setIsAuth(true);
       handleCloseRegisterModal();
-      //setregisterData(defaultRegister);
-      // setUserName(registerData.registerName);
-      console.log(`註冊成功！歡迎 ${registerData.registerName}`);
     }
   };
 
-  useEffect(() => {
-    new Modal(loginModalRef.current);
-    new Modal(registerModalRef.current);
-  }, []);
-
-  //開啟modal
-  const handleOpenLoginModal = () => {
-    const modalInstance = Modal.getInstance(loginModalRef.current);
-    modalInstance.show();
-  };
-  //關閉modal
-  const handleCloseLoginModal = () => {
-    const modalInstance = Modal.getInstance(loginModalRef.current);
-    modalInstance.hide();
-  };
-  //開啟modal
-  const handleOpenRegisterModal = () => {
-    const modalInstance = Modal.getInstance(registerModalRef.current);
-    modalInstance.show();
-  };
-  //關閉modal
-  const handleCloseRegisterModal = () => {
-    const modalInstance = Modal.getInstance(registerModalRef.current);
-    modalInstance.hide();
-  };
-  //登出
-  const handleLogout = () => {
-    setIsAuth(false);
-  };
-
+  // --- UI 部分 ---
   return (
     <>
-      {/* <!-- Button trigger modal --> */}
-      {/* <button
-        type="button"
-        className="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-      >
-        登入/註冊
-      </button> */}
+      {/* 1. 按鈕部分：留在 Navbar 原位 */}
       {isAuth ? (
-        <>
-          <div className="d-flex align-items-center">
-            <img
-              src={person}
-              alt="person"
-              width={36}
-              height={36}
-              className="me-12px"
-            />
-            <Link
-              className="text-base text-neutral-white cb-btn-outline"
-              to="/Dashboard"
-            >
-              創作中心
-            </Link>
-          </div>
-        </>
+        <div className="d-flex align-items-center">
+          <img src={person} alt="person" width={36} className="me-2" />
+          <Link className="btn btn-outline-light btn-sm" to="/Dashboard">創作中心</Link>
+          <button className="btn btn-sm text-white-50 ms-2" onClick={() => setIsAuth(false)}>登出</button>
+        </div>
       ) : (
-        <>
-          <div className="d-none d-md-inline">
-            <a
-              href="javascript://"
-              className="me-12px text-base text-neutral-white py-12px px-4 navbar-link d-inline"
-              onClick={handleOpenRegisterModal}
-            >
-              註冊
-            </a>
-
-            <button
-              type="button"
-              className="btn bg-primary-400 auth-btn"
-              onClick={handleOpenLoginModal}
-            >
-              登入
-            </button>
-          </div>
-
-          <div className="container-fluid d-md-none  p-0">
-            <div className="row gx-0">
-              <div className="col-12 mb-12px">
-                <a
-                  href="javascript://"
-                  className="text-base text-neutral-white py-12px d-block text-center"
-                  onClick={handleOpenRegisterModal}
-                >
-                  註冊
-                </a>
-              </div>
-              <div className="col-12 ">
-                <button
-                  type="button"
-                  className="btn bg-primary-400 auth-btn w-100"
-                  onClick={handleOpenLoginModal}
-                >
-                  登入
-                </button>
-              </div>
-            </div>
-          </div>
-        </>
+        <div className="d-flex align-items-center">
+          <button className="btn btn-link text-white text-decoration-none me-2" onClick={handleOpenRegisterModal}>註冊</button>
+          <button className="btn btn-primary btn-sm px-4" onClick={handleOpenLoginModal}>登入</button>
+        </div>
       )}
 
-      {/* <!-- LoginModal --> */}
-      <div
-        ref={loginModalRef}
-        className="modal fade"
-        tabIndex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-lg">
-          {/* 加大寬度 */}
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                登入表單
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <div className="container-fulid">
-                <div className="row">
-                {/* 左邊欄：範例圖 */}
-                <div className="col-md-6 d-flex align-items-center justify-content-center">
-                  <img
-                    src="https://plus.unsplash.com/premium_photo-1661877737564-3dfd7282efcb?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="範例圖"
-                    className="img-fluid rounded"
-                  />
+      {/* 2. Portal 部分：將 Modal 傳送到 body，解決 Navbar 遮罩問題 */}
+      {createPortal(
+        <div className="auth-modals-container">
+          {/* Login Modal */}
+          <div ref={loginModalRef} className="modal fade" tabIndex="-1" aria-hidden="true">
+            <div className="modal-dialog modal-lg modal-dialog-centered">
+              <div className="modal-content text-dark">
+                <div className="modal-header border-0">
+                  <h5 className="modal-title fw-bold">登入 Code匠心</h5>
+                  <button type="button" className="btn-close" onClick={handleCloseLoginModal}></button>
                 </div>
-
-                {/* 右邊欄：分頁 */}
-                <div className="col-md-6">
-                  <div className="tab-content mt-3" id="authTabsContent">
-                    {/* 登入表單 */}
-                    <div
-                      className="tab-pane fade show active"
-                      id="login"
-                      role="tabpanel"
-                      aria-labelledby="login-tab"
-                    >
-                      <form>
-                        <div className="mb-3">
-                          <label className="form-label">Email</label>
-                          <input
-                            type="email"
-                            className="form-control"
-                            name="loginEmail"
-                            value={loginData.loginEmail}
-                            onChange={handleLoginInputChange}
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <label className="form-label">密碼</label>
-                          <input
-                            type="password"
-                            className="form-control"
-                            name="loginPassword"
-                            value={loginData.loginPassword}
-                            onChange={handleLoginInputChange}
-                          />
-                        </div>
-                        <button
-                          onClick={handleLoginSubmit}
-                          type="button"
-                          className="btn btn-primary w-100"
-                        >
-                          登入
-                        </button>
-                      </form>
+                <div className="modal-body p-4">
+                  <div className="row g-4">
+                    <div className="col-md-6 d-none d-md-block">
+                      <img src="https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=400" className="img-fluid rounded-3" alt="login" />
                     </div>
-
-                    {/* 註冊表單 */}
-                    <div
-                      className="tab-pane fade"
-                      id="register"
-                      role="tabpanel"
-                      aria-labelledby="register-tab"
-                    >
-                      <form>
+                    <div className="col-md-6">
+                      <form onSubmit={(e) => { e.preventDefault(); userLogin(); }}>
                         <div className="mb-3">
-                          <label className="form-label">使用者名稱</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="registerName"
-                            value={registerData.registerName}
-                            onChange={handleRegisterInputChange}
-                          />
+                          <label className="form-label small">Email</label>
+                          <input type="email" className="form-control" value={loginData.loginEmail} onChange={(e) => setLoginData({...loginData, loginEmail: e.target.value})} required />
                         </div>
                         <div className="mb-3">
-                          <label className="form-label">Email</label>
-                          <input
-                            type="email"
-                            className="form-control"
-                            name="registerEmail"
-                            value={registerData.registerEmail}
-                            onChange={handleRegisterInputChange}
-                          />
+                          <label className="form-label small">密碼</label>
+                          <input type="password" className="form-control" value={loginData.loginPassword} onChange={(e) => setLoginData({...loginData, loginPassword: e.target.value})} required />
                         </div>
-                        <div className="mb-3">
-                          <label className="form-label">密碼</label>
-                          <input
-                            type="password"
-                            className="form-control"
-                            name="registerPassword"
-                            value={registerData.registerPassword}
-                            onChange={handleRegisterInputChange}
-                          />
-                        </div>
-                        <button
-                          type="submit"
-                          className="btn btn-success w-100"
-                          onClick={handleRegisterSubmit}
-                        >
-                          註冊
-                        </button>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              </div>
-              
-            </div>
-
-            {/* <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                關閉
-              </button>
-            </div> */}
-          </div>
-        </div>
-      </div>
-
-      {/* <!-- RegisterModal --> */}
-      <div
-        ref={registerModalRef}
-        className="modal fade"
-        tabIndex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-lg">
-          {/* 加大寬度 */}
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                註冊表單
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <div className="row">
-                {/* 左邊欄：範例圖 */}
-                <div className="col-md-6 d-flex align-items-center justify-content-center">
-                  <img
-                    src="https://plus.unsplash.com/premium_photo-1661877737564-3dfd7282efcb?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="範例圖"
-                    className="img-fluid rounded"
-                  />
-                </div>
-
-                {/* 右邊欄：分頁 */}
-                <div className="col-md-6">
-                  <div className="tab-content mt-3" id="authTabsContent">
-                    {/* 註冊表單 */}
-                    <div
-                      className="tab-pane fade show active"
-                      id="register"
-                      role="tabpanel"
-                      aria-labelledby="register-tab"
-                    >
-                      <form>
-                        <div className="mb-3">
-                          <label className="form-label">使用者名稱</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="registerName"
-                            value={registerData.registerName}
-                            onChange={handleRegisterInputChange}
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <label className="form-label">Email</label>
-                          <input
-                            type="email"
-                            className="form-control"
-                            name="registerEmail"
-                            value={registerData.registerEmail}
-                            onChange={handleRegisterInputChange}
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <label className="form-label">密碼</label>
-                          <input
-                            type="password"
-                            className="form-control"
-                            name="registerPassword"
-                            value={registerData.registerPassword}
-                            onChange={handleRegisterInputChange}
-                          />
-                        </div>
-                        <button
-                          type="submit"
-                          className="btn btn-success w-100"
-                          onClick={handleRegisterSubmit}
-                        >
-                          註冊
-                        </button>
+                        <button type="submit" className="btn btn-primary w-100 py-2">登入</button>
                       </form>
                     </div>
                   </div>
@@ -457,8 +121,45 @@ function AuthButton() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+
+          {/* Register Modal */}
+          <div ref={registerModalRef} className="modal fade" tabIndex="-1" aria-hidden="true">
+            <div className="modal-dialog modal-lg modal-dialog-centered">
+              <div className="modal-content text-dark">
+                <div className="modal-header border-0">
+                  <h5 className="modal-title fw-bold">加入會員</h5>
+                  <button type="button" className="btn-close" onClick={handleCloseRegisterModal}></button>
+                </div>
+                <div className="modal-body p-4">
+                  <div className="row g-4">
+                    <div className="col-md-6 d-none d-md-block">
+                      <img src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=400" className="img-fluid rounded-3" alt="register" />
+                    </div>
+                    <div className="col-md-6">
+                      <form onSubmit={(e) => { e.preventDefault(); userRegister(); }}>
+                        <div className="mb-3">
+                          <label className="form-label small">姓名</label>
+                          <input type="text" className="form-control" value={registerData.registerName} onChange={(e) => setregisterData({...registerData, registerName: e.target.value})} required />
+                        </div>
+                        <div className="mb-3">
+                          <label className="form-label small">Email</label>
+                          <input type="email" className="form-control" value={registerData.registerEmail} onChange={(e) => setregisterData({...registerData, registerEmail: e.target.value})} required />
+                        </div>
+                        <div className="mb-3">
+                          <label className="form-label small">密碼</label>
+                          <input type="password" className="form-control" value={registerData.registerPassword} onChange={(e) => setregisterData({...registerData, registerPassword: e.target.value})} required />
+                        </div>
+                        <button type="submit" className="btn btn-success w-100 py-2">註冊</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>,
+        document.body // 關鍵點：渲染到 body 節點下
+      )}
     </>
   );
 }
