@@ -13,7 +13,10 @@ const Qna = () => {
     <div className="qna-page-wrapper">
       <div className="container py-5">
         <div className="row">
-          <main className="col-12 col-lg-8 qna-mainbar pe-lg-5">
+          <main
+            className="col-12 col-lg-8 qna-mainbar pe-lg-5"
+            style={{ minWidth: 0 }}
+          >
             <QnaTop />
             <FilterBar
               currentFilter={currentFilter}

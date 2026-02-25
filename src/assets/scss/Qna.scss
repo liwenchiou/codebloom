@@ -36,7 +36,8 @@
      Tabs & 滑動指示器
      ----------------------------------------------------------------------- */
   .tabs-container {
-    position: relative;
+    display: flex;
+    width: 100%; // 確保撐滿容器
     .tab-btn {
       background: none;
       border: none;
