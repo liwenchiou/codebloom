@@ -1,101 +1,73 @@
-import React from 'react';
-// import "./QnaCard.scss"; // 若你有對應的 SCSS 檔
-
-// 1. 狀態設定檔 (保留你的顏色與樣式)
-const STATUS_CONFIG = {
-    '待解決': {
-        icon: 'bi-exclamation-triangle-fill',
-        color: 'text-yellow-300',
-        bg: 'badge-bg'
-    },
-    '已解決': {
-        icon: 'bi bi-check-circle',
-        color: 'text-green-300 ',
-        bg: 'badge-bg'
-    },
-    '熱議中': {
-        icon: 'bi-fire',
-        color: 'text-fav-400',
-        bg: 'badge-bg'
-    }
-};
+import React from "react";
+// import "./QnaCard.scss"; // 記得建立對應的 SCSS
 
 const QnaCard = ({ data }) => {
-    // 防呆：沒資料就不渲染
-    if (!data) return null;
+  // 根據狀態切換樣式與圖示
+  const isUrgent = data.status === "urgent";
+  const badgeClass = isUrgent ? "status-urgent" : "status-solved";
+  const statusIcon = isUrgent ? "bi-exclamation-octagon" : "bi-check2-circle";
 
-    const { status, time, title, excerpt, author, tags, stats } = data;
+  return (
+    <div className="qna-card-item mb-4 border-bottom border-secondary border-opacity-10 pb-4">
+      {/* 頂部：狀態、作者、時間 */}
+      <div className="meta-top d-flex align-items-center gap-3 mb-2">
+        <span
+          className={`status-badge ${badgeClass} d-flex align-items-center gap-1`}
+        >
+          <i className={`bi ${statusIcon}`}></i>
+          {data.statusLabel}
+        </span>
 
-    // 取得對應樣式，預設為待解決
-    const currentConfig = STATUS_CONFIG[status] || STATUS_CONFIG['待解決'];
-
-    return (
-        // ★ 完全保留你的外框樣式：bg-neutral-500, rounded-4, p-24px
-        <div className="card h-100 bg-neutral-500 text-white border border-secondary p-24px rounded-4 d-flex flex-column mb-4">
-
-            {/* --- 卡片頭部：狀態 + 作者/時間 --- */}
-            <div className="d-flex justify-content-between align-items-center mb-20px">
-
-                {/* 狀態 Badge */}
-                <span className={`badge text-sm rounded-pill px-12px py-8px ${currentConfig.bg} ${currentConfig.color}`}>
-                    <i className={`bi ${currentConfig.icon} me-2`}></i>
-                    {status}
-                </span>
-
-                {/* 作者與時間 */}
-                <div className="d-flex align-items-center gap-2 text-neutral-200">
-                    <img
-                        src={author.avatar}
-                        alt={author.name}
-                        className="rounded-circle"
-                        width="24" height="24"
-                    />
-                    <small className="fw-bold">{author.name}</small>
-                    <small className="opacity-50">|</small>
-                    <small><i className="bi bi-clock me-1"></i>{time}</small>
-                </div>
-            </div>
-
-            {/* --- 卡片內容：標題 + 摘要 --- */}
-            <div>
-                <h5 className="card-title fw-bold text-lg mb-2 cursor-pointer hover-text-primary">
-                    {title}
-                </h5>
-                {/* 摘要文字，使用 text-truncate 避免過長 */}
-                <p className="text-neutral-200 text-opacity-75 mb-20px text-truncate">
-                    {excerpt}
-                </p>
-            </div>
-
-            {/* 分隔線 */}
-            <hr className="border-neutral-300 mb-20px" />
-
-            {/* --- 卡片底部：Tags + 數據 --- */}
-            <div className="d-flex justify-content-between align-items-center mt-auto">
-
-                {/* 左側 Tags */}
-                <div className="d-flex gap-2">
-                    {tags.map((tag, index) => (
-                        <span key={index} className="badge bg-transparent border border-secondary text-neutral-200 fw-normal rounded-pill px-3">
-                            {tag}
-                        </span>
-                    ))}
-                </div>
-
-                {/* 右側 數據統計 */}
-                <div className="d-flex gap-4 text-neutral-50 fw-bold">
-                    <span className="d-flex align-items-center gap-2">
-                        <i className="bi bi-hand-thumbs-up"></i>
-                        {stats.votes}
-                    </span>
-                    <span className="d-flex align-items-center gap-2">
-                        <i className="bi bi-chat-dots"></i>
-                        {stats.replies}
-                    </span>
-                </div>
-            </div>
+        <div className="author-info d-flex align-items-center">
+          <img
+            src={data.avatar}
+            alt={data.author}
+            className="avatar-sm rounded-circle me-2"
+            style={{ width: "24px" }}
+          />
+          <span className="author-name text-white-50 small">{data.author}</span>
         </div>
-    );
+
+        <span className="time-text text-neutral-400 small">
+          <i className="bi bi-clock me-1"></i>
+          {data.time}
+        </span>
+      </div>
+
+      {/* 主體：標題與內容 */}
+      <div className="qna-main-content">
+        <h3 className="h5 text-white fw-bold mb-2">{data.title}</h3>
+        <p className="text-neutral-100 small mb-3" style={{ opacity: 0.8 }}>
+          {data.desc}
+        </p>
+      </div>
+
+      {/* 底部：標籤與數據 */}
+      <div className="qna-footer d-flex justify-content-between align-items-center">
+        <div className="tags-group d-flex gap-2">
+          {data.tags.map((tag, index) => (
+            <span
+              key={index}
+              className="badge rounded-pill bg-secondary bg-opacity-25 text-info fw-normal"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <div className="stats-group d-flex align-items-center gap-4 text-white-50 small">
+          <span>
+            <i className="bi bi-caret-up-fill me-1"></i>
+            {data.likes}
+          </span>
+          <span>
+            <i className="bi bi-chat-dots me-1"></i>
+            {data.replies}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default QnaCard;
