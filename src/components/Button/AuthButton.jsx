@@ -130,31 +130,55 @@ function AuthButton() {
       {createPortal(
         <div className="auth-modals-container">
           {/* Login Modal */}
-          <div ref={loginModalRef} className="modal fade" tabIndex="-1" aria-hidden="true">
-            <div className="modal-dialog modal-lg modal-dialog-centered">
-              <div className="modal-content text-dark">
-                <div className="modal-header border-0">
-                  <h5 className="modal-title fw-bold">登入 Code匠心</h5>
+          <div ref={loginModalRef} className="modal fade auth-modal" tabIndex="-1" aria-hidden="true">
+            <div className="modal-dialog modal-dialog-centered">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">歡迎回來 👋</h5>
                   <button type="button" className="btn-close" onClick={handleCloseLoginModal}></button>
                 </div>
-                <div className="modal-body p-4">
-                  <div className="row g-4">
-                    <div className="col-md-6 d-none d-md-block">
-                      <img src="https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=400" className="img-fluid rounded-3" alt="login" />
+                <div className="modal-body">
+                  <p className="auth-subtitle">登入你的 Code匠心 帳號，繼續你的創作之旅</p>
+
+                  <div className="auth-icon-row">
+                    <div className="auth-icon-circle">🔐</div>
+                  </div>
+
+                  <form onSubmit={(e) => { e.preventDefault(); userLogin(); }}>
+                    <div className="auth-field">
+                      <label className="auth-label" htmlFor="login-email">Email</label>
+                      <input
+                        type="email"
+                        id="login-email"
+                        className="auth-input"
+                        placeholder="請輸入你的 Email"
+                        value={loginData.loginEmail}
+                        onChange={(e) => setLoginData({ ...loginData, loginEmail: e.target.value })}
+                        required
+                      />
                     </div>
-                    <div className="col-md-6">
-                      <form onSubmit={(e) => { e.preventDefault(); userLogin(); }}>
-                        <div className="mb-3">
-                          <label className="form-label small">Email</label>
-                          <input type="email" className="form-control" value={loginData.loginEmail} onChange={(e) => setLoginData({ ...loginData, loginEmail: e.target.value })} required />
-                        </div>
-                        <div className="mb-3">
-                          <label className="form-label small">密碼</label>
-                          <input type="password" className="form-control" value={loginData.loginPassword} onChange={(e) => setLoginData({ ...loginData, loginPassword: e.target.value })} required />
-                        </div>
-                        <button type="submit" className="btn btn-primary w-100 py-2">登入</button>
-                      </form>
+                    <div className="auth-field">
+                      <label className="auth-label" htmlFor="login-password">密碼</label>
+                      <input
+                        type="password"
+                        id="login-password"
+                        className="auth-input"
+                        placeholder="請輸入密碼"
+                        value={loginData.loginPassword}
+                        onChange={(e) => setLoginData({ ...loginData, loginPassword: e.target.value })}
+                        required
+                      />
                     </div>
+                    <button type="submit" className="auth-submit-btn">登入</button>
+                  </form>
+
+                  <div className="auth-divider"><span>OR</span></div>
+
+                  <div className="auth-switch">
+                    還沒有帳號？
+                    <button type="button" onClick={() => { handleCloseLoginModal(); setTimeout(() => handleOpenRegisterModal(), 300); }}>
+                      立即註冊
+                    </button>
                   </div>
                 </div>
               </div>
@@ -162,35 +186,67 @@ function AuthButton() {
           </div>
 
           {/* Register Modal */}
-          <div ref={registerModalRef} className="modal fade" tabIndex="-1" aria-hidden="true">
-            <div className="modal-dialog modal-lg modal-dialog-centered">
-              <div className="modal-content text-dark">
-                <div className="modal-header border-0">
-                  <h5 className="modal-title fw-bold">加入會員</h5>
+          <div ref={registerModalRef} className="modal fade auth-modal" tabIndex="-1" aria-hidden="true">
+            <div className="modal-dialog modal-dialog-centered">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">加入 Code匠心 ✨</h5>
                   <button type="button" className="btn-close" onClick={handleCloseRegisterModal}></button>
                 </div>
-                <div className="modal-body p-4">
-                  <div className="row g-4">
-                    <div className="col-md-6 d-none d-md-block">
-                      <img src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=400" className="img-fluid rounded-3" alt="register" />
+                <div className="modal-body">
+                  <p className="auth-subtitle">建立帳號，開始展示你的作品、與社群交流</p>
+
+                  <div className="auth-icon-row">
+                    <div className="auth-icon-circle">🚀</div>
+                  </div>
+
+                  <form onSubmit={(e) => { e.preventDefault(); userRegister(); }}>
+                    <div className="auth-field">
+                      <label className="auth-label" htmlFor="register-name">姓名</label>
+                      <input
+                        type="text"
+                        id="register-name"
+                        className="auth-input"
+                        placeholder="輸入你的名字"
+                        value={registerData.registerName}
+                        onChange={(e) => setregisterData({ ...registerData, registerName: e.target.value })}
+                        required
+                      />
                     </div>
-                    <div className="col-md-6">
-                      <form onSubmit={(e) => { e.preventDefault(); userRegister(); }}>
-                        <div className="mb-3">
-                          <label className="form-label small">姓名</label>
-                          <input type="text" className="form-control" value={registerData.registerName} onChange={(e) => setregisterData({ ...registerData, registerName: e.target.value })} required />
-                        </div>
-                        <div className="mb-3">
-                          <label className="form-label small">Email</label>
-                          <input type="email" className="form-control" value={registerData.registerEmail} onChange={(e) => setregisterData({ ...registerData, registerEmail: e.target.value })} required />
-                        </div>
-                        <div className="mb-3">
-                          <label className="form-label small">密碼</label>
-                          <input type="password" className="form-control" value={registerData.registerPassword} onChange={(e) => setregisterData({ ...registerData, registerPassword: e.target.value })} required />
-                        </div>
-                        <button type="submit" className="btn btn-success w-100 py-2">註冊</button>
-                      </form>
+                    <div className="auth-field">
+                      <label className="auth-label" htmlFor="register-email">Email</label>
+                      <input
+                        type="email"
+                        id="register-email"
+                        className="auth-input"
+                        placeholder="請輸入你的 Email"
+                        value={registerData.registerEmail}
+                        onChange={(e) => setregisterData({ ...registerData, registerEmail: e.target.value })}
+                        required
+                      />
                     </div>
+                    <div className="auth-field">
+                      <label className="auth-label" htmlFor="register-password">密碼</label>
+                      <input
+                        type="password"
+                        id="register-password"
+                        className="auth-input"
+                        placeholder="設定密碼（至少 6 位）"
+                        value={registerData.registerPassword}
+                        onChange={(e) => setregisterData({ ...registerData, registerPassword: e.target.value })}
+                        required
+                      />
+                    </div>
+                    <button type="submit" className="auth-submit-btn">建立帳號</button>
+                  </form>
+
+                  <div className="auth-divider"><span>OR</span></div>
+
+                  <div className="auth-switch">
+                    已經有帳號了？
+                    <button type="button" onClick={() => { handleCloseRegisterModal(); setTimeout(() => handleOpenLoginModal(), 300); }}>
+                      前往登入
+                    </button>
                   </div>
                 </div>
               </div>
