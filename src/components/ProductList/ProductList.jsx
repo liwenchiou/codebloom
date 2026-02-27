@@ -1,232 +1,16 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import axios from "axios";
 import "./ProductList.scss";
 import ProductCard from "./ProductCard";
 import ProductSearch from "./ProductSearch";
 import ProductFilterSidebar from "./ProductFilterSidebar";
 
-
-
-// 模擬產品數據
-const MOCK_PRODUCTS = [
-  {
-    id: 1,
-    title: "TravelMates 旅伴媒合平台",
-    description: "一個連結旅遊愛好者的實時媒合平台，支援地圖搜尋和行程規劃",
-    image:
-      "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=300&fit=crop",
-    author: "陳冠宇",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Chen",
-    tags: ["React", "Node.js", "Google Maps API"],
-    category: "Web應用",
-    difficulty: "中級",
-    views: 1234,
-    likes: 456,
-    isLiked: false,
-    releaseDate: "2024-01-15",
-    demoUrl: "#",
-    sourceUrl: "#",
-  },
-  {
-    id: 2,
-    title: "FinanceGo 智慧理財儀表板",
-    description: "個人理財管理工具，提供投資組合分析和智能推薦",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop",
-    author: "Sarah Smith",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
-    tags: ["React", "TypeScript", "Tailwind CSS"],
-    category: "Web應用",
-    difficulty: "中級",
-    views: 2345,
-    likes: 678,
-    isLiked: false,
-    releaseDate: "2024-01-20",
-    demoUrl: "#",
-    sourceUrl: "#",
-  },
-  {
-    id: 3,
-    title: "Vue3 極簡音樂播放器",
-    description: "輕量級的音樂播放應用，支援播放列表和本地存儲",
-    image:
-      "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=300&fit=crop",
-    author: "楊子萱",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Yang",
-    tags: ["Vue3", "SCSS", "LocalStorage"],
-    category: "Web應用",
-    difficulty: "初級",
-    views: 890,
-    likes: 234,
-    isLiked: false,
-    releaseDate: "2024-01-10",
-    demoUrl: "#",
-    sourceUrl: "#",
-  },
-  {
-    id: 4,
-    title: "React 拖曳式看板",
-    description: "任務管理工具，支援拖曳式排序和多列狀態管理",
-    image:
-      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop",
-    author: "Oliver Brown",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Oliver",
-    tags: ["React", "TypeScript", "Zustand"],
-    category: "Web應用",
-    difficulty: "中級",
-    views: 3456,
-    likes: 890,
-    isLiked: false,
-    releaseDate: "2024-01-25",
-    demoUrl: "#",
-    sourceUrl: "#",
-  },
-  {
-    id: 5,
-    title: "Next.js 響應式部落格模板",
-    description: "現代化的部落格框架，支援 Markdown 和暗黑模式",
-    image:
-      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=300&fit=crop",
-    author: "林雅婷",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Lin",
-    tags: ["Next.js", "Tailwind CSS", "Vercel"],
-    category: "Web應用",
-    difficulty: "中級",
-    views: 2123,
-    likes: 567,
-    isLiked: false,
-    releaseDate: "2024-01-18",
-    demoUrl: "#",
-    sourceUrl: "#",
-  },
-  {
-    id: 6,
-    title: "TypeScript 實用工具庫",
-    description: "常用的 TypeScript 工具函數集合，完全類型安全",
-    image:
-      "https://images.unsplash.com/photo-1517694712162-7d3acad4aae4?w=400&h=300&fit=crop",
-    author: "廖英隆",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Liao",
-    tags: ["TypeScript", "Node.js", "Jest"],
-    category: "工具",
-    difficulty: "初級",
-    views: 1567,
-    likes: 345,
-    isLiked: false,
-    releaseDate: "2024-01-12",
-    demoUrl: "#",
-    sourceUrl: "#",
-  },
-  {
-    id: 7,
-    title: "React Native 天氣應用",
-    description: "跨平台天氣應用，支援即時更新和位置定位",
-    image:
-      "https://images.unsplash.com/photo-1526374965328-7f5ae4e8b08f?w=400&h=300&fit=crop",
-    author: "張琳",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Zhang",
-    tags: ["React Native", "TypeScript", "Expo"],
-    category: "移動應用",
-    difficulty: "中級",
-    views: 1890,
-    likes: 423,
-    isLiked: false,
-    releaseDate: "2024-01-22",
-    demoUrl: "#",
-    sourceUrl: "#",
-  },
-  {
-    id: 8,
-    title: "GraphQL 電商 API",
-    description: "完整的電商後端 API，支援分頁和複雜查詢",
-    image:
-      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=300&fit=crop",
-    author: "黃俊傑",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Huang",
-    tags: ["GraphQL", "Node.js", "MongoDB"],
-    category: "Web應用",
-    difficulty: "進階",
-    views: 2567,
-    likes: 678,
-    isLiked: false,
-    releaseDate: "2024-01-28",
-    demoUrl: "#",
-    sourceUrl: "#",
-  },
-  {
-    id: 9,
-    title: "UI 組件庫 (Vue 3)",
-    description: "高度可自訂的 Vue 3 組件庫，包含常用 UI 組件",
-    image:
-      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=300&fit=crop",
-    author: "王美琪",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Wang",
-    tags: ["Vue3", "Vite", "Storybook"],
-    category: "UI組件庫",
-    difficulty: "中級",
-    views: 3234,
-    likes: 856,
-    isLiked: false,
-    releaseDate: "2024-01-16",
-    demoUrl: "#",
-    sourceUrl: "#",
-  },
-  {
-    id: 10,
-    title: "Python 數據分析教學",
-    description: "完整的 Python 數據分析教程，包含實戰案例",
-    image:
-      "https://images.unsplash.com/photo-1518932945970-6a6c343d70d5?w=400&h=300&fit=crop",
-    author: "李建偉",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Li",
-    tags: ["Python", "Pandas", "Jupyter"],
-    category: "教學案例",
-    difficulty: "初級",
-    views: 4567,
-    likes: 1023,
-    isLiked: false,
-    releaseDate: "2024-01-05",
-    demoUrl: "#",
-    sourceUrl: "#",
-  },
-  {
-    id: 11,
-    title: "Docker 容器化最佳實踐",
-    description: "Docker 實戰教程，涵蓋容器構建和編排",
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab2c3bfd7?w=400&h=300&fit=crop",
-    author: "吳修德",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Wu",
-    tags: ["Docker", "DevOps", "Kubernetes"],
-    category: "教學案例",
-    difficulty: "進階",
-    views: 2890,
-    likes: 567,
-    isLiked: false,
-    releaseDate: "2024-01-08",
-    demoUrl: "#",
-    sourceUrl: "#",
-  },
-  {
-    id: 12,
-    title: "Tailwind CSS 設計系統",
-    description: "基於 Tailwind 的完整設計系統和最佳實踐",
-    image:
-      "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop",
-    author: "何紹琪",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=He",
-    tags: ["Tailwind CSS", "Design System", "React"],
-    category: "UI組件庫",
-    difficulty: "初級",
-    views: 3456,
-    likes: 789,
-    isLiked: false,
-    releaseDate: "2024-01-11",
-    demoUrl: "#",
-    sourceUrl: "#",
-  },
-];
+const API_BASE = "https://codebloom-api.zeabur.app";
 
 const ProductListComponent = () => {
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTechnologies, setSelectedTechnologies] = useState([]);
   const [selectedDifficulties, setSelectedDifficulties] = useState([]);
@@ -236,9 +20,48 @@ const ProductListComponent = () => {
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const itemsPerPage = 12;
 
+  // 從 API 取得作品資料
+  useEffect(() => {
+    const fetchPortfolio = async () => {
+      try {
+        setIsLoading(true);
+        const res = await axios.get(`${API_BASE}/portfolio`);
+        const data = res.data;
+
+        // 直接使用 API 資料，補上 ProductCard 需要但 API 沒提供的預設值
+        const mapped = data.map((item) => ({
+          id: item.id,
+          title: item.title,
+          description: item.description || "",
+          image: item.image || "",
+          author: item.author,
+          avatar: item.avatar || "",
+          tags: item.tags || [],
+          category: item.category || "Web應用",
+          difficulty: item.difficulty || "中級",
+          views: item.views || 0,
+          likes: item.likes || 0,
+          isLiked: item.isLiked || false,
+          releaseDate: item.releaseDate || "2024-01-01",
+          demoUrl: item.demoUrl || "#",
+          sourceUrl: item.sourceUrl || "#",
+        }));
+
+        setProducts(mapped);
+      } catch (err) {
+        console.error("取得作品資料失敗:", err);
+        setError("無法載入作品列表，請稍後再試");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPortfolio();
+  }, []);
+
   // 篩選和搜尋邏輯
   const filteredProducts = useMemo(() => {
-    let result = [...MOCK_PRODUCTS];
+    let result = [...products];
 
     // 搜尋篩選
     if (searchQuery) {
@@ -291,6 +114,7 @@ const ProductListComponent = () => {
 
     return result;
   }, [
+    products,
     searchQuery,
     selectedTechnologies,
     selectedDifficulties,
@@ -368,11 +192,32 @@ const ProductListComponent = () => {
     { id: "liked", label: "最多點讚" },
   ];
 
+  // Loading 狀態
+  if (isLoading) {
+    return (
+      <div className="container d-flex justify-content-center align-items-center py-5" style={{ minHeight: "400px" }}>
+        <div className="spinner-border text-light" role="status">
+          <span className="visually-hidden">載入中...</span>
+        </div>
+      </div>
+    );
+  }
+
+  // Error 狀態
+  if (error) {
+    return (
+      <div className="container text-center text-neutral-white py-5">
+        <h5>{error}</h5>
+        <button className="btn btn-primary mt-3" onClick={() => window.location.reload()}>重新載入</button>
+      </div>
+    );
+  }
+
   return (
-<div className="container" >
-          <div
+    <div className="container" >
+      <div
         className="pt-5"
-        
+
       >
         <div className="row g-4">
           {/* 左側: 產品列表 */}
@@ -454,9 +299,8 @@ const ProductListComponent = () => {
                         return (
                           <button
                             key={pageNum}
-                            className={`btn me-2 ${
-                              currentPage === pageNum ? "btn-primary" : "btn-outline-secondary"
-                            }`}
+                            className={`btn me-2 ${currentPage === pageNum ? "btn-primary" : "btn-outline-secondary"
+                              }`}
                             onClick={() => setCurrentPage(pageNum)}
                           >
                             {pageNum}
@@ -515,7 +359,7 @@ const ProductListComponent = () => {
           </div>
         </div>
       </div>
-</div>
+    </div>
 
   );
 };

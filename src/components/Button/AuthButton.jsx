@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom"; // 引入 Portal
 import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min";
-import { supabase } from "../tools/SupaBase";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import md5 from "blueimp-md5";
 import person from "../../assets/images/Ellipse 3.png";
+
+const API_BASE = "https://codebloom-api.zeabur.app";
 
 function AuthButton() {
   const loginModalRef = useRef(null);
@@ -12,6 +14,7 @@ function AuthButton() {
   const modalInstances = useRef({ login: null, register: null });
 
   const [isAuth, setIsAuth] = useState(false);
+  const [userName, setUserName] = useState("");
   const [loginData, setLoginData] = useState({ loginEmail: "", loginPassword: "" });
   const [registerData, setregisterData] = useState({ registerName: "", registerEmail: "", registerPassword: "" });
 
@@ -36,37 +39,73 @@ function AuthButton() {
   const handleOpenRegisterModal = () => modalInstances.current.register?.show();
   const handleCloseRegisterModal = () => modalInstances.current.register?.hide();
 
-  // --- API 邏輯 (保持不變) ---
+  // --- API 邏輯：使用 JSON Server REST API ---
   const userLogin = async () => {
-    const { data, error } = await supabase
-      .from("member")
-      .select("*")
-      .eq("loginName", loginData.loginEmail)
-      .eq("loginPass", md5(loginData.loginPassword));
+    try {
+      // 用 email 查詢使用者
+      const res = await axios.get(`${API_BASE}/users`, {
+        params: { email: loginData.loginEmail },
+      });
 
-    if (error) {
-      alert("登入失敗");
-    } else if (data?.length > 0) {
-      alert(`歡迎 ${data[0].Name}`);
-      setIsAuth(true);
-      handleCloseLoginModal();
-    } else {
-      alert("帳號密碼錯誤");
+      const users = res.data;
+
+      if (!Array.isArray(users) || users.length === 0) {
+        alert("帳號密碼錯誤");
+        return;
+      }
+
+      // 比對 MD5 加密後的密碼
+      const user = users.find(
+        (u) => u.password === md5(loginData.loginPassword)
+      );
+
+      if (user) {
+        alert(`歡迎 ${user.name}`);
+        setUserName(user.name);
+        setIsAuth(true);
+        localStorage.setItem("userId", user.id);
+        handleCloseLoginModal();
+        // 清空表單
+        setLoginData({ loginEmail: "", loginPassword: "" });
+      } else {
+        alert("帳號密碼錯誤");
+      }
+    } catch (error) {
+      console.error("登入失敗:", error);
+      alert("登入失敗，請稍後再試");
     }
   };
 
   const userRegister = async () => {
-    const { error } = await supabase.from("member").insert([
-      {
-        loginName: registerData.registerEmail,
-        loginPass: md5(registerData.registerPassword),
-        Name: registerData.registerName,
-      },
-    ]);
-    if (!error) {
+    try {
+      // 先檢查 email 是否已被註冊
+      const checkRes = await axios.get(`${API_BASE}/users`, {
+        params: { email: registerData.registerEmail },
+      });
+
+      if (Array.isArray(checkRes.data) && checkRes.data.length > 0) {
+        alert("此 Email 已被註冊");
+        return;
+      }
+
+      // 註冊新使用者
+      const res = await axios.post(`${API_BASE}/users`, {
+        name: registerData.registerName,
+        email: registerData.registerEmail,
+        password: md5(registerData.registerPassword),
+      });
+
+      const newUser = res.data;
       alert("註冊成功");
+      setUserName(registerData.registerName);
       setIsAuth(true);
+      localStorage.setItem("userId", newUser.id);
       handleCloseRegisterModal();
+      // 清空表單
+      setregisterData({ registerName: "", registerEmail: "", registerPassword: "" });
+    } catch (error) {
+      console.error("註冊失敗:", error);
+      alert("註冊失敗，請稍後再試");
     }
   };
 
@@ -78,7 +117,7 @@ function AuthButton() {
         <div className="d-flex align-items-center">
           <img src={person} alt="person" width={36} className="me-2" />
           <Link className="btn btn-outline-light btn-sm" to="/Dashboard">創作中心</Link>
-          <button className="btn btn-sm text-white-50 ms-2" onClick={() => setIsAuth(false)}>登出</button>
+          <button className="btn btn-sm text-white-50 ms-2" onClick={() => { setIsAuth(false); localStorage.removeItem("userId"); }}>登出</button>
         </div>
       ) : (
         <div className="d-flex align-items-center">
@@ -107,11 +146,11 @@ function AuthButton() {
                       <form onSubmit={(e) => { e.preventDefault(); userLogin(); }}>
                         <div className="mb-3">
                           <label className="form-label small">Email</label>
-                          <input type="email" className="form-control" value={loginData.loginEmail} onChange={(e) => setLoginData({...loginData, loginEmail: e.target.value})} required />
+                          <input type="email" className="form-control" value={loginData.loginEmail} onChange={(e) => setLoginData({ ...loginData, loginEmail: e.target.value })} required />
                         </div>
                         <div className="mb-3">
                           <label className="form-label small">密碼</label>
-                          <input type="password" className="form-control" value={loginData.loginPassword} onChange={(e) => setLoginData({...loginData, loginPassword: e.target.value})} required />
+                          <input type="password" className="form-control" value={loginData.loginPassword} onChange={(e) => setLoginData({ ...loginData, loginPassword: e.target.value })} required />
                         </div>
                         <button type="submit" className="btn btn-primary w-100 py-2">登入</button>
                       </form>
@@ -139,15 +178,15 @@ function AuthButton() {
                       <form onSubmit={(e) => { e.preventDefault(); userRegister(); }}>
                         <div className="mb-3">
                           <label className="form-label small">姓名</label>
-                          <input type="text" className="form-control" value={registerData.registerName} onChange={(e) => setregisterData({...registerData, registerName: e.target.value})} required />
+                          <input type="text" className="form-control" value={registerData.registerName} onChange={(e) => setregisterData({ ...registerData, registerName: e.target.value })} required />
                         </div>
                         <div className="mb-3">
                           <label className="form-label small">Email</label>
-                          <input type="email" className="form-control" value={registerData.registerEmail} onChange={(e) => setregisterData({...registerData, registerEmail: e.target.value})} required />
+                          <input type="email" className="form-control" value={registerData.registerEmail} onChange={(e) => setregisterData({ ...registerData, registerEmail: e.target.value })} required />
                         </div>
                         <div className="mb-3">
                           <label className="form-label small">密碼</label>
-                          <input type="password" className="form-control" value={registerData.registerPassword} onChange={(e) => setregisterData({...registerData, registerPassword: e.target.value})} required />
+                          <input type="password" className="form-control" value={registerData.registerPassword} onChange={(e) => setregisterData({ ...registerData, registerPassword: e.target.value })} required />
                         </div>
                         <button type="submit" className="btn btn-success w-100 py-2">註冊</button>
                       </form>
