@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useToast } from "../Toast/ToastContext";
 import bgpng from "../../assets/images/index/section1BG.png";
 import avatars from "../../assets/images/avatars.png";
 
 const API_BASE = "https://codebloom-api.zeabur.app";
 
 function EditProfile() {
+  const { showToast } = useToast();
+
   // 表單資料 state
   const [profile, setProfile] = useState({
     name: "",
@@ -63,7 +66,7 @@ function EditProfile() {
       });
     } catch (error) {
       console.error("取得使用者資料失敗:", error);
-      alert("無法取得使用者資料，請重新登入");
+      showToast("無法取得使用者資料，請重新登入", "error");
     } finally {
       setIsLoading(false);
     }
@@ -78,17 +81,17 @@ function EditProfile() {
   // 儲存變更 - 使用 PATCH 更新使用者資料
   const handleSave = async () => {
     if (!userId) {
-      alert("請先登入");
+      showToast("請先登入", "warning");
       return;
     }
 
     setIsSaving(true);
     try {
       await axios.patch(`${API_BASE}/users/${userId}`, profile);
-      alert("儲存成功！");
+      showToast("儲存成功！", "success");
     } catch (error) {
       console.error("儲存失敗:", error);
-      alert("儲存失敗，請稍後再試");
+      showToast("儲存失敗，請稍後再試", "error");
     } finally {
       setIsSaving(false);
     }

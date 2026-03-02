@@ -4,6 +4,17 @@ import bgBinary from "../../assets/images/index/bg2-PC.png";
 
 //section
 const CtaSection = () => {
+
+    const handleJoinClick = () => {
+        // 回到最上面
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // 延遲一下等畫面稍微捲上去後，彈出註冊表單
+        setTimeout(() => {
+            window.dispatchEvent(new Event('openRegisterModal'));
+        }, 300);
+    };
+
     return (
         <section className="cta-section position-relative overflow-hidden bg-neutral-700 text-white">
 
@@ -51,6 +62,7 @@ const CtaSection = () => {
                                 color: '#000',
                                 border: 'none'
                             }}
+                            onClick={handleJoinClick}
                         >
                             立即加入
                         </button>

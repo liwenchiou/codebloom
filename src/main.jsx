@@ -13,11 +13,14 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import "./main.scss";
 
 //模組導入
+import { ToastProvider } from "./components/Toast/ToastContext";
 // import App from "./App.jsx";
 
 
 createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />,
+  <ToastProvider>
+    <RouterProvider router={router} />
+  </ToastProvider>,
   // <StrictMode>
   //   <HashRouter> {/* 在最外層定義一次即可 */}
   //     <App />

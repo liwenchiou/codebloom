@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "./PortfolioSection.scss";
 
@@ -162,10 +163,18 @@ const PortfolioSection = () => {
             熱門作品
           </h2>
 
-          <a href="/popular" className="view-more-btn text-decoration-none p-0">
+          {/* <a href="/Projects" className="view-more-btn text-decoration-none p-0">
             查看更多
             <img src={arrowIcon} alt="arrow" width="5" />
-          </a>
+          </a> */}
+
+          <Link
+            className="view-more-btn text-decoration-none p-0"
+            to="/Projects"
+          >
+            查看更多
+            <img src={arrowIcon} alt="arrow" width="5" />
+          </Link>
         </div>
 
         <div className="row g-4 mb-96px">
@@ -182,10 +191,17 @@ const PortfolioSection = () => {
             最新作品
           </h2>
 
-          <a href="/latest" className="view-more-btn text-decoration-none p-0">
+          {/* <a href="/latest" className="view-more-btn text-decoration-none p-0">
             查看更多
             <img src={arrowIcon} alt="arrow" width="5" />
-          </a>
+          </a> */}
+          <Link
+            className="view-more-btn text-decoration-none p-0"
+            to="/Projects"
+          >
+            查看更多
+            <img src={arrowIcon} alt="arrow" width="5" />
+          </Link>
         </div>
 
         <div className="row g-4">

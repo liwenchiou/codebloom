@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import WordCloud from 'wordcloud';
+import { useToast } from "../Toast/ToastContext";
 
 const WordCloudComponent = ({ data }) => {
+  const { showToast } = useToast();
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
 
@@ -35,7 +37,7 @@ const WordCloudComponent = ({ data }) => {
         shape: 'circle',
         click: (item) => {
           if (item) {
-            alert(`你點擊了技術標籤: ${item[0]} (熱門度: ${item[1]})`);
+            showToast(`你點擊了技術標籤: ${item[0]} (熱門度: ${item[1]})`, "info");
           }
         },
         hover: (item) => {
@@ -61,7 +63,7 @@ const WordCloudComponent = ({ data }) => {
       window.removeEventListener('resize', handleResize);
       clearTimeout(resizeTimer);
     };
-  }, [data]); // 當數據改變時重新繪製
+  }, [data, showToast]); // 當數據改變時重新繪製
 
   return (
     <div ref={containerRef} className="popular-tech w-100">

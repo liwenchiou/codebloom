@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import md5 from "blueimp-md5";
 import person from "../../assets/images/Ellipse 3.png";
+import { useToast } from "../Toast/ToastContext";
+import "./AuthButton.scss";
 
 const API_BASE = "https://codebloom-api.zeabur.app";
 
@@ -18,6 +20,9 @@ function AuthButton() {
   const [loginData, setLoginData] = useState({ loginEmail: "", loginPassword: "" });
   const [registerData, setregisterData] = useState({ registerName: "", registerEmail: "", registerPassword: "" });
 
+  // 使用全域的 Toast
+  const { showToast } = useToast();
+
   useEffect(() => {
     // 確保 DOM 已經掛載後再初始化
     if (loginModalRef.current) {
@@ -27,8 +32,16 @@ function AuthButton() {
       modalInstances.current.register = new Modal(registerModalRef.current);
     }
 
+    const openRegisterHandler = () => {
+      if (modalInstances.current.register) {
+        modalInstances.current.register.show();
+      }
+    };
+    window.addEventListener("openRegisterModal", openRegisterHandler);
+
     return () => {
       // 銷毀實體，避免切換頁面時遮罩殘留
+      window.removeEventListener("openRegisterModal", openRegisterHandler);
       modalInstances.current.login?.dispose();
       modalInstances.current.register?.dispose();
     };
@@ -50,7 +63,7 @@ function AuthButton() {
       const users = res.data;
 
       if (!Array.isArray(users) || users.length === 0) {
-        alert("帳號密碼錯誤");
+        showToast("帳號密碼錯誤", "error");
         return;
       }
 
@@ -60,7 +73,7 @@ function AuthButton() {
       );
 
       if (user) {
-        alert(`歡迎 ${user.name}`);
+        showToast(`歡迎回來，${user.name} 👋`, "success");
         setUserName(user.name);
         setIsAuth(true);
         localStorage.setItem("userId", user.id);
@@ -68,11 +81,11 @@ function AuthButton() {
         // 清空表單
         setLoginData({ loginEmail: "", loginPassword: "" });
       } else {
-        alert("帳號密碼錯誤");
+        showToast("帳號密碼錯誤", "error");
       }
     } catch (error) {
       console.error("登入失敗:", error);
-      alert("登入失敗，請稍後再試");
+      showToast("登入失敗，請稍後再試", "error");
     }
   };
 
@@ -84,7 +97,7 @@ function AuthButton() {
       });
 
       if (Array.isArray(checkRes.data) && checkRes.data.length > 0) {
-        alert("此 Email 已被註冊");
+        showToast("此 Email 已被註冊", "warning");
         return;
       }
 
@@ -96,7 +109,7 @@ function AuthButton() {
       });
 
       const newUser = res.data;
-      alert("註冊成功");
+      showToast("註冊成功！歡迎加入 ✨", "success");
       setUserName(registerData.registerName);
       setIsAuth(true);
       localStorage.setItem("userId", newUser.id);
@@ -105,7 +118,7 @@ function AuthButton() {
       setregisterData({ registerName: "", registerEmail: "", registerPassword: "" });
     } catch (error) {
       console.error("註冊失敗:", error);
-      alert("註冊失敗，請稍後再試");
+      showToast("註冊失敗，請稍後再試", "error");
     }
   };
 
@@ -115,14 +128,14 @@ function AuthButton() {
       {/* 1. 按鈕部分：留在 Navbar 原位 */}
       {isAuth ? (
         <div className="d-flex align-items-center">
-          <img src={person} alt="person" width={36} className="me-2" />
-          <Link className="btn btn-outline-light btn-sm" to="/Dashboard">創作中心</Link>
-          <button className="btn btn-sm text-white-50 ms-2" onClick={() => { setIsAuth(false); localStorage.removeItem("userId"); }}>登出</button>
+          <img src={person} alt="person" width={34} className="me-3 rounded-circle" />
+          <Link className="auth-nav-dashboard me-2" to="/Dashboard">創作中心</Link>
+          <button className="auth-nav-logout" onClick={() => { setIsAuth(false); localStorage.removeItem("userId"); }}>登出</button>
         </div>
       ) : (
         <div className="d-flex align-items-center">
-          <button className="btn btn-link text-white text-decoration-none me-2" onClick={handleOpenRegisterModal}>註冊</button>
-          <button className="btn btn-primary btn-sm px-4" onClick={handleOpenLoginModal}>登入</button>
+          <button className="auth-nav-register me-2" onClick={handleOpenRegisterModal}>註冊</button>
+          <button className="auth-nav-login" onClick={handleOpenLoginModal}>登入</button>
         </div>
       )}
 

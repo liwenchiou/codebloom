@@ -13,6 +13,29 @@ body {
   z-index: 1;
 }
 
+// 隱藏全網頁的滾動軸 (Scrollbar)，維持更乾淨的視覺體驗
+html,
+body {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari and Opera */
+  width: 0;
+  height: 0;
+}
+
+// 修正 Bootstrap Modal 打開時產生的畫面跳動、Scrollbar 推擠問題
+body.modal-open {
+  padding-right: 0 !important; // 防止 Bootstrap 暴力加上 padding
+  overflow-y: scroll !important; // 強制保留原本的捲動軸空間，防止畫面左右偏移
+}
+
 // 定義顏色 map
 $colors: (
   primary-50: #e9fbfb,

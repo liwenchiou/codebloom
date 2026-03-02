@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 // Images
 import qaBg from "../../assets/images/index/PC-3.png";
@@ -41,9 +42,16 @@ const QASection = () => {
                 {/* 標題區塊：Flexbox 讓標題靠左，查看更多靠右 */}
                 <div className="d-flex justify-content-between align-items-center mb-36px qa-title">
                     <h2 className="h4 glow-title mb-0">問答社群</h2>
-                    <a href="#" className="text-decoration-none text-neutral-50">
+                    {/* <a href="#" className="text-decoration-none text-neutral-50">
                         查看更多  <i className="bi bi-caret-right-fill"></i>
-                    </a>
+                    </a> */}
+                    <Link
+                        className="text-decoration-none text-neutral-50"
+                        to="/Qna"
+                    >
+                        查看更多
+                        <i className="bi bi-caret-right-fill"></i>
+                    </Link>
                 </div>
 
                 {/* Swiper 區塊 */}

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./ArticleSection.scss";
 
 import articleImg1 from "../../assets/images/index/article1.jpg";
@@ -123,13 +124,20 @@ const ArticleSection = () => {
             </h2>
           </div>
 
-          <a
+          {/* <a
             href="/articles"
             className="view-more-btn text-decoration-none p-0"
           >
             查看更多
             <img src={arrowIcon} alt="arrow" width="5" />
-          </a>
+          </a> */}
+          <Link
+            className="view-more-btn text-decoration-none p-0"
+            to="/Articles"
+          >
+            查看更多
+            <img src={arrowIcon} alt="arrow" width="5" />
+          </Link>
         </div>
 
         <div className="row article-grid">
