@@ -1,14 +1,10 @@
 import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./RollSection.scss";
 
 import img1 from "../../assets/images/index/Image card.png";
 import img2 from "../../assets/images/index/Image card-1.png";
 import img3 from "../../assets/images/index/Image card-2.png";
 import img4 from "../../assets/images/index/Image card-3.png";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function RollSection() {
   const containerRef = useRef(null);
@@ -37,78 +33,26 @@ export default function RollSection() {
   ];
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const sections = Array.from(container.querySelectorAll(".roll-card-section"));
-    const animations = [];
-
-    const setActiveSection = (target) => {
-      sections.forEach((section) => section.classList.remove("roll-section-active"));
-      if (target) target.classList.add("roll-section-active");
-    };
-
-    const containerTrigger = ScrollTrigger.create({
-      trigger: container,
-      start: "top bottom",
-      end: "bottom top",
-      onLeave: () => setActiveSection(null),
-      onLeaveBack: () => setActiveSection(null),
-    });
-    animations.push(containerTrigger);
-
-    sections.forEach((section, index) => {
-      const card = section.querySelector(".roll-card");
-      if (!card) return;
-
-      const activeTrigger = ScrollTrigger.create({
-        trigger: section,
-        start: "top 70%",
-        end: "bottom 30%",
-        onToggle: (self) => {
-          if (self.isActive) setActiveSection(section);
-        },
-      });
-      animations.push(activeTrigger);
-
-      if (index === sections.length - 1) {
-        gsap.set(card, { opacity: 1, scale: 1 });
-        return;
+    // 僅使用 IntersectionObserver 來切換 Glow 特效的 Active 狀態
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("roll-section-active");
+          } else {
+            entry.target.classList.remove("roll-section-active");
+          }
+        });
+      },
+      {
+        threshold: 0.6, // 當卡片露出 60% 時激活
       }
+    );
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-          pin: true,
-          pinSpacing: false,
-        },
-      });
+    const sections = containerRef.current.querySelectorAll(".roll-card-section");
+    sections.forEach((section) => observer.observe(section));
 
-      tl.set(card, { opacity: 1, scale: 1, force3D: true });
-      tl.to(card, { opacity: 0, scale: 0.6, ease: "none", force3D: true }, 0);
-      animations.push(tl);
-    });
-
-    requestAnimationFrame(() => {
-      ScrollTrigger.refresh();
-      const activeNow =
-        sections.find((section) => {
-          const rect = section.getBoundingClientRect();
-          return rect.top < window.innerHeight * 0.7 && rect.bottom > window.innerHeight * 0.3;
-        }) || sections[0];
-      setActiveSection(activeNow);
-    });
-
-    return () => {
-      animations.forEach((item) => {
-        item.scrollTrigger?.kill?.();
-        item.kill?.();
-      });
-      ScrollTrigger.refresh();
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -128,9 +72,9 @@ export default function RollSection() {
       <div className="roll-cards-container" ref={containerRef}>
         {cards.map((card, i) => (
           <div key={i} className="roll-card-section">
-            <div className="roll-card-wrap" style={{ zIndex: cards.length - i }}>
+            <div className="roll-card-wrap">
               <div className="roll-glow" aria-hidden="true" />
-              <div className="roll-card">
+              <div className="roll-card" style={{ zIndex: i + 1 }}>
                 <div className="feature-card">
                   <div className="feature-text">
                     <h3>{card.title}</h3>

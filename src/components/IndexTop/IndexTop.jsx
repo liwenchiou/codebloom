@@ -34,7 +34,7 @@ function IndexTop() {
     ];
     return (
         <div
-            className="container-fulid p-0"
+            className="container-fluid p-0"
             style={{
                 // height: "997px",
                 backgroundImage: `url(${bgpng})`, // 替換成你的圖片網址或路徑
