@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./ArticleListPage.scss";
 import ArticleListItem from "./ArticleListItem";
+import LoginModal from "./LoginModal";
 
+// 圖片資源引入
 import articleImg1 from "../../assets/images/index/web-design-project.png";
 import avatarYang from "../../assets/images/index/avatar-yang.png";
 import avatarChen from "../../assets/images/index/avatar-chen.png";
@@ -10,113 +12,44 @@ import avatarSharon from "../../assets/images/article/avatarSharon.png";
 import avatarSophie from "../../assets/images/article/avatarSophie.png";
 import avatarLee from "../../assets/images/article/avatarLee.png";
 import avatarZhang from "../../assets/images/article/avatarZhang.png";
+import arrowRight from "../../assets/images/index/arrow_triangle_right.png";
 
+// 排名筆徽章
 import goldPen from "../../assets/images/article/goldpen.png";
 import silverPen from "../../assets/images/article/silverpen.png";
 import bronzePen from "../../assets/images/article/bronzepen.png";
 
-const allTags = [
-  "全部",
-  "React",
-  "Node.js",
-  "TypeScript",
-  "Python",
-  "Sass",
-  "MongoDB",
-  "Vue.js",
-  "Next.js",
-  "DevOps",
-  "UI/UX",
-  "Web3",
-  "AI Tools",
-];
-
-const rankIcons = {
-  1: goldPen,
-  2: silverPen,
-  3: bronzePen,
+// 數字格式化
+const formatCount = (num) => {
+  if (num >= 1000) {
+    return (num / 1000).toFixed(1).replace(/\.0$/, "") + "k";
+  }
+  return num;
 };
 
-const articlesData = [
-  {
-    id: 1,
-    date: "2025-12-01",
-    author: "楊子萱",
-    avatar: avatarYang,
-    title: "告別 Vuex！為什麼 Pinia 是 Vue 3 的最佳狀態管理工具？",
-    desc: "Vue 官方推薦的新選擇。本文將帶你了解 Pinia 棄用 Mutations 的原因，以及如何從 Vuex 無痛遷移到更直覺的 Pinia Store。",
-    tags: ["Vue.js", "Pinia"],
-    views: "14.5k",
-    likes: "11k",
-    image: articleImg1,
-  },
-  {
-    id: 2,
-    date: "2025-12-02",
-    author: "陳冠宇",
-    avatar: avatarChen,
-    title: "React 效能優化指南：使用 useMemo 和 useCallback 的正確時機",
-    desc: "深入探討渲染機制，避免過度優化導致的程式碼維護災難。了解何時該用 memoization，何時該放手。",
-    tags: ["React", "Performance"],
-    views: "12.1k",
-    likes: "9.3k",
-    image: articleImg1,
-  },
-  {
-    id: 3,
-    date: "2025-12-07",
-    author: "林雅婷",
-    avatar: avatarLin,
-    title: "愛恨交織的 Tailwind CSS：從抗拒到真香的實戰心得",
-    desc: "還在用 Flexbox 解決所有排版問題嗎？學會區分一維與二維佈局的差異，讓你在處理複雜的 RWD 網格時事半功倍。",
-    tags: ["Sass", "UI/UX"],
-    views: "4.7k",
-    likes: "2.3k",
-    image: articleImg1,
-  },
-  {
-    id: 4,
-    date: "2025-12-09",
-    author: "Sharon Wang",
-    avatar: avatarYang,
-    title: "Node.js 異步編程實戰：Async/Await 與 Promise 的終極指南",
-    desc: "徹底搞懂 Event Loop。這篇文章將帶你深入 Node.js 核心，掌握高併發處理的關鍵技巧。",
-    tags: ["Node.js", "TypeScript"],
-    views: "3.5k",
-    likes: "1.2k",
-    image: articleImg1,
-  },
+// 數據
+const allTags = [
+  "全部",
+  "技術趨勢",
+  "語言基礎",
+  "DevOps",
+  "CSS",
+  "前端框架",
+  "架構設計",
+  "後端開發",
+  "軟實力",
+  "品質管理",
+  "開發工具",
+  "網路安全",
 ];
 
+const rankIcons = { 1: goldPen, 2: silverPen, 3: bronzePen };
+
 const popularAuthors = [
-  {
-    name: "楊子萱",
-    likes: "13k",
-    articles: "12",
-    avatar: avatarYang,
-    rank: 1,
-  },
-  {
-    name: "陳冠宇",
-    likes: "10k",
-    articles: "11",
-    avatar: avatarChen,
-    rank: 2,
-  },
-  {
-    name: "林雅婷",
-    likes: "9.2k",
-    articles: "7",
-    avatar: avatarLin,
-    rank: 3,
-  },
-  {
-    name: "李明",
-    likes: "6.3k",
-    articles: "3",
-    avatar: avatarLee,
-    rank: 4,
-  },
+  { name: "楊子萱", likes: "13k", articles: "12", avatar: avatarYang, rank: 1 },
+  { name: "陳冠宇", likes: "10k", articles: "11", avatar: avatarChen, rank: 2 },
+  { name: "林雅婷", likes: "9.2k", articles: "7", avatar: avatarLin, rank: 3 },
+  { name: "李明", likes: "6.3k", articles: "3", avatar: avatarLee, rank: 4 },
   { name: "張偉", likes: "4.1k", articles: "3", avatar: avatarZhang, rank: 5 },
 ];
 
@@ -148,8 +81,8 @@ const recommendedAuthors = [
   },
 ];
 
-//側邊欄作者
-const SidebarAuthor = ({ data, type }) => {
+// 側邊欄
+const SidebarAuthor = ({ data, type, onRequireLogin }) => {
   const isTop3 = type === "popular" && data.rank <= 3;
   const [isFollowed, setIsFollowed] = useState(false);
 
@@ -167,7 +100,6 @@ const SidebarAuthor = ({ data, type }) => {
         />
         <div>
           <div className="author-name">{data.name}</div>
-
           {type === "popular" ? (
             <div className="stats-row d-flex align-items-center gap-3 mt-1">
               <span className="icon-group d-flex align-items-center gap-1">
@@ -205,7 +137,7 @@ const SidebarAuthor = ({ data, type }) => {
           className={`btn-follow ms-auto ${isFollowed ? "followed" : ""}`}
           onClick={(e) => {
             e.stopPropagation();
-            setIsFollowed(!isFollowed);
+            onRequireLogin();
           }}
         >
           {isFollowed ? "已追蹤" : "追蹤"}
@@ -221,23 +153,88 @@ const SidebarAuthor = ({ data, type }) => {
   );
 };
 
-//組件
+// 主頁面
 export default function ArticleListPage() {
   const [activeTab, setActiveTab] = useState("hot");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [selectedTags, setSelectedTags] = useState(["全部"]);
+
+  // API
+  const [articlesData, setArticlesData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // 顯示數量
+  const [visibleCount, setVisibleCount] = useState(4);
+
+  // 登入窗
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   const hotTabRef = useRef(null);
   const latestTabRef = useRef(null);
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
 
   const scrollRef = useRef(null);
-
   const [isDragging, setIsDragging] = useState(false);
   const isDown = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
 
+  // 串接API
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch(
+          "https://codebloom-api.zeabur.app/articleList",
+        );
+        if (!response.ok) throw new Error("網路請求失敗，請稍後再試");
+        const data = await response.json();
+
+        const avatarArray = [
+          avatarYang,
+          avatarChen,
+          avatarLin,
+          avatarSharon,
+          avatarSophie,
+          avatarLee,
+          avatarZhang,
+        ];
+
+        const formattedData = data.map((item) => {
+          const randomLikes = Math.floor(Math.random() * 5000) + 100;
+
+          return {
+            id: item.id,
+            title: item.title,
+            author: item.author,
+            date: item.date,
+            desc: item.description,
+            image: item.cover,
+            views: formatCount(item.views),
+            rawViews: item.views,
+            tags: item.tags || [item.category],
+            likes:
+              item.likes !== undefined
+                ? formatCount(item.likes)
+                : formatCount(randomLikes),
+            avatar:
+              item.authorAvatar || avatarArray[item.id % avatarArray.length],
+          };
+        });
+
+        setArticlesData(formattedData);
+      } catch (err) {
+        console.error("API 獲取錯誤:", err);
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchArticles();
+  }, []);
+
+  // Tabs動畫
   useEffect(() => {
     const currentTab =
       activeTab === "hot" ? hotTabRef.current : latestTabRef.current;
@@ -249,41 +246,35 @@ export default function ArticleListPage() {
     }
   }, [activeTab]);
 
+  // 切換Tag
+  useEffect(() => {
+    setVisibleCount(4);
+  }, [selectedTags, activeTab]);
+
   const scroll = (direction) => {
     if (scrollRef.current) {
-      const { current } = scrollRef;
       const scrollAmount = 200;
-      if (direction === "left") {
-        current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
-      } else {
-        current.scrollBy({ left: scrollAmount, behavior: "smooth" });
-      }
+      if (direction === "left")
+        scrollRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+      else
+        scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
 
-  // Mouse Down
   const handleMouseDown = (e) => {
     isDown.current = true;
     startX.current = e.pageX - scrollRef.current.offsetLeft;
     scrollLeft.current = scrollRef.current.scrollLeft;
   };
-
-  //Mouse Up
   const handleMouseUpOrLeave = () => {
     isDown.current = false;
-    if (isDragging) {
-      setIsDragging(false);
-    }
+    if (isDragging) setIsDragging(false);
   };
-
-  //Mouse Move
   const handleMouseMove = (e) => {
     if (!isDown.current) return;
     e.preventDefault();
-
     const x = e.pageX - scrollRef.current.offsetLeft;
     const walk = (x - startX.current) * 2;
-
     if (Math.abs(x - startX.current) > 5) {
       if (!isDragging) setIsDragging(true);
       scrollRef.current.scrollLeft = scrollLeft.current - walk;
@@ -292,34 +283,37 @@ export default function ArticleListPage() {
 
   const handleTagClick = (tag) => {
     if (isDragging) return;
-
     if (tag === "全部") {
       setSelectedTags(["全部"]);
       return;
     }
-
     let newTags = [...selectedTags];
-    if (newTags.includes("全部")) {
-      newTags = [];
-    }
-
+    if (newTags.includes("全部")) newTags = [];
     if (newTags.includes(tag)) {
       newTags = newTags.filter((t) => t !== tag);
     } else {
       newTags.push(tag);
     }
-
-    if (newTags.length === 0) {
-      newTags = ["全部"];
-    }
+    if (newTags.length === 0) newTags = ["全部"];
     setSelectedTags(newTags);
   };
 
-  const filteredArticles = selectedTags.includes("全部")
+  // 資料處理
+  const baseFilteredArticles = selectedTags.includes("全部")
     ? articlesData
     : articlesData.filter((article) =>
-        article.tags.some((tag) => selectedTags.includes(tag))
+        article.tags.some((tag) => selectedTags.includes(tag)),
       );
+
+  const sortedArticles = [...baseFilteredArticles].sort((a, b) => {
+    if (activeTab === "hot") {
+      return b.rawViews - a.rawViews;
+    } else {
+      return new Date(b.date) - new Date(a.date);
+    }
+  });
+
+  const displayedArticles = sortedArticles.slice(0, visibleCount);
 
   return (
     <div className="article-list-page">
@@ -327,7 +321,6 @@ export default function ArticleListPage() {
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
       />
-
       <div className="container">
         <div className="row">
           <div className="col-lg-9 pe-lg-5 border-end-divider">
@@ -339,25 +332,27 @@ export default function ArticleListPage() {
                     深度解析技術趨勢，分享實戰開發經驗
                   </p>
                 </div>
-                <button className="btn btn-write-article">撰寫文章</button>
+
+                <button
+                  className="btn btn-write-article"
+                  onClick={() => setShowLoginModal(true)}
+                >
+                  撰寫文章
+                </button>
               </div>
             </div>
 
             <div className="tabs-container d-flex w-100 align-items-center border-bottom border-dark mb-4 position-relative">
               <button
                 ref={hotTabRef}
-                className={`tab-btn flex-grow-1 text-center ${
-                  activeTab === "hot" ? "active" : ""
-                }`}
+                className={`tab-btn flex-grow-1 text-center ${activeTab === "hot" ? "active" : ""}`}
                 onClick={() => setActiveTab("hot")}
               >
                 熱門
               </button>
               <button
                 ref={latestTabRef}
-                className={`tab-btn flex-grow-1 text-center ${
-                  activeTab === "latest" ? "active" : ""
-                }`}
+                className={`tab-btn flex-grow-1 text-center ${activeTab === "latest" ? "active" : ""}`}
                 onClick={() => setActiveTab("latest")}
               >
                 最新
@@ -374,9 +369,7 @@ export default function ArticleListPage() {
             <div className="filter-section mb-4">
               <div className="d-flex align-items-center">
                 <button
-                  className={`btn-toggle-filter ${
-                    isFilterOpen ? "active" : ""
-                  }`}
+                  className={`btn-toggle-filter ${isFilterOpen ? "active" : ""}`}
                   onClick={() => setIsFilterOpen(!isFilterOpen)}
                 >
                   <i className="bi bi-sliders me-2"></i> 篩選
@@ -390,9 +383,7 @@ export default function ArticleListPage() {
                       <i className="bi bi-chevron-left"></i>
                     </button>
                     <div
-                      className={`tags-container ${
-                        isDragging ? "dragging" : ""
-                      }`}
+                      className={`tags-container ${isDragging ? "dragging" : ""}`}
                       ref={scrollRef}
                       onMouseDown={handleMouseDown}
                       onMouseLeave={handleMouseUpOrLeave}
@@ -404,9 +395,7 @@ export default function ArticleListPage() {
                         return (
                           <button
                             key={tag}
-                            className={`tag-chip ${
-                              isSelected ? "selected" : ""
-                            }`}
+                            className={`tag-chip ${isSelected ? "selected" : ""}`}
                             onClick={() => handleTagClick(tag)}
                           >
                             {tag}
@@ -431,8 +420,14 @@ export default function ArticleListPage() {
             </div>
 
             <div className="article-list d-flex flex-column gap-4">
-              {filteredArticles.length > 0 ? (
-                filteredArticles.map((article) => (
+              {isLoading ? (
+                <div className="text-neutral-400 py-5 text-center">
+                  文章載入中...
+                </div>
+              ) : error ? (
+                <div className="text-danger py-5 text-center">{error}</div>
+              ) : displayedArticles.length > 0 ? (
+                displayedArticles.map((article) => (
                   <ArticleListItem key={article.id} data={article} />
                 ))
               ) : (
@@ -442,9 +437,16 @@ export default function ArticleListPage() {
               )}
             </div>
 
-            <div className="text-center mt-5 mb-5">
-              <button className="btn btn-view-more">查看更多 </button>
-            </div>
+            {visibleCount < sortedArticles.length && (
+              <div className="text-center mt-5 mb-5">
+                <button
+                  className="btn btn-view-more"
+                  onClick={() => setVisibleCount((prev) => prev + 4)}
+                >
+                  查看更多
+                </button>
+              </div>
+            )}
           </div>
 
           <div className="col-lg-3 ps-lg-4">
@@ -462,13 +464,22 @@ export default function ArticleListPage() {
               <h5 className="sidebar-title">推薦作者</h5>
               <div className="sidebar-box">
                 {recommendedAuthors.map((author, index) => (
-                  <SidebarAuthor key={index} data={author} type="recommended" />
+                  <SidebarAuthor
+                    key={index}
+                    data={author}
+                    type="recommended"
+                    onRequireLogin={() => setShowLoginModal(true)}
+                  />
                 ))}
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {showLoginModal && (
+        <LoginModal onClose={() => setShowLoginModal(false)} />
+      )}
     </div>
   );
 }
