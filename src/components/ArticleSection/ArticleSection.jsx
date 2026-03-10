@@ -2,13 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./ArticleSection.scss";
 
-// 圖片與預設頭像
 import articleDecoration from "../../assets/images/index/article_decoration_1.png";
 import arrowIcon from "../../assets/images/index/arrow_triangle_right.png";
-import avatarYang from "../../assets/images/index/article_yang.png";
-import avatarChen from "../../assets/images/index/article_chen.png";
-import avatarLin from "../../assets/images/index/article_lin.png";
-import avatarSharon from "../../assets/images/index/article_sharon.png";
 
 // 數字格式化
 const formatCount = (num) => {
@@ -80,11 +75,7 @@ const ArticleSection = () => {
         );
         const data = await response.json();
 
-        // 預設頭像
-        const avatarArray = [avatarYang, avatarChen, avatarLin, avatarSharon];
-
-        // 資料
-        const formattedData = data.slice(0, 4).map((item, index) => {
+        const formattedData = data.slice(0, 4).map((item) => {
           return {
             id: item.id,
             title: item.title,
@@ -93,8 +84,7 @@ const ArticleSection = () => {
             views: formatCount(item.views),
             author: item.author,
             image: item.cover,
-            avatar:
-              item.authorAvatar || avatarArray[index % avatarArray.length],
+            avatar: item.authorAvatar,
           };
         });
 
