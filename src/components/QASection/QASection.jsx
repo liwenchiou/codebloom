@@ -85,50 +85,47 @@ const QASection = () => {
           {/* <a href="#" className="text-decoration-none text-neutral-50">
                         查看更多  <i className="bi bi-caret-right-fill"></i>
                     </a> */}
-                    <Link
-                        className="text-decoration-none text-neutral-50"
-                        to="/Qna"
-                    >
-                        查看更多
-                        <i className="bi bi-caret-right-fill"></i>
-                    </Link>
-                </div>
-
-        {/* Swiper 區塊 */}
-        <Swiper
-          modules={[Pagination, Navigation]} // 啟用模組
-          spaceBetween={24} // 卡片之間的間距 (px)
-          pagination={{ clickable: true }} // 手機版的圓點
-          // 👇 關鍵：RWD 設定 (Mobile First)
-          breakpoints={{
-            // 0px ~ 768px (手機): 顯示 1 張
-            0: {
-              slidesPerView: 1,
-            },
-            // 768px 以上 (平板): 顯示 2 張
-            768: {
-              slidesPerView: 2.25,
-            },
-            // 992px 以上 (桌機): 顯示 3 張
-            992: {
-              slidesPerView: 3.25,
-            },
-          }}
-          className="pb-5" // 底部留白給圓點
-        >
-          {/* 用 map 渲染出多張 Slide */}
-          {qaList.map((item) => (
-            <SwiperSlide key={item.id}>
-              <QACard
-                status={item.status}
-                time={item.time}
-                title={item.title}
-                answerCount={item.count}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+          <Link className=" text-decoration-none text-neutral-50" to="/Qna">
+            查看更多
+            <i className="bi bi-caret-right-fill"></i>
+          </Link>
+        </div>
       </div>
+
+      {/* Swiper 區塊 */}
+      <Swiper
+        modules={[Pagination, Navigation]} // 啟用模組
+        spaceBetween={24} // 卡片之間的間距 (px)
+        pagination={{ clickable: true }} // 手機版的圓點
+        // 👇 關鍵：RWD 設定 (Mobile First)
+        breakpoints={{
+          // 0px ~ 768px (手機): 顯示 1 張
+          0: {
+            slidesPerView: 1,
+          },
+          // 768px 以上 (平板): 顯示 2 張
+          768: {
+            slidesPerView: 2.25,
+          },
+          // 992px 以上 (桌機): 顯示 3 張
+          992: {
+            slidesPerView: 3.25,
+          },
+        }}
+        className="pb-5" // 底部留白給圓點
+      >
+        {/* 用 map 渲染出多張 Slide */}
+        {qaList.map((item) => (
+          <SwiperSlide key={item.id}>
+            <QACard
+              status={item.status}
+              time={item.time}
+              title={item.title}
+              answerCount={item.count}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </section>
   );
 };
