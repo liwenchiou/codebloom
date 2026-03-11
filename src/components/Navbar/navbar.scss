@@ -44,7 +44,7 @@
 /* 自定義聚焦效果 */
 .custom-search-group {
   transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  border: 1px solid #3D4145;
+  border: 1px solid #3d4145;
   /* 預設邊框顏色 */
   border-radius: 12px;
   width: 324px;
@@ -54,8 +54,8 @@
 .custom-search-group:focus-within {
   // border-color: #0d6efd; /* 這裡換成你想要的顏色，例如 Bootstrap primary */
   // box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-  border-color: #1FC0D9;
-  box-shadow: 0 2px 30px 0 rgba(#1FC0D9, 0.3); // X Y Blur Spread Color
+  border-color: #1fc0d9;
+  box-shadow: 0 2px 30px 0 rgba(#1fc0d9, 0.3); // X Y Blur Spread Color
 }
 
 /* 移除 input 本身預設的聚焦外框，讓視覺統整在 group 上 */
@@ -67,11 +67,11 @@
 
 .custom-search-group .form-control:focus {
   box-shadow: none;
-  color: #E7E7E8;
+  color: #e7e7e8;
 }
 
 .custom-search-group .input-group-text {
-  background-color: #0D1117;
+  background-color: #0d1117;
   border-radius: 12px;
   border: none;
   padding-right: 0;
