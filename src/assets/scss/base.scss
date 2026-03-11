@@ -75,6 +75,8 @@ $colors: (
 // 具名色彩變數（方便各元件直接引用）
 // ============================
 $color-primary-50:  map-get($colors, primary-50);
+$color-primary-200: map-get($colors, primary-200);
+$color-primary-300: map-get($colors, primary-300);
 $color-primary-400: map-get($colors, primary-400);
 $color-primary-500: map-get($colors, primary-500);
 $color-primary-600: map-get($colors, primary-600);
