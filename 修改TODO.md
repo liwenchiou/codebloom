@@ -7,9 +7,9 @@
 - [ ] **統一縮排風格**：確保全站 JS/HTML/SCSS 統一使用 **2 格空格** 縮排。
 - [x] ~~**SCSS 媒體查詢轉型**：將原生的 `@media (min-width: 768px)` 替換為 Bootstrap Mixin~~
     - ⚠️ **不適用**：專案使用 Bootstrap JS bundle，未引入 Bootstrap SCSS 源碼，無法使用 `@include media-breakpoint-up(md)`。已還原為原生 `@media`。
-- [ ] **補強 `<img>` 屬性**：
-    - [ ] 檢查所有 `<img>` 標籤，裝飾性圖片補上 `alt=""`，內容圖片補上具體描述。
-    - [ ] 增加 `loading="lazy"` 以優化效能。
+- [x] **補強 `<img>` 屬性**：
+    - [x] 檢查所有 `<img>` 標籤，裝飾性圖片補上 `alt=""`，內容圖片補上具體描述。
+    - [x] 增加 `loading="lazy"` 以優化效能。
 
 ## 2. 網站設定與 SEO (index.html)
 - [x] **語系調整**：將 `lang="en"` 修改為 `lang="zh-Hant-TW"`。
@@ -29,8 +29,8 @@
     - [x] **【EditProfile.jsx】**：將「性別」與「求職狀態」的單選組使用 `<fieldset>` 與 `<legend>` 包裝。
 
 ## 5. 使用者體驗 (UX) 與效能
-- [ ] **輸入防錯處理**：
-    - [ ] 針對電話或數量輸入框加入判斷，防止輸入非數字字元導致 `NaN`。
+- [x] **輸入防錯處理**：
+    - [x] 針對電話或數量輸入框加入判斷，防止輸入非數字字元導致 `NaN`。
 - [x] **API 呼叫優化**：
     - [x] 將 `ArticleSection.jsx` 的 `fetch` 改為全站統一的 `axios`。
     - [x] 將 `API_BASE` 抽離至 `.env` 環境變數。
@@ -45,15 +45,15 @@
 - [ ] **元件拆分 (Component Decomposition)**：
     - [ ] **【EditProfile.jsx】過長 (500+行)**：建議將表單拆分為子元件，如 `BasicInfoSection.jsx`、`SocialLinksSection.jsx`，增加可讀性與可測試性。
     - [ ] **【AuthButton.jsx】Logic 抽離**：將 Modal 的切換邏輯與 API 登入邏輯封裝成一個 Custom Hook `useAuth.js`。
-- [ ] **全域狀態管理 (State Management)**：
-    - [ ] 目前 `userName` 與 `isAuth` 分散在不同元件。建議建立一個 **`AuthContext`** 統一管理全域登入狀態與使用者資料，避免各次元件重複讀取 `localStorage`。
-- [ ] **表單處理優化 (Form Handling)**：
-    - [ ] 當表單欄位變多時（如 `EditProfile`），考慮引入 `React Hook Form`。這能顯著提升效能（減少不必要的 Re-render）並簡化驗證邏輯。
-- [ ] **防禦性程式碼 (Defensive Coding)**：
-    - [ ] **API 錯誤邊界**：加入 `Error Boundary` 處理元件崩潰情形。
+- [x] **全域狀態管理 (State Management)**：
+    - [x] 目前 `userName` 與 `isAuth` 分散在不同元件。建議建立一個 **`AuthContext`** 統一管理全域登入狀態與使用者資料，避免各次元件重複讀取 `localStorage`。
+- [x] **表單處理優化 (Form Handling)**：
+    - [x] 當表單欄位變多時（如 `EditProfile`），考慮引入 `React Hook Form`。這能顯著提升效能（減少不必要的 Re-render）並簡化驗證邏輯。
+- [x] **防禦性程式碼 (Defensive Coding)**：
+    - [x] **API 錯誤邊界**：加入 `Error Boundary` 處理元件崩潰情形。
     - [ ] **Data Null Check**：在渲染 API 資料（如 `profile.name`）前，確保有預設值或邏輯判斷，避免 `undefined` 報錯。
-- [ ] **效能優化 (Memoization)**：
-    - [ ] 如果列表頁（如 `ArticleList`）資料量變大，使用 `React.memo` 或 `useMemo` 避免不必要的子元件重複渲染。
+- [x] **效能優化 (Memoization)**：
+    - [x] 如果列表頁（如 `ArticleList`）資料量變大，使用 `React.memo` 或 `useMemo` 避免不必要的子元件重複渲染。
 - [ ] **安全性強化 (Security)**：
     - [ ] **防止明碼傳輸**：確保 `API_BASE` 指向的是 `https` (你目前已經是了，做得好！)。
     - [ ] **XSS 防範**：雖然 React 預設會過濾內容，但在使用 `dangerouslySetInnerHTML`（若有的話）時要格外小心。

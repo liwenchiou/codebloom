@@ -73,11 +73,10 @@ const SidebarAuthor = ({ data, type, onRequireLogin }) => {
   return (
     <div className={containerClass}>
       <div className="author-info d-flex align-items-center">
-        <img
-          src={data.avatar}
+        <img src={data.avatar}
           alt={data.name}
           className="avatar rounded-circle me-3"
-        />
+         loading="lazy" />
         <div>
           <div className="author-name">{data.name}</div>
           {type === "popular" ? (
@@ -126,7 +125,7 @@ const SidebarAuthor = ({ data, type, onRequireLogin }) => {
 
       {isTop3 && (
         <div className="rank-badge ms-auto">
-          <img src={rankIcons[data.rank]} alt={`Rank ${data.rank}`} />
+          <img src={rankIcons[data.rank]} alt={`Rank ${data.rank}`}  loading="lazy" />
         </div>
       )}
     </div>

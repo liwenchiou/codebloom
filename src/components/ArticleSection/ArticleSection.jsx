@@ -20,11 +20,10 @@ const ArticleCard = ({ data }) => {
     <div className="article-card card overflow-hidden">
       <div className="d-flex flex-column flex-md-row h-100">
         <div className="img-box position-relative">
-          <img
-            src={data.image}
+          <img src={data.image}
             alt={data.title}
             className="w-100 h-100 object-fit-cover"
-          />
+           loading="lazy" />
           <div className="img-overlay"></div>
         </div>
 
@@ -50,11 +49,10 @@ const ArticleCard = ({ data }) => {
             </div>
 
             <div className="d-flex align-items-center author-box">
-              <img
-                src={data.avatar}
+              <img src={data.avatar}
                 alt={data.author}
                 className="rounded-circle object-fit-cover shadow-sm avatar-img"
-              />
+               loading="lazy" />
               <span className="text-neutral-200 author-name">
                 {data.author}
               </span>
@@ -102,11 +100,10 @@ const ArticleSection = () => {
       <div className="container">
         <div className="d-flex justify-content-between align-items-center mb-64px">
           <div className="position-relative d-inline-block">
-            <img
-              src={articleDecoration}
+            <img src={articleDecoration}
               className="article-decoration-1"
               alt=""
-            />
+             loading="lazy" />
             <h2 className="glow-title m-0 text-fw-700 text-primary-50">
               技術文章
             </h2>
@@ -117,7 +114,7 @@ const ArticleSection = () => {
             to="/Articles"
           >
             查看更多
-            <img src={arrowIcon} alt="arrow" width="5" />
+            <img src={arrowIcon} alt="arrow" width="5"  loading="lazy" />
           </Link>
         </div>
 

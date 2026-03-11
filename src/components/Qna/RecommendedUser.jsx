@@ -6,11 +6,10 @@ const UserItem = ({ user }) => {
   return (
     <div className="sidebar-author-item">
       <div className="d-flex align-items-center flex-grow-1">
-        <img
-          src={user.avatar}
+        <img src={user.avatar}
           className="avatar rounded-circle me-3"
           alt=""
-        />
+         loading="lazy" />
         <div style={{ minWidth: 0 }}>
           <div className="author-name">{user.name}</div>
           <div

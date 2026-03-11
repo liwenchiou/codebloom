@@ -19,12 +19,11 @@ const QnaCard = ({ data }) => {
         </span>
 
         <div className="author-info d-flex align-items-center">
-          <img
-            src={data.avatar}
+          <img src={data.avatar}
             alt={data.author}
             className="avatar-sm rounded-circle me-2"
             style={{ width: "24px" }}
-          />
+           loading="lazy" />
           <span className="author-name text-white-50 small">{data.author}</span>
         </div>
 

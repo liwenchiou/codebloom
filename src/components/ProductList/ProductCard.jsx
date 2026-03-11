@@ -26,7 +26,7 @@ const ProductCard = ({ data }) => {
     <div className="product_card">
       {/* 產品圖片區域 */}
       <div className="product_image_wrapper">
-        <img src={data.image} alt={data.title} className="product_image" />
+        <img src={data.image} alt={data.title} className="product_image"  loading="lazy" />
 
         {/* 難度徽章 */}
         {data.difficulty && (
@@ -107,11 +107,10 @@ const ProductCard = ({ data }) => {
           <div className="product_footer">
             <div className="product_author_info">
               {data.avatar && (
-                <img
-                  src={data.avatar}
+                <img src={data.avatar}
                   alt={data.author}
                   className="product_author_avatar"
-                />
+                 loading="lazy" />
               )}
               <div className="product_author_details">
                 <span className="product_author_name">{data.author}</span>
@@ -155,4 +154,4 @@ const ProductCard = ({ data }) => {
   );
 };
 
-export default ProductCard;
+export default React.memo(ProductCard);

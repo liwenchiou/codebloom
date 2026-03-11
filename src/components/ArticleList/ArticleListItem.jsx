@@ -12,7 +12,7 @@ const ArticleListItem = ({ data }) => {
           </span>
           <div className="divider-vertical"></div>
           <div className="author-info">
-            <img src={data.avatar} alt={data.author} className="avatar-sm" />
+            <img src={data.avatar} alt={data.author} className="avatar-sm"  loading="lazy" />
             <span className="author-name">{data.author}</span>
           </div>
         </div>
@@ -42,7 +42,7 @@ const ArticleListItem = ({ data }) => {
       </div>
       <div className="image-col">
         <div className="img-wrapper">
-          <img src={data.image} alt={data.title} />
+          <img src={data.image} alt={data.title}  loading="lazy" />
         </div>
       </div>
     </div>

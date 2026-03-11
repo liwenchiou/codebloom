@@ -14,13 +14,17 @@ import "./main.scss";
 
 //模組導入
 import { ToastProvider } from "./components/Toast/ToastContext";
+import { AuthProvider } from "./context/AuthContext";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 // import App from "./App.jsx";
-
-
 createRoot(document.getElementById("root")).render(
-  <ToastProvider>
-    <RouterProvider router={router} />
-  </ToastProvider>,
+  <ErrorBoundary>
+    <AuthProvider>
+      <ToastProvider>
+        <RouterProvider router={router} />
+      </ToastProvider>
+    </AuthProvider>
+  </ErrorBoundary>,
   // <StrictMode>
   //   <HashRouter> {/* 在最外層定義一次即可 */}
   //     <App />

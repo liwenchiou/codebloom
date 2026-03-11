@@ -66,7 +66,7 @@ const QASection = () => {
   ];
 
   return (
-    <section className="qa-section position-relative overflow-hidden bg-neutral-700 text-white">
+    <section className="qa-section position-relative overflow-hidden bg-neutral-700 text-white p-12px">
       <div
         className="position-absolute top-0 start-0 w-100 h-100 "
         style={{
