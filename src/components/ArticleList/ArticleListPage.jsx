@@ -3,8 +3,6 @@ import "./ArticleListPage.scss";
 import ArticleListItem from "./ArticleListItem";
 import LoginModal from "./LoginModal";
 
-// 圖片資源引入
-import articleImg1 from "../../assets/images/index/web-design-project.png";
 import avatarYang from "../../assets/images/index/avatar-yang.png";
 import avatarChen from "../../assets/images/index/avatar-chen.png";
 import avatarLin from "../../assets/images/index/avatar-lin.png";
@@ -12,36 +10,18 @@ import avatarSharon from "../../assets/images/article/avatarSharon.png";
 import avatarSophie from "../../assets/images/article/avatarSophie.png";
 import avatarLee from "../../assets/images/article/avatarLee.png";
 import avatarZhang from "../../assets/images/article/avatarZhang.png";
-import arrowRight from "../../assets/images/index/arrow_triangle_right.png";
 
-// 排名筆徽章
 import goldPen from "../../assets/images/article/goldpen.png";
 import silverPen from "../../assets/images/article/silverpen.png";
 import bronzePen from "../../assets/images/article/bronzepen.png";
 
-// 數字格式化
+// 數字格式化工具
 const formatCount = (num) => {
   if (num >= 1000) {
     return (num / 1000).toFixed(1).replace(/\.0$/, "") + "k";
   }
   return num;
 };
-
-// 數據
-const allTags = [
-  "全部",
-  "技術趨勢",
-  "語言基礎",
-  "DevOps",
-  "CSS",
-  "前端框架",
-  "架構設計",
-  "後端開發",
-  "軟實力",
-  "品質管理",
-  "開發工具",
-  "網路安全",
-];
 
 const rankIcons = { 1: goldPen, 2: silverPen, 3: bronzePen };
 
@@ -81,7 +61,7 @@ const recommendedAuthors = [
   },
 ];
 
-// 側邊欄
+// 側邊欄作者
 const SidebarAuthor = ({ data, type, onRequireLogin }) => {
   const isTop3 = type === "popular" && data.rank <= 3;
   const [isFollowed, setIsFollowed] = useState(false);
@@ -159,21 +139,18 @@ export default function ArticleListPage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [selectedTags, setSelectedTags] = useState(["全部"]);
 
-  // API
+  // Tags
+  const [allTags, setAllTags] = useState(["全部"]);
+
   const [articlesData, setArticlesData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  // 顯示數量
   const [visibleCount, setVisibleCount] = useState(4);
-
-  // 登入窗
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   const hotTabRef = useRef(null);
   const latestTabRef = useRef(null);
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
-
   const scrollRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const isDown = useRef(false);
@@ -191,18 +168,13 @@ export default function ArticleListPage() {
         if (!response.ok) throw new Error("網路請求失敗，請稍後再試");
         const data = await response.json();
 
-        const avatarArray = [
-          avatarYang,
-          avatarChen,
-          avatarLin,
-          avatarSharon,
-          avatarSophie,
-          avatarLee,
-          avatarZhang,
-        ];
+        const uniqueTags = new Set(["全部"]);
 
         const formattedData = data.map((item) => {
-          const randomLikes = Math.floor(Math.random() * 5000) + 100;
+          const itemTags = Array.isArray(item.tags)
+            ? item.tags
+            : [item.category];
+          itemTags.forEach((tag) => uniqueTags.add(tag));
 
           return {
             id: item.id,
@@ -213,16 +185,13 @@ export default function ArticleListPage() {
             image: item.cover,
             views: formatCount(item.views),
             rawViews: item.views,
-            tags: item.tags || [item.category],
-            likes:
-              item.likes !== undefined
-                ? formatCount(item.likes)
-                : formatCount(randomLikes),
-            avatar:
-              item.authorAvatar || avatarArray[item.id % avatarArray.length],
+            tags: itemTags,
+            likes: item.likes !== undefined ? formatCount(item.likes) : 0,
+            avatar: item.authorAvatar,
           };
         });
 
+        setAllTags(Array.from(uniqueTags));
         setArticlesData(formattedData);
       } catch (err) {
         console.error("API 獲取錯誤:", err);
@@ -246,7 +215,7 @@ export default function ArticleListPage() {
     }
   }, [activeTab]);
 
-  // 切換Tag
+  // Tab數量
   useEffect(() => {
     setVisibleCount(4);
   }, [selectedTags, activeTab]);
@@ -332,7 +301,6 @@ export default function ArticleListPage() {
                     深度解析技術趨勢，分享實戰開發經驗
                   </p>
                 </div>
-
                 <button
                   className="btn btn-write-article"
                   onClick={() => setShowLoginModal(true)}
