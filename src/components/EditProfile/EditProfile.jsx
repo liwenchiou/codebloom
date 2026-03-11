@@ -74,6 +74,13 @@ function EditProfile() {
   // 統一處理 input 變更
   const handleChange = (e) => {
     const { name, value } = e.target;
+    
+    // 輸入防錯處理：電話只能輸入數字
+    if (name === "tel" && !/^\d*$/.test(value)) {
+      showToast("電話只能輸入數字", "warning");
+      return;
+    }
+    
     setProfile((prev) => ({ ...prev, [name]: value }));
   };
 
