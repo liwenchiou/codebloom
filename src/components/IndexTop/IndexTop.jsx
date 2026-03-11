@@ -52,8 +52,8 @@ function IndexTop() {
         >
             <div className="container">
                 {/* 桌機板 */}
-                <div className="row pt-226px d-lg-flex d-none flex-column align-items-center">
-                    <div className="col-lg-8 text-center">
+                <div className="row pt-226px d-lg-flex d-none align-items-center">
+                    <div className="col-md-6">
                         <div className="mb-56px">
                             <h1 className="IndexTop-title mb-12px">
                                 新手工程師的
@@ -67,22 +67,22 @@ function IndexTop() {
                             </p>
                         </div>
                         <div className="container">
-                            <div className="row text-center align-items-center justify-content-center">
-                                <div className="col-md-3 pe-5">
+                            <div className="row text-center align-items-center">
+                                <div className="col-md-4 pe-5">
                                     <h2 className="text-5xl text-fw-700 mb-0 text-start text-neutral-white">
                                         1,200+
                                     </h2>
                                     <p className="text-xl text-neutral-200 text-start">專案作品</p>
                                 </div>
 
-                                <div className="col-md-3 border-start border-secondary ps-5">
+                                <div className="col-md-4 border-start border-secondary ps-5">
                                     <h2 className="text-5xl text-fw-700 mb-0 text-start text-neutral-white">
                                         3,500+
                                     </h2>
                                     <p className="text-xl text-neutral-200 text-start">社群成員</p>
                                 </div>
 
-                                <div className="col-md-3 border-start border-secondary ps-5">
+                                <div className="col-md-4 border-start border-secondary ps-5">
                                     <h2 className="text-5xl text-fw-700 mb-0 text-start text-neutral-white">
                                         800+
                                     </h2>
@@ -91,7 +91,7 @@ function IndexTop() {
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-10 mt-56px mb-160px">
+                    <div className="col-md-6 mb-160px">
                         <WordCloudComponent data={tagsData} />
                     </div>
                 </div>
