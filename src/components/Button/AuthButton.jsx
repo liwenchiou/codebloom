@@ -6,6 +6,7 @@ import axios from "axios";
 import md5 from "blueimp-md5";
 import person from "../../assets/images/Ellipse 3.png";
 import { useToast } from "../Toast/ToastContext";
+import { useAuth } from "../../context/AuthContext";
 import "./AuthButton.scss";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
@@ -15,8 +16,7 @@ function AuthButton() {
   const registerModalRef = useRef(null);
   const modalInstances = useRef({ login: null, register: null });
 
-  const [isAuth, setIsAuth] = useState(false);
-  const [userName, setUserName] = useState("");
+  const { isAuth, userName, login, logout } = useAuth();
   const [loginData, setLoginData] = useState({
     loginEmail: "",
     loginPassword: "",
@@ -31,11 +31,7 @@ function AuthButton() {
   const { showToast } = useToast();
 
   useEffect(() => {
-    // 恢復登入狀態：從 localStorage 讀取 userId
-    const storedUserId = localStorage.getItem("userId");
-    if (storedUserId) {
-      setIsAuth(true);
-    }
+    // 確保 DOM 已經掛載後再初始化
 
     // 確保 DOM 已經掛載後再初始化
     if (loginModalRef.current) {
@@ -97,9 +93,7 @@ function AuthButton() {
 
       if (user) {
         showToast(`歡迎回來，${user.name} 👋`, "success");
-        setUserName(user.name);
-        setIsAuth(true);
-        localStorage.setItem("userId", user.id);
+        login(user.id, user.name);
         handleCloseLoginModal();
         // 清空表單
         setLoginData({ loginEmail: "", loginPassword: "" });
@@ -133,9 +127,7 @@ function AuthButton() {
 
       const newUser = res.data;
       showToast("註冊成功！歡迎加入 ✨", "success");
-      setUserName(registerData.registerName);
-      setIsAuth(true);
-      localStorage.setItem("userId", newUser.id);
+      login(newUser.id, registerData.registerName);
       handleCloseRegisterModal();
       // 清空表單
       setregisterData({
@@ -166,11 +158,7 @@ function AuthButton() {
           </Link>
           <button
             className="auth-nav-logout"
-            onClick={() => {
-              setIsAuth(false);
-              setUserName("");
-              localStorage.removeItem("userId");
-            }}
+            onClick={logout}
           >
             登出
           </button>

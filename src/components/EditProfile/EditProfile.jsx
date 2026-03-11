@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useToast } from "../Toast/ToastContext";
+import { useAuth } from "../../context/AuthContext";
 import bgpng from "../../assets/images/index/section1BG.png";
 import avatars from "../../assets/images/avatars.png";
 
@@ -8,6 +9,7 @@ const API_BASE = import.meta.env.VITE_API_BASE;
 
 function EditProfile() {
   const { showToast } = useToast();
+  const { userId } = useAuth();
 
   // 表單資料 state
   const [profile, setProfile] = useState({
@@ -29,18 +31,15 @@ function EditProfile() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
-  const [userId, setUserId] = useState(null);
 
-  // 頁面載入時取得使用者資料
+  // 當 userId 改變時重新取得資料
   useEffect(() => {
-    const storedUserId = localStorage.getItem("userId");
-    if (storedUserId) {
-      setUserId(storedUserId);
-      fetchUserProfile(storedUserId);
+    if (userId) {
+      fetchUserProfile(userId);
     } else {
       setIsLoading(false);
     }
-  }, []);
+  }, [userId]);
 
   // 從 API 取得使用者詳細資料
   const fetchUserProfile = async (id) => {
