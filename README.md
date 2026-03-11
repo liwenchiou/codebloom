@@ -48,7 +48,6 @@
 
 ### Data / API
 - **[Axios](https://axios-http.com/)** — HTTP 請求
-- **[Supabase](https://supabase.com/)** — 後端資料庫（備援）
 - **[JSON Server (Zeabur)](https://zeabur.com/)** — 自架 REST API
 
 ### Other
