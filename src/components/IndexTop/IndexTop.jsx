@@ -1,37 +1,44 @@
 //TODO:
+import { useState, useEffect } from "react";
+import axios from "axios";
 import bgpng from "../../assets/images/index/inTopBg.png";
 import WordCloudComponent from "../WordCloudComponent/WordCloudComponent";
 import WordCloudComponentMobile from "../WordCloudComponent/WordCloudComponentMobile";
+
+const API_BASE = "https://codebloom-api.zeabur.app";
+
 function IndexTop() {
-    const tagsData = [
-        ["JavaScript", 80],
-        ["React", 65],
-        ["Vue.js", 60],
-        ["Angular", 50],
-        ["Node.js", 55],
-        ["Python", 70],
-        ["TypeScript", 50],
-        ["CSS3", 45],
-        ["HTML5", 40],
-        ["Docker", 35],
-        ["Kubernetes", 30],
-        ["AWS", 45],
-        ["Firebase", 30],
-        ["Git", 35],
-        ["GraphQL", 25],
-        ["Next.js", 40],
-        ["Nuxt", 25],
-        ["Svelte", 20],
-        ["Tailwind", 35],
-        ["Bootstrap", 30],
-        ["MongoDB", 28],
-        ["SQL", 32],
-        ["Rust", 20],
-        ["Go", 25],
-        ["WebAssembly", 18],
-        ["AI/ML", 40],
-        ["DevOps", 35],
-    ];
+    const [tagsData, setTagsData] = useState([]);
+
+    useEffect(() => {
+        const fetchTags = async () => {
+            try {
+                const res = await axios.get(`${API_BASE}/portfolio`);
+                // 統計每個 tag 出現的次數
+                const tagCount = {};
+                res.data.forEach((item) => {
+                    if (Array.isArray(item.tags)) {
+                        item.tags.forEach((tag) => {
+                            tagCount[tag] = (tagCount[tag] || 0) + 1;
+                        });
+                    }
+                });
+
+                // 轉換成 WordCloud 需要的 [tag, weight] 格式
+                // weight 以出現次數為基礎，乘上倍率讓字型大小有明顯差異
+                const formatted = Object.entries(tagCount)
+                    .map(([tag, count]) => [tag, count * 10 + 20])
+                    .sort((a, b) => b[1] - a[1]); // 出現越多越大
+
+                setTagsData(formatted);
+            } catch (err) {
+                console.error("取得作品標籤失敗:", err);
+            }
+        };
+
+        fetchTags();
+    }, []);
+
     return (
         <div
             className="container-fluid p-0"
