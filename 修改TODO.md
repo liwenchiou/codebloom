@@ -12,30 +12,30 @@
     - [ ] 增加 `loading="lazy"` 以優化效能。
 
 ## 2. 網站設定與 SEO (index.html)
-- [ ] **語系調整**：將 `lang="en"` 修改為 `lang="zh-Hant-TW"`。
-- [ ] **新增 Open Graph (OG) Metadata**：
-    - [ ] 補上 `og:title`, `og:image`, `og:description` 設定，優化社群分享預覽。
+- [x] **語系調整**：將 `lang="en"` 修改為 `lang="zh-Hant-TW"`。
+- [x] **新增 Open Graph (OG) Metadata**：
+    - [x] 補上 `og:title`, `og:image`, `og:description` 設定，優化社群分享預覽。
 
 ## 3. Bootstrap 格線系統優化
-- [ ] **簡化格線 Class**：
-    - [ ] 移除與 `col-md-*` 同層且冗餘的 `col-12`（例如 `EditProfile.jsx` 中的多處標記）。
+- [x] **簡化格線 Class**：
+    - [x] 移除與 `col-md-*` 同層且冗餘的 `col-12`（例如 `EditProfile.jsx` 中的多處標記）。
 
 ## 4. React 邏輯與無障礙 (A11y)
-- [ ] **狀態持久化**：
-    - [ ] 修復 `AuthButton.jsx` 重新整理後 `isAuth` 狀態消失的問題（需在 `useEffect` 初始化時檢查 `localStorage`）。
-- [ ] **無障礙標籤 (A11y)**：
-    - [ ] **【AuthButton.jsx】**：為 Modal 的 `btn-close` 補上 `aria-label="關閉"`。
-    - [ ] **【ProductSearch.jsx】**：為搜尋框 `input` 補上 `aria-label="搜尋產品"`。
-    - [ ] **【EditProfile.jsx】**：將「性別」與「求職狀態」的單選組使用 `<fieldset>` 與 `<legend>` 包裝。
+- [x] **狀態持久化**：
+    - [x] 修復 `AuthButton.jsx` 重新整理後 `isAuth` 狀態消失的問題（需在 `useEffect` 初始化時檢查 `localStorage`）。
+- [x] **無障礙標籤 (A11y)**：
+    - [x] **【AuthButton.jsx】**：為 Modal 的 `btn-close` 補上 `aria-label="關閉"`。
+    - [x] **【ProductSearch.jsx】**：為搜尋框 `input` 補上 `aria-label="搜尋產品"`。
+    - [x] **【EditProfile.jsx】**：將「性別」與「求職狀態」的單選組使用 `<fieldset>` 與 `<legend>` 包裝。
 
 ## 5. 使用者體驗 (UX) 與效能
 - [ ] **輸入防錯處理**：
     - [ ] 針對電話或數量輸入框加入判斷，防止輸入非數字字元導致 `NaN`。
-- [ ] **API 呼叫優化**：
-    - [ ] 將 `ArticleSection.jsx` 的 `fetch` 改為全站統一的 `axios`。
-    - [ ] 將 `API_BASE` 抽離至 `.env` 環境變數。
-- [ ] **全站滾動優化**：
-    - [ ] 移除各處手寫的 `window.scrollTo(0, 0)`，考慮在路由層實作全域 ScrollToTop。
+- [x] **API 呼叫優化**：
+    - [x] 將 `ArticleSection.jsx` 的 `fetch` 改為全站統一的 `axios`。
+    - [x] 將 `API_BASE` 抽離至 `.env` 環境變數。
+- [x] **全站滾動優化**：
+    - [x] 移除各處手寫的 `window.scrollTo(0, 0)`，考慮在路由層實作全域 ScrollToTop。
 - [ ] **圖片尺寸控管**：
     - [ ] 針對 `trails` 或列表頁圖片尺寸進行檢查，避免原始圖檔寬度超過顯示區域的 2 倍（例如顯示 300px，圖檔不應超過 600px）。
 

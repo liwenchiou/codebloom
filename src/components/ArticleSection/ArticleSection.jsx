@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import "./ArticleSection.scss";
+
+const API_BASE = import.meta.env.VITE_API_BASE;
 
 // 圖片與預設頭像
 import articleDecoration from "../../assets/images/index/article_decoration_1.png";
@@ -75,10 +78,8 @@ const ArticleSection = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await fetch(
-          "https://codebloom-api.zeabur.app/articleList",
-        );
-        const data = await response.json();
+        const response = await axios.get(`${API_BASE}/articleList`);
+        const data = response.data;
 
         // 預設頭像
         const avatarArray = [avatarYang, avatarChen, avatarLin, avatarSharon];
@@ -125,7 +126,6 @@ const ArticleSection = () => {
           <Link
             className="view-more-btn text-decoration-none p-0"
             to="/Articles"
-            onClick={() => window.scrollTo(0, 0)}
           >
             查看更多
             <img src={arrowIcon} alt="arrow" width="5" />
