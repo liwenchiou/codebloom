@@ -8,7 +8,7 @@ import rankGoldImg from "../../assets/images/index/rank-1-gold.png";
 import rankSilverImg from "../../assets/images/index/rank-2-silver.png";
 import arrowIcon from "../../assets/images/index/arrow_triangle_right.png";
 
-const API_BASE = "https://codebloom-api.zeabur.app";
+const API_BASE = import.meta.env.VITE_API_BASE;
 
 const ProjectCard = ({ data }) => {
   const [isLiked, setIsLiked] = useState(false);

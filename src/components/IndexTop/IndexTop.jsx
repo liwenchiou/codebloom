@@ -5,7 +5,7 @@ import bgpng from "../../assets/images/index/inTopBg.png";
 import WordCloudComponent from "../WordCloudComponent/WordCloudComponent";
 import WordCloudComponentMobile from "../WordCloudComponent/WordCloudComponentMobile";
 
-const API_BASE = "https://codebloom-api.zeabur.app";
+const API_BASE = import.meta.env.VITE_API_BASE;
 
 function IndexTop() {
     const [tagsData, setTagsData] = useState([]);

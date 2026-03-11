@@ -4,7 +4,7 @@ import { useToast } from "../Toast/ToastContext";
 import bgpng from "../../assets/images/index/section1BG.png";
 import avatars from "../../assets/images/avatars.png";
 
-const API_BASE = "https://codebloom-api.zeabur.app";
+const API_BASE = import.meta.env.VITE_API_BASE;
 
 function EditProfile() {
   const { showToast } = useToast();

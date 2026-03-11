@@ -8,7 +8,7 @@ import person from "../../assets/images/Ellipse 3.png";
 import { useToast } from "../Toast/ToastContext";
 import "./AuthButton.scss";
 
-const API_BASE = "https://codebloom-api.zeabur.app";
+const API_BASE = import.meta.env.VITE_API_BASE;
 
 function AuthButton() {
   const loginModalRef = useRef(null);
