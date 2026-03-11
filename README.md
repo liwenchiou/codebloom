@@ -161,6 +161,13 @@ npm run deploy
 
 > 六角學院 React 專題班 — 協作開發
 
+| 成員 | 連結 |
+|------|------|
+| 力文 | — |
+| 阿鍋 | [Notion](https://www.notion.so/2b56e9dba91380e58e4bc0a34a33059b) |
+| ylin | [Notion](https://www.notion.so/ylin-2b56e9dba913803fb7dbf664c8cada6e) |
+| Zenos | [Notion](https://www.notion.so/Zenos-2b56e9dba91380ca8db0d2b2cb3004e1) |
+
 ---
 
 ## 📄 License
