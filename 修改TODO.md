@@ -5,8 +5,8 @@
 ## 1. 基礎規範與程式碼品質 (JS/SCSS/HTML)
 - [ ] **移除測試用 `console.log`**：檢查所有元件（特別是 API 串接處），移除 Debug 用的 `console.log`。
 - [ ] **統一縮排風格**：確保全站 JS/HTML/SCSS 統一使用 **2 格空格** 縮排。
-- [ ] **SCSS 語法轉型**：
-    - [ ] 將原生的 `@media (min-width: 768px)` 替換為 Bootstrap Mixin：`@include media-breakpoint-up(md)`。
+- [x] ~~**SCSS 媒體查詢轉型**：將原生的 `@media (min-width: 768px)` 替換為 Bootstrap Mixin~~
+    - ⚠️ **不適用**：專案使用 Bootstrap JS bundle，未引入 Bootstrap SCSS 源碼，無法使用 `@include media-breakpoint-up(md)`。已還原為原生 `@media`。
 - [ ] **補強 `<img>` 屬性**：
     - [ ] 檢查所有 `<img>` 標籤，裝飾性圖片補上 `alt=""`，內容圖片補上具體描述。
     - [ ] 增加 `loading="lazy"` 以優化效能。

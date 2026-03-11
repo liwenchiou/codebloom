@@ -7,7 +7,7 @@
 }
 
 /* 桌機版斷點 (Desktop) - 對應 Bootstrap 的 lg (992px) */
-@include media-breakpoint-up(lg) {
+@media (min-width: 992px) {
     .cta-section {
         padding-top: 160px;
         padding-bottom: 160px;

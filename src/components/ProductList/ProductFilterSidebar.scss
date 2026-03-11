@@ -10,7 +10,7 @@
   z-index: 1040;
   display: none;
 
-  @include media-breakpoint-down(md) {
+  @media (max-width: 767px) {
     display: block;
   }
 }
@@ -38,7 +38,7 @@
   }
 
   // 桌面版: 始終顯示
-  @include media-breakpoint-up(lg) {
+  @media (min-width: 992px) {
     display: flex;
     gap: 0;
 
@@ -52,7 +52,7 @@
   }
 
   // 平板版: 可摺疊或換行
-  @include media-breakpoint-down(lg) {
+  @media (max-width: 991px) {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -65,7 +65,7 @@
   }
 
   // 手機版: 側邊欄隱藏
-  @include media-breakpoint-down(md) {
+  @media (max-width: 767px) {
     position: fixed;
     left: 0;
     top: 0;
