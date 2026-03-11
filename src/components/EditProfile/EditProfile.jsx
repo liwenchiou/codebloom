@@ -135,7 +135,7 @@ function EditProfile() {
             className="mb-4 d-md-block mx-md-auto"
           />
           <div className="row mb-56px">
-            <div className="mb-4 col-12 col-md-6">
+            <div className="mb-4 col-md-6">
               <label
                 htmlFor="userName"
                 className="form-label text-base text-neutral-white"
@@ -152,7 +152,7 @@ function EditProfile() {
                 onChange={handleChange}
               />
             </div>
-            <div className=" col-12 col-md-6">
+            <div className="col-md-6">
               <label
                 htmlFor="userBio"
                 className="form-label text-base text-neutral-white"
@@ -179,7 +179,7 @@ function EditProfile() {
             </h3>
 
             <div className="row mb-28px">
-              <div className="col-12 mb-4 col-md-6">
+              <div className="col-md-6 mb-4">
                 <label
                   htmlFor="userEmail"
                   className="form-label text-base text-neutral-white"
@@ -197,7 +197,7 @@ function EditProfile() {
                 />
               </div>
 
-              <div className="col-12 mb-4 col-md-6">
+              <div className="col-md-6 mb-4">
                 <span className="d-flex justify-content-between align-items-center mb-4px">
                   <label
                     htmlFor="userTel"
@@ -271,10 +271,10 @@ function EditProfile() {
                 </select>
               </div>
 
-              <div className="col-12 col-md-6">
-                <div className="form-label text-base text-neutral-white mb-4px">
+              <fieldset className="col-md-6">
+                <legend className="form-label text-base text-neutral-white mb-4px">
                   性別
-                </div>
+                </legend>
                 <div className="form-check form-check-inline">
                   <input
                     className="form-check-input text-neutral-100 bg-neutral-500 me-12px"
@@ -326,11 +326,11 @@ function EditProfile() {
                     不公開
                   </label>
                 </div>
-              </div>
+              </fieldset>
             </div>
 
             <div className="row mb-28px">
-              <div className="col-12 mb-4 col-md-6">
+              <div className="col-md-6 mb-4">
                 <label
                   htmlFor="userJobTitle"
                   className="form-label text-base text-neutral-white"
@@ -369,10 +369,10 @@ function EditProfile() {
             </div>
 
             <div className="row mb-28px">
-              <div className="col-12">
-                <div className="form-label text-base text-neutral-white mb-4px">
+              <fieldset className="col-12">
+                <legend className="form-label text-base text-neutral-white mb-4px">
                   求職狀態
-                </div>
+                </legend>
                 <div className="form-check form-check-inline">
                   <input
                     className="form-check-input text-neutral-100 bg-neutral-500 me-12px"
@@ -424,7 +424,7 @@ function EditProfile() {
                     暫不考慮
                   </label>
                 </div>
-              </div>
+              </fieldset>
             </div>
 
             <div className="row">

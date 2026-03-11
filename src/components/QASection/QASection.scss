@@ -7,7 +7,7 @@
     padding-top: 80px;
     padding-bottom: 80px;
 
-    @media (min-width: 992px) {
+    @include media-breakpoint-up(lg) {
         /* 桌機版 Padding (Figma: 160px) */
         padding-top: 160px;
         padding-bottom: 160px;
@@ -37,7 +37,7 @@
     /* 關鍵：設定 auto 讓它自動跟隨最高的兄弟元素 */
 }
 
-@media (min-width: 992px) {
+@include media-breakpoint-up(lg) {
     .qa-section .qa-title {
         align-items: end;
     }

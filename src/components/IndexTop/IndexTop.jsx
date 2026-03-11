@@ -59,27 +59,27 @@ function IndexTop() {
                                 分享你的專案，交流開發經驗，在這裡找到志同道合的夥伴。
                             </p>
                         </div>
-                        <div class="container">
-                            <div class="row text-center align-items-center">
-                                <div class="col-md-4 pe-5">
-                                    <h2 class="text-5xl text-fw-700 mb-0 text-start text-neutral-white">
+                        <div className="container">
+                            <div className="row text-center align-items-center">
+                                <div className="col-md-4 pe-5">
+                                    <h2 className="text-5xl text-fw-700 mb-0 text-start text-neutral-white">
                                         1,200+
                                     </h2>
-                                    <p class="text-xl text-neutral-200 text-start">專案作品</p>
+                                    <p className="text-xl text-neutral-200 text-start">專案作品</p>
                                 </div>
 
-                                <div class="col-md-4 border-start border-secondary ps-5">
-                                    <h2 class="text-5xl text-fw-700 mb-0 text-start text-neutral-white">
+                                <div className="col-md-4 border-start border-secondary ps-5">
+                                    <h2 className="text-5xl text-fw-700 mb-0 text-start text-neutral-white">
                                         3,500+
                                     </h2>
-                                    <p class="text-xl text-neutral-200 text-start">社群成員</p>
+                                    <p className="text-xl text-neutral-200 text-start">社群成員</p>
                                 </div>
 
-                                <div class="col-md-4 border-start border-secondary ps-5">
-                                    <h2 class="text-5xl text-fw-700 mb-0 text-start text-neutral-white">
+                                <div className="col-md-4 border-start border-secondary ps-5">
+                                    <h2 className="text-5xl text-fw-700 mb-0 text-start text-neutral-white">
                                         800+
                                     </h2>
-                                    <p class="text-xl text-neutral-200 text-start">技術文章</p>
+                                    <p className="text-xl text-neutral-200 text-start">技術文章</p>
                                 </div>
                             </div>
                         </div>
@@ -98,27 +98,27 @@ function IndexTop() {
                                 <span className="IndexTop-title-span">作品舞台</span>
                             </h1>
                         </div>
-                        <div class="container ">
-                            <div class="row text-center align-items-center">
-                                <div class="col-4 pe-4">
-                                    <h2 class="text-2xl text-fw-700 mb-0 text-start text-neutral-white">
+                        <div className="container">
+                            <div className="row text-center align-items-center">
+                                <div className="col-4 pe-4">
+                                    <h2 className="text-2xl text-fw-700 mb-0 text-start text-neutral-white">
                                         1,200+
                                     </h2>
-                                    <p class="text-sm text-neutral-200 text-start">專案作品</p>
+                                    <p className="text-sm text-neutral-200 text-start">專案作品</p>
                                 </div>
 
-                                <div class="col-4 border-start border-secondary ps-4">
-                                    <h2 class="text-2xl text-fw-700 mb-0 text-start text-neutral-white">
+                                <div className="col-4 border-start border-secondary ps-4">
+                                    <h2 className="text-2xl text-fw-700 mb-0 text-start text-neutral-white">
                                         3,500+
                                     </h2>
-                                    <p class="text-sm text-neutral-200 text-start">社群成員</p>
+                                    <p className="text-sm text-neutral-200 text-start">社群成員</p>
                                 </div>
 
-                                <div class="col-4 border-start border-secondary ps-4">
-                                    <h2 class="text-2xl text-fw-700 mb-0 text-start text-neutral-white">
+                                <div className="col-4 border-start border-secondary ps-4">
+                                    <h2 className="text-2xl text-fw-700 mb-0 text-start text-neutral-white">
                                         800+
                                     </h2>
-                                    <p class="text-sm text-neutral-200 text-start">技術文章</p>
+                                    <p className="text-sm text-neutral-200 text-start">技術文章</p>
                                 </div>
                             </div>
                         </div>
