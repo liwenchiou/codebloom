@@ -29,20 +29,18 @@ const ProjectCard = ({ data }) => {
         className={`position-relative rounded-4 overflow-hidden shadow-sm ${data.rank ? "img-wrapper" : ""
           }`}
       >
-        <img
-          src={data.image}
+        <img src={data.image}
           className="w-100 object-fit-cover"
           alt={data.title}
-        />
+         loading="lazy" />
 
         {/* 排名徽章 */}
         {data.rank && (
           <div className="position-absolute top-0 start-0 m-3 z-2">
-            <img
-              src={data.rank === 1 ? rankGoldImg : rankSilverImg}
+            <img src={data.rank === 1 ? rankGoldImg : rankSilverImg}
               alt={`Rank ${data.rank}`}
               className="rank-badge"
-            />
+             loading="lazy" />
           </div>
         )}
 
@@ -80,11 +78,10 @@ const ProjectCard = ({ data }) => {
         <div className="d-flex justify-content-between align-items-center header-row">
           <h5 className="m-0 text-fw-700 project-title">{data.title}</h5>
           <div className="d-flex align-items-center flex-shrink-0 author-box">
-            <img
-              src={data.avatar}
+            <img src={data.avatar}
               alt={data.author}
               className="rounded-circle object-fit-cover shadow-sm avatar-img"
-            />
+             loading="lazy" />
             <span className="text-neutral-200 author-name">{data.author}</span>
           </div>
         </div>
@@ -165,7 +162,7 @@ const PortfolioSection = () => {
 
           {/* <a href="/Projects" className="view-more-btn text-decoration-none p-0">
             查看更多
-            <img src={arrowIcon} alt="arrow" width="5" />
+            <img src={arrowIcon} alt="arrow" width="5"  loading="lazy" />
           </a> */}
 
           <Link
@@ -173,7 +170,7 @@ const PortfolioSection = () => {
             to="/Projects"
           >
             查看更多
-            <img src={arrowIcon} alt="arrow" width="5" />
+            <img src={arrowIcon} alt="arrow" width="5"  loading="lazy" />
           </Link>
         </div>
 
@@ -193,14 +190,14 @@ const PortfolioSection = () => {
 
           {/* <a href="/latest" className="view-more-btn text-decoration-none p-0">
             查看更多
-            <img src={arrowIcon} alt="arrow" width="5" />
+            <img src={arrowIcon} alt="arrow" width="5"  loading="lazy" />
           </a> */}
           <Link
             className="view-more-btn text-decoration-none p-0"
             to="/Projects"
           >
             查看更多
-            <img src={arrowIcon} alt="arrow" width="5" />
+            <img src={arrowIcon} alt="arrow" width="5"  loading="lazy" />
           </Link>
         </div>
 

@@ -147,12 +147,11 @@ function AuthButton() {
       {/* 1. 按鈕部分：留在 Navbar 原位 */}
       {isAuth ? (
         <div className="d-flex align-items-center">
-          <img
-            src={person}
+          <img src={person}
             alt="person"
             width={34}
             className="me-3 rounded-circle"
-          />
+           loading="lazy" />
           <Link className="auth-nav-dashboard me-2" to="/Dashboard">
             創作中心
           </Link>

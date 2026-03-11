@@ -17,7 +17,7 @@ const LoginModal = ({ onClose }) => {
         </button>
 
         <div className="img-container">
-          <img src={modalImg} alt="Login Required" className="modal-image" />
+          <img src={modalImg} alt="Login Required" className="modal-image"  loading="lazy" />
         </div>
 
         <h3 className="modal-title">讓您的技術知識綻放光芒</h3>

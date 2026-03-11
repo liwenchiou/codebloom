@@ -60,11 +60,10 @@ const Leaderboard = () => {
             className={`sidebar-author-item d-flex align-items-center ${isTop3 ? "top-rank" : ""} clickable`}
           >
             <div className="author-info d-flex align-items-center">
-              <img
-                src={user.avatar}
+              <img src={user.avatar}
                 alt={user.name}
                 className="avatar rounded-circle me-3"
-              />
+               loading="lazy" />
               <div>
                 <div className="author-name">{user.name}</div>
                 <div className="stats-row d-flex align-items-center gap-3 mt-1">
@@ -82,11 +81,10 @@ const Leaderboard = () => {
 
             {isTop3 && (
               <div className="rank-badge ms-auto">
-                <img
-                  src={rankIcons[user.rank]}
+                <img src={rankIcons[user.rank]}
                   alt={`Rank ${user.rank}`}
                   style={{ width: "42px" }}
-                />
+                 loading="lazy" />
               </div>
             )}
           </div>

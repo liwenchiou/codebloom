@@ -11,11 +11,10 @@ function Navbar() {
     <nav className="navbar navbar-expand-lg bg-neutral-700 p-0">
       <div className="container py-3">
         <Link className="navbar-brand " to="/">
-          <img
-            src={logoPC}
+          <img src={logoPC}
             alt="logo"
             style={{ width: "196px", height: "28px" }}
-          />
+           loading="lazy" />
         </Link>
         <button
           className="navbar-toggler text-white"

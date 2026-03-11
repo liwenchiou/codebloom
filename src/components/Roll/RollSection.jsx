@@ -81,7 +81,7 @@ export default function RollSection() {
                     <p>{card.desc}</p>
                   </div>
                   <div className="feature-visual">
-                    <img src={card.img} alt={card.title} />
+                    <img src={card.img} alt={card.title}  loading="lazy" />
                     <span className="frame tl" />
                     <span className="frame tr" />
                     <span className="frame bl" />
