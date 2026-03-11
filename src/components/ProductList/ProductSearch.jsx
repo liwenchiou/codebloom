@@ -34,12 +34,17 @@ const ProductSearch = ({ onSearch, placeholder = "搜尋產品名稱或技術...
           <path d="m21 21-4.35-4.35"></path>
         </svg>
 
+      <label htmlFor="product-search" className="visually-hidden">
+          搜尋產品
+        </label>
         <input
           type="text"
+          id="product-search"
           className="product_search_input"
           placeholder={placeholder}
           value={searchValue}
           onChange={handleChange}
+          aria-label="搜尋產品"
         />
 
         {searchValue && (

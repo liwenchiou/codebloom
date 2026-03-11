@@ -8,7 +8,7 @@ import person from "../../assets/images/Ellipse 3.png";
 import { useToast } from "../Toast/ToastContext";
 import "./AuthButton.scss";
 
-const API_BASE = "https://codebloom-api.zeabur.app";
+const API_BASE = import.meta.env.VITE_API_BASE;
 
 function AuthButton() {
   const loginModalRef = useRef(null);
@@ -31,6 +31,12 @@ function AuthButton() {
   const { showToast } = useToast();
 
   useEffect(() => {
+    // 恢復登入狀態：從 localStorage 讀取 userId
+    const storedUserId = localStorage.getItem("userId");
+    if (storedUserId) {
+      setIsAuth(true);
+    }
+
     // 確保 DOM 已經掛載後再初始化
     if (loginModalRef.current) {
       modalInstances.current.login = new Modal(loginModalRef.current);
@@ -162,6 +168,7 @@ function AuthButton() {
             className="auth-nav-logout"
             onClick={() => {
               setIsAuth(false);
+              setUserName("");
               localStorage.removeItem("userId");
             }}
           >
@@ -199,6 +206,7 @@ function AuthButton() {
                   <button
                     type="button"
                     className="btn-close"
+                    aria-label="關閉"
                     onClick={handleCloseLoginModal}
                   ></button>
                 </div>
@@ -295,6 +303,7 @@ function AuthButton() {
                   <button
                     type="button"
                     className="btn-close"
+                    aria-label="關閉"
                     onClick={handleCloseRegisterModal}
                   ></button>
                 </div>

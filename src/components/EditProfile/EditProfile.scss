@@ -1,19 +1,24 @@
-.EditProfile-input{
-    border:1px solid #3D4145;
-    padding: 12px;
-    border-radius: 12px;
+@import "../../assets/scss/base.scss";
+
+.EditProfile-container {
+  max-width: 636px;
 }
 
-.EditProfile-input:hover{
-    border:1px solid #1FC0D9;
-}
+.EditProfile-input {
+  border: 1px solid $color-neutral-400;
+  padding: 12px;
+  border-radius: 12px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
-.EditProfile-input:focus{
-    border:1px solid #1FC0D9;
-    $input-shadow: 0px 2px 30px 0px rgba(153, 235, 247, 0.3);
-    background:#0D1117;
-    color: #E7E7E8;
-}
-.EditProfile-container{
-    max-width: 636px; 
+  &:hover {
+    border-color: $color-primary-600;
+  }
+
+  &:focus {
+    border-color: $color-primary-600;
+    box-shadow: 0 2px 30px 0 rgba($color-primary-200, 0.3);
+    background: $color-neutral-500;
+    color: $color-neutral-50;
+    outline: none;
+  }
 }

@@ -5,7 +5,7 @@ import ProductCard from "./ProductCard";
 import ProductSearch from "./ProductSearch";
 import ProductFilterSidebar from "./ProductFilterSidebar";
 
-const API_BASE = "https://codebloom-api.zeabur.app";
+const API_BASE = import.meta.env.VITE_API_BASE;
 
 const ProductListComponent = () => {
   const [products, setProducts] = useState([]);
