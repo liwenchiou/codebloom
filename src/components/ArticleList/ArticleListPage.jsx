@@ -64,7 +64,7 @@ const recommendedAuthors = [
 // 側邊欄作者
 const SidebarAuthor = ({ data, type, onRequireLogin }) => {
   const isTop3 = type === "popular" && data.rank <= 3;
-  const [isFollowed, setIsFollowed] = useState(false);
+  const [isFollowed] = useState(false);
 
   const containerClass = `sidebar-author-item d-flex align-items-center mb-3 
     ${isTop3 ? "top-rank" : ""} 

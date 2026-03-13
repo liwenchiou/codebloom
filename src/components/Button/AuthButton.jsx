@@ -16,7 +16,7 @@ function AuthButton() {
   const registerModalRef = useRef(null);
   const modalInstances = useRef({ login: null, register: null });
 
-  const { isAuth, userName, login, logout } = useAuth();
+  const { isAuth, login, logout } = useAuth();
   const [loginData, setLoginData] = useState({
     loginEmail: "",
     loginPassword: "",
@@ -56,12 +56,15 @@ function AuthButton() {
     window.addEventListener("openRegisterModal", openRegisterHandler);
     window.addEventListener("openLoginModal", openLoginHandler);
 
+    const currentLogin = modalInstances.current.login;
+    const currentRegister = modalInstances.current.register;
+
     return () => {
       // 銷毀實體，避免切換頁面時遮罩殘留
       window.removeEventListener("openRegisterModal", openRegisterHandler);
       window.removeEventListener("openLoginModal", openLoginHandler);
-      modalInstances.current.login?.dispose();
-      modalInstances.current.register?.dispose();
+      currentLogin?.dispose();
+      currentRegister?.dispose();
     };
   }, []);
 

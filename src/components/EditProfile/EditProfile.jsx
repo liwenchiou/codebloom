@@ -36,42 +36,42 @@ function EditProfile() {
 
   // 當 userId 改變時重新取得資料
   useEffect(() => {
+    // 從 API 取得使用者詳細資料
+    const fetchUserProfile = async (id) => {
+      try {
+        const res = await axios.get(`${API_BASE}/users/${id}`);
+        const data = res.data;
+
+        reset({
+          name: data.name || "",
+          bio: data.bio || "",
+          email: data.email || "",
+          tel: data.tel || "",
+          telPrivacy: data.telPrivacy || "private",
+          location: data.location || "",
+          gender: data.gender || "",
+          jobTitle: data.jobTitle || "",
+          birthday: data.birthday || "",
+          jobStatus: data.jobStatus || "",
+          skills: data.skills || "",
+          socialGithub: data.socialGithub || "",
+          socialLinkedin: data.socialLinkedin || "",
+          socialWebsite: data.socialWebsite || "",
+        });
+      } catch (error) {
+        console.error("取得使用者資料失敗:", error);
+        showToast("無法取得使用者資料，請重新登入", "error");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     if (userId) {
       fetchUserProfile(userId);
     } else {
       setIsLoading(false);
     }
-  }, [userId]);
-
-  // 從 API 取得使用者詳細資料
-  const fetchUserProfile = async (id) => {
-    try {
-      const res = await axios.get(`${API_BASE}/users/${id}`);
-      const data = res.data;
-
-      reset({
-        name: data.name || "",
-        bio: data.bio || "",
-        email: data.email || "",
-        tel: data.tel || "",
-        telPrivacy: data.telPrivacy || "private",
-        location: data.location || "",
-        gender: data.gender || "",
-        jobTitle: data.jobTitle || "",
-        birthday: data.birthday || "",
-        jobStatus: data.jobStatus || "",
-        skills: data.skills || "",
-        socialGithub: data.socialGithub || "",
-        socialLinkedin: data.socialLinkedin || "",
-        socialWebsite: data.socialWebsite || "",
-      });
-    } catch (error) {
-      console.error("取得使用者資料失敗:", error);
-      showToast("無法取得使用者資料，請重新登入", "error");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  }, [userId, reset, showToast]);
 
   // 儲存變更 - 使用 PATCH 更新使用者資料
   const onSubmit = async (data) => {
