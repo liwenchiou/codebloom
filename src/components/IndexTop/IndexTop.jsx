@@ -1,4 +1,3 @@
-//TODO:
 import { useState, useEffect } from "react";
 import axios from "axios";
 import bgpng from "../../assets/images/index/inTopBg.png";

@@ -5,7 +5,7 @@ import RollSection from "../components/Roll/RollSection";
 import CTASection from "../components/CTASection/CTASection";
 import ArticleSection from "../components/ArticleSection/ArticleSection";
 
-// TODO: 首頁背景圖片未完成
+
 export default function Home() {
   return (
     <div className="home-page-wrap overflow-hidden">

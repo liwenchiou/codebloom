@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 // import logoMobile from '../images/logo-Mobile.png';
 
 
-//TODO:
 
 function Footer() {
   return (
