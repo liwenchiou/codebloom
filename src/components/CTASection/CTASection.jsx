@@ -24,7 +24,7 @@ const CtaSection = () => {
 
       <div className="container position-relative py-80px">
         <div className="row justify-content-center">
-          <div className="col-12 col-lg-8 text-center">
+          <div className="col-lg-8 text-center">
             {/* 標題與內容... (保持不變) */}
             <h2 className="h4 mb-16px section-title">
               準備好讓{" "}

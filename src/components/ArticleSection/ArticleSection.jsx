@@ -121,7 +121,7 @@ const ArticleSection = () => {
         <div className="row article-grid">
           {articles.length > 0 ? (
             articles.map((article) => (
-              <div key={article.id} className="col-12 col-lg-6">
+              <div key={article.id} className="col-lg-6">
                 <ArticleCard data={article} />
               </div>
             ))

@@ -223,7 +223,7 @@ function EditProfile() {
               </div>
 
               <div className="row mb-28px">
-                <div className="col-12 mb-4 col-md-6">
+                <div className="mb-4 col-md-6">
                   <label
                     htmlFor="userLocation"
                     className="form-label text-base text-neutral-white "
@@ -331,7 +331,7 @@ function EditProfile() {
                   />
                 </div>
 
-                <div className="col-12 col-md-6">
+                <div className="col-md-6">
                   <label
                     htmlFor="userBirthday"
                     className="form-label text-base text-neutral-white mb-4px"

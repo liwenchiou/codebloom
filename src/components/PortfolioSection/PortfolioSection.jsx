@@ -176,7 +176,7 @@ const PortfolioSection = () => {
 
         <div className="row g-4 mb-96px">
           {popularList.map((item) => (
-            <div key={item.id} className="col-12 col-md-6">
+            <div key={item.id} className="col-md-6">
               <ProjectCard data={item} />
             </div>
           ))}
@@ -203,7 +203,7 @@ const PortfolioSection = () => {
 
         <div className="row g-4">
           {latestList.map((item) => (
-            <div key={item.id} className="col-12 col-md-4">
+            <div key={item.id} className="col-md-4">
               <ProjectCard data={item} />
             </div>
           ))}

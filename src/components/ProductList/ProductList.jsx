@@ -256,7 +256,7 @@ const ProductListComponent = () => {
                       currentPage * itemsPerPage,
                     )
                     .map((product) => (
-                      <div key={product.id} className="col-12 col-md-6 col-lg-4">
+                      <div key={product.id} className="col-md-6 col-lg-4">
                         <ProductCard data={product} />
                       </div>
                     ))}

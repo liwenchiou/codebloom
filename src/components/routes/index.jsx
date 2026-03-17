@@ -4,6 +4,7 @@ import Dashboard from "../../pages/Dashboard";
 import Articles from "../../pages/Articles";
 import Projects from "../../pages/Projects";
 import Qna from "../../pages/Qna";
+import NotFound from "../../pages/NotFound";
 
 const routes = [
   {
@@ -29,6 +30,10 @@ const routes = [
       {
         path: "/Qna",
         element: <Qna />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },

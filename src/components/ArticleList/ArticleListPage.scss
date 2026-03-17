@@ -34,7 +34,7 @@
 
     @media (max-width: 991px) {
       border-right: none;
-      padding-right: 0;
+      padding-right: calc(var(--bs-gutter-x) * .5);
       margin-bottom: 40px;
     }
   }

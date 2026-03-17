@@ -14,7 +14,7 @@ const Qna = () => {
       <div className="container py-5">
         <div className="row">
           <main
-            className="col-12 col-lg-8 qna-mainbar pe-lg-5"
+            className="col-lg-8 qna-mainbar pe-lg-5"
             style={{ minWidth: 0 }}
           >
             <QnaTop />

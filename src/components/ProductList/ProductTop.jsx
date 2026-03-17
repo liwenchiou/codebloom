@@ -7,7 +7,7 @@ const ProductTop = () => {
       <div className="product_top_content">
         <div className="container">
           <div className="row align-items-center">
-            <div className="col-12 col-lg-6">
+            <div className="col-lg-6">
               <div className="product_top_text">
                 <h1 className="product_top_title">
                   發現優質
@@ -22,7 +22,7 @@ const ProductTop = () => {
                 </p>
               </div>
             </div>
-            <div className="col-12 col-lg-6">
+            <div className="col-lg-6">
               <div className="product_top_visual">
                 <div className="visual-cards">
                   <div className="visual-card card-1">

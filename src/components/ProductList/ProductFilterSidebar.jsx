@@ -106,7 +106,7 @@ const ProductFilterSidebar = ({
 
         {/* 手機版: 完成篩選按鈕 */}
         <button
-          className="btn btn-primary w-100 mt-24px d-lg-none"
+          className="btn btn-primary mt-24px d-lg-none"
           onClick={onCloseMobile}
         >
           完成篩選

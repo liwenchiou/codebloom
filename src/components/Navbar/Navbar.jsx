@@ -58,10 +58,10 @@ function Navbar() {
           </ul>
 
           {/* 手機版 */}
-          <ul className="navbar-nav me-12px d-block d-lg-none  w-100 mb-5">
+          <ul className="navbar-nav d-flex d-lg-none flex-column align-items-center w-100 mb-5">
             <li className="nav-item">
               <Link
-                className=" text-base text-neutral-50 cb-btn-text ms-4 py-12px  d-block"
+                className=" text-base text-neutral-50 cb-btn-text py-12px d-block"
                 to="/Projects"
               >
                 作品列表
@@ -69,7 +69,7 @@ function Navbar() {
             </li>
             <li className="nav-item">
               <Link
-                className="text-base text-neutral-50 me-12px cb-btn-text ms-4 py-12px d-block"
+                className="text-base text-neutral-50 me-12px cb-btn-text py-12px d-block"
                 to="/Articles"
               >
                 技術文章
@@ -78,7 +78,7 @@ function Navbar() {
 
             <li className="nav-item">
               <Link
-                className="text-base text-neutral-50 me-12px cb-btn-text ms-4 py-12px d-block"
+                className="text-base text-neutral-50 me-12px cb-btn-text py-12px d-block"
                 to="/Qna"
               >
                 問答社群
@@ -93,7 +93,7 @@ function Navbar() {
                 width="24"
                 height="24"
                 fill="currentColor"
-                class="bi bi-search"
+                className="bi bi-search"
                 viewBox="0 0 16 16"
               >
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
@@ -108,7 +108,12 @@ function Navbar() {
           </div>
 
           {/* <div className="ms-3"> */}
-          <AuthButton />
+          <div className="d-flex justify-content-center w-100 d-lg-none">
+            <AuthButton />
+          </div>
+          <div className="d-none d-lg-flex">
+            <AuthButton />
+          </div>
           {/* </div> */}
         </div>
       </div>
