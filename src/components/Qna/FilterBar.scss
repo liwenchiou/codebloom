@@ -1,0 +1,53 @@
+.qna-page-wrapper {
+  /* 移除按鈕預設樣式，讓它變透明 */
+  .tab-btn {
+    background: transparent;
+    border: none;
+    color: #b4b5b7;
+    padding: 12px 0;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    outline: none;
+
+    &.active {
+      color: #5bc0de; // 選中時變亮藍色
+    }
+  }
+
+  /* 獨立的滑動指示器樣式 */
+  .sliding-indicator {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: #5bc0de;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* 修正標籤按鈕 (Tags) */
+  .tag-chip {
+    background-color: rgba(255, 255, 255, 0.05); // 變深色透明
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #b4b5b7;
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+
+    &.selected {
+      background-color: rgba(91, 192, 222, 0.1);
+      border-color: #1fc0d9;
+      color: #1fc0d9;
+    }
+  }
+}
+.tags-container {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  white-space: nowrap; // 核心：防止標籤掉下去
+  scrollbar-width: none; // 隱藏捲軸
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

@@ -1,0 +1,89 @@
+@import "../../assets/scss/base.scss";
+
+.product_list_container {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  box-sizing: border-box;
+  padding: 40px 0;
+
+  // 背景層（絕對定位，覆蓋整個區塊）
+//   .product_list_bg {
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     background-size: cover;
+//     background-position: center;
+//     z-index: 0;
+//     pointer-events: none;
+//   }
+
+  @media (max-width: 767px) {
+    padding: 24px 0;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  // 結果信息
+  .product_results_info {
+    .product_results_count {
+      font-size: 14px;
+      color: map-get($colors, neutral-100);
+      margin: 0;
+
+      .product_highlight {
+        color: map-get($colors, primary-500);
+        font-weight: 700;
+      }
+    }
+  }
+
+  // 產品網格已改為 Bootstrap row/col（見 JSX 中的 row g-4 和 col-12 col-md-6 col-lg-4）
+
+  // 空狀態
+  .product_empty_state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 40px;
+    text-align: center;
+
+    @media (max-width: 767px) {
+      padding: 60px 20px;
+    }
+
+    .product_empty_icon {
+      font-size: 64px;
+      margin-bottom: 24px;
+    }
+
+    h3 {
+      font-size: 24px;
+      color: map-get($colors, neutral-white);
+      margin: 0 0 12px 0;
+      font-weight: 700;
+
+      @media (max-width: 767px) {
+        font-size: 18px;
+      }
+    }
+
+    p {
+      font-size: 14px;
+      color: map-get($colors, neutral-200);
+      margin: 0;
+      max-width: 400px;
+
+      @media (max-width: 767px) {
+        font-size: 13px;
+      }
+    }
+  }
+
+  // 分頁已改為 Bootstrap d-flex 和 btn 樣式（見 JSX 中的 btn btn-outline-secondary 和 btn-primary）
+}

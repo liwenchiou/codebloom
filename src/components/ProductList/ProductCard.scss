@@ -1,0 +1,371 @@
+@import "../../assets/scss/base.scss";
+
+.product_card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: map-get($colors, neutral-600);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 32px rgba(34, 211, 238, 0.15);
+
+    .product_image_wrapper {
+      .product_image {
+        transform: scale(1.05);
+      }
+    }
+
+    .product_stats {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  // 圖片區域
+  .product_image_wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 66.67%; // 3:2 比例
+    overflow: hidden;
+    background: map-get($colors, neutral-700);
+
+    .product_image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    // 暗化層
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(
+        circle at 0% 0%,
+        rgba(0, 0, 0, 0.4) 0%,
+        rgba(0, 0, 0, 0.1) 20%,
+        transparent 40%
+      );
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    // 難度徽章
+    .product_difficulty_badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 3;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      
+      @media (max-width: 767px) {
+        top: 8px;
+        left: 8px;
+        padding: 4px 10px;
+        font-size: 11px;
+      }
+    }
+
+    // 點讚按鈕
+    .product_btn_like {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 3;
+      width: 40px;
+      height: 40px;
+      border: none;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(2px);
+      transition: all 0.2s ease;
+      cursor: pointer;
+
+      svg {
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.6);
+        transform: scale(1.1);
+      }
+
+      @media (max-width: 767px) {
+        width: 36px;
+        height: 36px;
+        top: 8px;
+        right: 8px;
+
+        svg {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+
+    // 統計信息
+    .product_stats {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      z-index: 3;
+      display: flex;
+      gap: 8px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+
+      .product_stat_item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(2px);
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: 12px;
+        color: map-get($colors, neutral-white);
+        font-weight: 500;
+
+        .product_stat_icon {
+          font-size: 14px;
+        }
+
+        .product_stat_text {
+          min-width: 20px;
+          text-align: right;
+        }
+      }
+    }
+  }
+
+  // 信息區域
+  .product_info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+
+    @media (max-width: 767px) {
+      padding: 16px;
+    }
+  }
+
+  // 標題和分類
+  .product_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+
+    .product_title {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.4;
+      color: map-get($colors, neutral-white);
+      font-weight: 700;
+      flex: 1;
+
+      @media (max-width: 767px) {
+        font-size: 16px;
+      }
+    }
+
+    .product_category_badge {
+      flex-shrink: 0;
+      padding: 4px 10px;
+      background: rgba(map-get($colors, primary-500), 0.15);
+      border: 1px solid rgba(map-get($colors, primary-500), 0.3);
+      border-radius: 4px;
+      font-size: 12px;
+      color: map-get($colors, primary-300);
+      font-weight: 500;
+      white-space: nowrap;
+
+      @media (max-width: 767px) {
+        font-size: 11px;
+        padding: 3px 8px;
+      }
+    }
+  }
+
+  // 描述
+  .product_description {
+    margin: 0 0 16px 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: map-get($colors, neutral-100);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    @media (max-width: 767px) {
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+  }
+
+  // 標簽容器
+  .product_tags_container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  // 技術棧標簽
+  .product_tag {
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(map-get($colors, primary-500), 0.12);
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-size: 12px;
+    color: map-get($colors, primary-300);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: default;
+    white-space: nowrap;
+
+    &:hover {
+      background: rgba(map-get($colors, primary-500), 0.2);
+      border-color: rgba(map-get($colors, primary-500), 0.4);
+    }
+
+    @media (max-width: 767px) {
+      padding: 4px 8px;
+      font-size: 11px;
+    }
+  }
+
+  // 產品底部 - 作者和操作
+  .product_footer {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid rgba(map-get($colors, neutral-white), 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+
+    @media (max-width: 767px) {
+      padding-top: 12px;
+      gap: 8px;
+    }
+
+    // 作者信息
+    .product_author_info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 0;
+
+      .product_author_avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+        flex-shrink: 0;
+        border: 2px solid rgba(map-get($colors, primary-500), 0.3);
+      }
+
+      .product_author_details {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+
+      .product_author_name {
+        font-size: 13px;
+        font-weight: 500;
+        color: map-get($colors, neutral-white);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        @media (max-width: 767px) {
+          font-size: 12px;
+        }
+      }
+
+      .product_release_date {
+        font-size: 11px;
+        color: map-get($colors, neutral-200);
+        margin-top: 2px;
+      }
+    }
+
+    // 操作按鈕
+    .product_action_buttons {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+
+      .product_btn_action {
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+        text-align: center;
+
+        &:hover {
+          transform: translateY(-2px);
+        }
+
+        &.btn-demo {
+          background: map-get($colors, primary-600);
+          color: map-get($colors, neutral-white);
+          border: 1px solid transparent;
+
+          &:hover {
+            background: map-get($colors, primary-500);
+            box-shadow: 0 4px 12px rgba(map-get($colors, primary-500), 0.3);
+          }
+        }
+
+        &.btn-source {
+          background: transparent;
+          color: map-get($colors, primary-300);
+          border: 1px solid map-get($colors, primary-600);
+
+          &:hover {
+            background: rgba(map-get($colors, primary-500), 0.1);
+            border-color: map-get($colors, primary-300);
+          }
+        }
+
+        @media (max-width: 767px) {
+          padding: 4px 8px;
+          font-size: 11px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,317 @@
+@import "../../assets/scss/base.scss";
+
+.product_filter {
+  margin-bottom: 40px;
+
+  @media (max-width: 767px) {
+    margin-bottom: 24px;
+  }
+
+  // 篩選面板
+  .product_filter_panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(map-get($colors, neutral-white), 0.1);
+    margin-bottom: 24px;
+
+    @media (max-width: 1199px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 767px) {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 1050;
+      background: map-get($colors, neutral-700);
+      padding: 20px;
+      gap: 20px;
+      border-bottom: none;
+      margin-bottom: 0;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      max-height: 100vh;
+      overflow-y: auto;
+
+      &.show {
+        transform: translateX(0);
+      }
+    }
+  }
+
+  // 篩選標題和關閉按鈕
+  .product_filter_header {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(map-get($colors, neutral-white), 0.1);
+
+    @media (max-width: 767px) {
+      display: flex;
+      grid-column: 1 / -1;
+      padding-bottom: 12px;
+    }
+
+    .product_filter_title {
+      font-size: 20px;
+      margin: 0;
+      color: map-get($colors, neutral-white);
+      font-weight: 700;
+    }
+
+    .product_filter_close_btn {
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: map-get($colors, neutral-100);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: map-get($colors, neutral-white);
+      }
+    }
+  }
+
+  // 篩選群組
+  .product_filter_group {
+    @media (max-width: 767px) {
+      grid-column: 1 / -1;
+    }
+
+    .product_filter_group_title {
+      font-size: 14px;
+      font-weight: 700;
+      color: map-get($colors, neutral-white);
+      margin: 0 0 12px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .product_filter_options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
+  // 複選框樣式
+  .product_filter_checkbox,
+  .product_filter_radio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+
+    input {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: map-get($colors, primary-500);
+
+      @media (max-width: 767px) {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .checkbox-label,
+    .radio-label {
+      font-size: 14px;
+      color: map-get($colors, neutral-100);
+      transition: color 0.2s ease;
+
+      @media (max-width: 767px) {
+        font-size: 15px;
+      }
+    }
+
+    &:hover {
+      .checkbox-label,
+      .radio-label {
+        color: map-get($colors, neutral-white);
+      }
+    }
+  }
+
+  // 清除篩選按鈕
+  .btn-clear-filters {
+    width: 100%;
+    padding: 10px 16px;
+    margin-top: 12px;
+    background: transparent;
+    border: 1px solid map-get($colors, indo-fav-400);
+    border-radius: 6px;
+    color: map-get($colors, indo-fav-400);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(map-get($colors, indo-fav-400), 0.1);
+    }
+
+    @media (max-width: 767px) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  // 篩選遮罩（移動設備）
+  .product_filter_overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1049;
+  }
+
+  // 篩選工具欄
+  .product_filter_toolbar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+
+    @media (max-width: 767px) {
+      gap: 12px;
+    }
+
+    // 排序選擇器
+    .sort-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .sort-label {
+        font-size: 14px;
+        color: map-get($colors, neutral-100);
+        font-weight: 500;
+        white-space: nowrap;
+
+        @media (max-width: 767px) {
+          display: none;
+        }
+      }
+
+      .sort-select {
+        padding: 8px 12px;
+        background: map-get($colors, neutral-600);
+        border: 1px solid map-get($colors, neutral-400);
+        border-radius: 6px;
+        color: map-get($colors, neutral-white);
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover,
+        &:focus {
+          border-color: map-get($colors, primary-500);
+          outline: none;
+        }
+
+        option {
+          background: map-get($colors, neutral-700);
+          color: map-get($colors, neutral-white);
+        }
+      }
+    }
+
+    // 篩選按鈕（移動設備）
+    .btn-toggle-filters {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: map-get($colors, neutral-600);
+      border: 1px solid map-get($colors, neutral-400);
+      border-radius: 6px;
+      color: map-get($colors, neutral-white);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      &:hover {
+        border-color: map-get($colors, primary-500);
+        background: map-get($colors, neutral-500);
+      }
+
+      .product_filter_badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 20px;
+        height: 20px;
+        padding: 0 6px;
+        margin-left: 4px;
+        background: map-get($colors, primary-500);
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: 700;
+        color: map-get($colors, neutral-white);
+      }
+    }
+
+    // 活動篩選標籤
+    .active-filters {
+      flex: 1;
+      gap: 8px;
+      flex-wrap: wrap;
+      min-height: 32px;
+      align-content: center;
+
+      .product_filter_tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        background: rgba(map-get($colors, primary-500), 0.15);
+        border: 1px solid map-get($colors, primary-600);
+        border-radius: 6px;
+        font-size: 12px;
+        color: map-get($colors, primary-300);
+        font-weight: 500;
+
+        .tag-remove {
+          padding: 0;
+          margin: 0;
+          border: none;
+          background: transparent;
+          color: map-get($colors, primary-300);
+          cursor: pointer;
+          font-size: 18px;
+          line-height: 1;
+          display: flex;
+          align-items: center;
+          transition: color 0.2s ease;
+
+          &:hover {
+            color: map-get($colors, primary-100);
+          }
+        }
+      }
+    }
+  }
+}

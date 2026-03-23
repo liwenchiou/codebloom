@@ -1,0 +1,247 @@
+.sc-wrap {
+  position: relative;
+  padding-top: 140px;
+  padding-bottom: 0;
+  color: #fff;
+  background: transparent;
+  overflow: visible; // 必須為 visible 以讓 sticky 生效
+  z-index: 1;
+}
+
+.sc-stage {
+  position: relative;
+  z-index: 2;
+  width: min(920px, 92vw);
+  margin: 0 auto;
+}
+
+.feature-header {
+  text-align: center;
+  margin-bottom: 64px;
+  position: sticky;
+  top: 100px; // 標題也可以黏住，增加高級感
+  z-index: 20;
+}
+
+.feature-title {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.feature-subtitle {
+  margin-top: 16px;
+  font-size: 16px;
+  color: #9ca3af;
+}
+
+.text-CodeBloom {
+  color: #1FC0D9;
+  font-size: 40px;
+}
+
+.roll-cards-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* 核心：CSS Sticky 堆疊邏輯 */
+.roll-card-section {
+  position: relative;
+  height: 100vh; // 每個區塊佔滿一屏，控制滾動距離
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  pointer-events: none; // 讓底層內容可穿透（僅容器）
+}
+
+.roll-card-wrap {
+  position: sticky;
+  top: 220px; // 卡片黏住的位置，需計算 Navbar + Header 高度
+  width: min(760px, 85vw);
+  height: clamp(260px, 38vh, 340px);
+  pointer-events: auto; // 恢復卡片本身的互動
+}
+
+.roll-card {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  background:
+    linear-gradient(140deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02) 55%),
+    rgba(9, 12, 16, 0.85); // 稍微加深背景，避免堆疊時透過去
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.55),
+    0 0 55px rgba(31, 192, 217, 0.16);
+  backdrop-filter: blur(12px) saturate(120%);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* 當卡片「進入」或「離開」視窗時的小動畫 (透過 IntersectionObserver 控制活性) */
+.roll-card-section.roll-section-active .roll-card {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.roll-card-section:not(.roll-section-active) .roll-card {
+  transform: scale(0.95) translateY(20px);
+  opacity: 0.8;
+}
+
+.roll-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(3600px, 320vw);
+  height: 220px;
+  transform: translate3d(-50%, -50%, 0);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  mix-blend-mode: screen;
+}
+
+.roll-card-section.roll-section-active .roll-glow {
+  opacity: 1;
+}
+
+/* Glow 細節維持不變... */
+.roll-glow::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(4200px, 360vw);
+  height: 120px;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(90deg,
+      rgba(31, 192, 217, 0) 0%,
+      rgba(31, 192, 217, 0.06) 26%,
+      rgba(31, 192, 217, 0.14) 50%,
+      rgba(31, 192, 217, 0.06) 74%,
+      rgba(31, 192, 217, 0) 100%);
+  filter: blur(52px);
+}
+
+.roll-glow::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(2800px, 240vw);
+  height: 46px;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(90deg,
+      rgba(31, 192, 217, 0) 0%,
+      rgba(31, 192, 217, 0.05) 32%,
+      rgba(31, 192, 217, 0.11) 50%,
+      rgba(31, 192, 217, 0.05) 68%,
+      rgba(31, 192, 217, 0) 100%);
+  filter: blur(18px);
+}
+
+/* Card Content Styles */
+.feature-card {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 28px;
+  padding: 40px;
+}
+
+.feature-text h3 {
+  font-size: 28px;
+  margin-bottom: 16px;
+  color: #1FC0D9;
+}
+
+.feature-text p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #e5e7eb;
+}
+
+.feature-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.feature-visual img {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+}
+
+/* Frame decorations */
+.frame {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #1FC0D9;
+  opacity: 0.5;
+}
+
+.frame.tl {
+  top: 20px;
+  left: 20px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.frame.tr {
+  top: 20px;
+  right: 20px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.frame.bl {
+  bottom: 20px;
+  left: 20px;
+  border-right: none;
+  border-top: none;
+}
+
+.frame.br {
+  bottom: 20px;
+  right: 20px;
+  border-left: none;
+  border-top: none;
+}
+
+@media (max-width: 768px) {
+  .sc-wrap {
+    padding-top: 80px;
+  }
+
+  .feature-header {
+    position: static;
+    margin-bottom: 32px;
+  }
+
+  .roll-card-section {
+    height: auto;
+    min-height: 70vh;
+    margin-bottom: 40px;
+  }
+
+  .roll-card-wrap {
+    position: static;
+    width: 92vw;
+    height: auto;
+  }
+
+  .roll-card {
+    position: relative;
+  }
+
+  .feature-card {
+    grid-template-columns: 1fr;
+    padding: 32px;
+    gap: 24px;
+  }
+}

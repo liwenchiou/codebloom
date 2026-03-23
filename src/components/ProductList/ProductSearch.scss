@@ -1,0 +1,80 @@
+@import "../../assets/scss/base.scss";
+
+.product_search {
+  width: 100%;
+  margin-bottom: 32px;
+
+  @media (max-width: 767px) {
+    margin-bottom: 24px;
+  }
+
+  .product_search_input_wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .product_search_icon {
+      position: absolute;
+      left: 16px;
+      color: map-get($colors, neutral-300);
+      pointer-events: none;
+      z-index: 2;
+      flex-shrink: 0;
+    }
+
+    .product_search_input {
+      width: 100%;
+      padding: 12px 16px 12px 48px;
+      padding-right: 40px;
+      background: map-get($colors, neutral-600);
+      border: 2px solid map-get($colors, neutral-400);
+      border-radius: 8px;
+      font-size: 16px;
+      color: map-get($colors, neutral-white);
+      transition: all 0.2s ease;
+      font-family: inherit;
+
+      &::placeholder {
+        color: map-get($colors, neutral-300);
+      }
+
+      &:focus {
+        outline: none;
+        border-color: map-get($colors, primary-500);
+        box-shadow: 0 0 0 3px rgba(map-get($colors, primary-500), 0.1);
+      }
+
+      @media (max-width: 767px) {
+        padding: 10px 12px 10px 40px;
+        padding-right: 36px;
+        font-size: 14px;
+      }
+    }
+
+    .product_clear_btn {
+      position: absolute;
+      right: 12px;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      color: map-get($colors, neutral-300);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      z-index: 2;
+
+      &:hover {
+        color: map-get($colors, neutral-100);
+      }
+
+      @media (max-width: 767px) {
+        width: 28px;
+        height: 28px;
+      }
+    }
+  }
+}

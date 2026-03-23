@@ -1,0 +1,14 @@
+@use "./assets/scss/reset";
+@use "./assets/scss/base";
+@use "./assets/scss/spacing";
+@use "./assets/scss/button";
+@use "./assets/scss/home";
+
+
+//組件區
+@use "./components/Navbar/navbar";
+@use "./components/IndexTop/IndexTop";
+@use "./components/CTASection/CTASection";
+@use "./components/QASection/QASection";
+@use "./components/EditProfile/EditProfile";
+@use "./components/Button/AuthButton";
