@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import "./ProductList.scss";
 import ProductCard from "./ProductCard";
@@ -20,7 +20,6 @@ const ProductListComponent = () => {
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const itemsPerPage = 12;
 
-  // 從 API 取得作品資料
   useEffect(() => {
     const fetchPortfolio = async () => {
       try {
@@ -28,7 +27,6 @@ const ProductListComponent = () => {
         const res = await axios.get(`${API_BASE}/portfolio`);
         const data = res.data;
 
-        // 直接使用 API 資料，補上 ProductCard 需要但 API 沒提供的預設值
         const mapped = data.map((item) => ({
           id: item.id,
           title: item.title,
@@ -59,11 +57,9 @@ const ProductListComponent = () => {
     fetchPortfolio();
   }, []);
 
-  // 篩選和搜尋邏輯
   const filteredProducts = useMemo(() => {
     let result = [...products];
 
-    // 搜尋篩選
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       result = result.filter(
@@ -75,28 +71,24 @@ const ProductListComponent = () => {
       );
     }
 
-    // 技術棧篩選
     if (selectedTechnologies.length > 0) {
       result = result.filter((product) =>
         selectedTechnologies.some((tech) => product.tags.includes(tech)),
       );
     }
 
-    // 難度篩選
     if (selectedDifficulties.length > 0) {
       result = result.filter((product) =>
         selectedDifficulties.includes(product.difficulty),
       );
     }
 
-    // 分類篩選
     if (selectedCategories.length > 0) {
       result = result.filter((product) =>
         selectedCategories.includes(product.category),
       );
     }
 
-    // 排序
     switch (selectedSort) {
       case "popular":
         result.sort((a, b) => b.views - a.views);
@@ -122,13 +114,11 @@ const ProductListComponent = () => {
     selectedSort,
   ]);
 
-  // 處理搜尋變化
   const handleSearch = (query) => {
     setSearchQuery(query);
-    setCurrentPage(1); // 重置為第一頁
+    setCurrentPage(1);
   };
 
-  // 技術棧篩選處理
   const handleTechnologyToggle = (tech) => {
     setSelectedTechnologies((prev) =>
       prev.includes(tech) ? prev.filter((t) => t !== tech) : [...prev, tech],
@@ -136,7 +126,6 @@ const ProductListComponent = () => {
     setCurrentPage(1);
   };
 
-  // 難度篩選處理
   const handleDifficultyToggle = (difficulty) => {
     setSelectedDifficulties((prev) =>
       prev.includes(difficulty)
@@ -146,7 +135,6 @@ const ProductListComponent = () => {
     setCurrentPage(1);
   };
 
-  // 分類篩選處理
   const handleCategoryToggle = (category) => {
     setSelectedCategories((prev) =>
       prev.includes(category)
@@ -156,13 +144,11 @@ const ProductListComponent = () => {
     setCurrentPage(1);
   };
 
-  // 排序變化處理
   const handleSortChange = (sortType) => {
     setSelectedSort(sortType);
     setCurrentPage(1);
   };
 
-  // 篩選選項定義
   const technologies = [
     { id: "React", label: "React" },
     { id: "Vue3", label: "Vue3" },
@@ -192,7 +178,6 @@ const ProductListComponent = () => {
     { id: "liked", label: "最多點讚" },
   ];
 
-  // Loading 狀態
   if (isLoading) {
     return (
       <div className="container d-flex justify-content-center align-items-center py-5" style={{ minHeight: "400px" }}>
@@ -203,7 +188,6 @@ const ProductListComponent = () => {
     );
   }
 
-  // Error 狀態
   if (error) {
     return (
       <div className="container text-center text-neutral-white py-5">
@@ -214,20 +198,14 @@ const ProductListComponent = () => {
   }
 
   return (
-    <div className="container" >
-      <div
-        className="pt-5"
-
-      >
+    <div className="container">
+      <div className="pt-5">
         <div className="row g-4">
-          {/* 左側: 產品列表 */}
           <div className="col-lg-10">
-            {/* 搜尋框 */}
             <div className="product_search_wrapper mb-4">
               <ProductSearch onSearch={handleSearch} />
             </div>
 
-            {/* 結果信息 */}
             <div className="product_results_info mb-3 text-base text-neutral-white">
               <p className="product_results_count">
                 找到{" "}
@@ -238,7 +216,6 @@ const ProductListComponent = () => {
               </p>
             </div>
 
-            {/* 手機版: 篩選按鈕 */}
             <button
               className="btn btn-outline-primary w-100 mb-3 d-lg-none"
               onClick={() => setIsMobileFilterOpen(true)}
@@ -246,7 +223,6 @@ const ProductListComponent = () => {
               篩選選項 <i className="bi bi-funnel ms-2" />
             </button>
 
-            {/* 產品網格 (Bootstrap 列) */}
             {filteredProducts.length > 0 ? (
               <>
                 <div className="row g-4">
@@ -262,7 +238,6 @@ const ProductListComponent = () => {
                     ))}
                 </div>
 
-                {/* 分頁 */}
                 {Math.ceil(filteredProducts.length / itemsPerPage) > 1 && (
                   <div className="d-flex align-items-center mt-4">
                     <button
@@ -330,7 +305,7 @@ const ProductListComponent = () => {
                 )}
               </>
             ) : (
-              <div className="product_empty_state  text-neutral-white">
+              <div className="product_empty_state text-neutral-white">
                 <div className="product_empty_icon">🔍</div>
                 <h3>找不到符合條件的作品</h3>
                 <p>請嘗試調整搜尋條件或篩選條件</p>
@@ -338,7 +313,6 @@ const ProductListComponent = () => {
             )}
           </div>
 
-          {/* 右側: 篩選邊欄 */}
           <div className="col-lg-2">
             <ProductFilterSidebar
               technologies={technologies}
@@ -360,7 +334,6 @@ const ProductListComponent = () => {
         </div>
       </div>
     </div>
-
   );
 };
 

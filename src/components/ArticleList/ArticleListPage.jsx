@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./ArticleListPage.scss";
 import ArticleListItem from "./ArticleListItem";
 import LoginModal from "./LoginModal";
@@ -15,7 +15,6 @@ import goldPen from "../../assets/images/article/goldpen.png";
 import silverPen from "../../assets/images/article/silverpen.png";
 import bronzePen from "../../assets/images/article/bronzepen.png";
 
-// 數字格式化工具
 const formatCount = (num) => {
   if (num >= 1000) {
     return (num / 1000).toFixed(1).replace(/\.0$/, "") + "k";
@@ -61,7 +60,6 @@ const recommendedAuthors = [
   },
 ];
 
-// 側邊欄作者
 const SidebarAuthor = ({ data, type, onRequireLogin }) => {
   const isTop3 = type === "popular" && data.rank <= 3;
   const [isFollowed] = useState(false);
@@ -76,21 +74,17 @@ const SidebarAuthor = ({ data, type, onRequireLogin }) => {
         <img src={data.avatar}
           alt={data.name}
           className="avatar rounded-circle me-3"
-         loading="lazy" />
+          loading="lazy" />
         <div>
           <div className="author-name">{data.name}</div>
           {type === "popular" ? (
             <div className="stats-row d-flex align-items-center gap-3 mt-1">
               <span className="icon-group d-flex align-items-center gap-1">
-                <span className="material-symbols-outlined icon-sm">
-                  thumb_up
-                </span>
+                <span className="material-symbols-outlined icon-sm">thumb_up</span>
                 <span className="num-text">{data.likes}</span>
               </span>
               <span className="icon-group d-flex align-items-center gap-1">
-                <span className="material-symbols-outlined icon-sm">
-                  article
-                </span>
+                <span className="material-symbols-outlined icon-sm">article</span>
                 <span className="num-text">{data.articles}</span>
               </span>
             </div>
@@ -125,22 +119,18 @@ const SidebarAuthor = ({ data, type, onRequireLogin }) => {
 
       {isTop3 && (
         <div className="rank-badge ms-auto">
-          <img src={rankIcons[data.rank]} alt={`Rank ${data.rank}`}  loading="lazy" />
+          <img src={rankIcons[data.rank]} alt={`Rank ${data.rank}`} loading="lazy" />
         </div>
       )}
     </div>
   );
 };
 
-// 主頁面
 export default function ArticleListPage() {
   const [activeTab, setActiveTab] = useState("hot");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [selectedTags, setSelectedTags] = useState(["全部"]);
-
-  // Tags
   const [allTags, setAllTags] = useState(["全部"]);
-
   const [articlesData, setArticlesData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -156,14 +146,11 @@ export default function ArticleListPage() {
   const startX = useRef(0);
   const scrollLeft = useRef(0);
 
-  // 串接API
   useEffect(() => {
     const fetchArticles = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(
-          "https://codebloom-api.zeabur.app/articleList",
-        );
+        const response = await fetch("https://codebloom-api.zeabur.app/articleList");
         if (!response.ok) throw new Error("網路請求失敗，請稍後再試");
         const data = await response.json();
 
@@ -202,10 +189,8 @@ export default function ArticleListPage() {
     fetchArticles();
   }, []);
 
-  // Tabs動畫
   useEffect(() => {
-    const currentTab =
-      activeTab === "hot" ? hotTabRef.current : latestTabRef.current;
+    const currentTab = activeTab === "hot" ? hotTabRef.current : latestTabRef.current;
     if (currentTab) {
       setIndicatorStyle({
         left: currentTab.offsetLeft,
@@ -214,7 +199,6 @@ export default function ArticleListPage() {
     }
   }, [activeTab]);
 
-  // Tab數量
   useEffect(() => {
     setVisibleCount(4);
   }, [selectedTags, activeTab]);
@@ -266,7 +250,6 @@ export default function ArticleListPage() {
     setSelectedTags(newTags);
   };
 
-  // 資料處理
   const baseFilteredArticles = selectedTags.includes("全部")
     ? articlesData
     : articlesData.filter((article) =>
@@ -343,10 +326,7 @@ export default function ArticleListPage() {
                 </button>
                 {isFilterOpen && (
                   <div className="tag-scroll-wrapper ms-3 position-relative flex-grow-1">
-                    <button
-                      className="scroll-arrow left"
-                      onClick={() => scroll("left")}
-                    >
+                    <button className="scroll-arrow left" onClick={() => scroll("left")}>
                       <i className="bi bi-chevron-left"></i>
                     </button>
                     <div
@@ -373,10 +353,7 @@ export default function ArticleListPage() {
                         );
                       })}
                     </div>
-                    <button
-                      className="scroll-arrow right"
-                      onClick={() => scroll("right")}
-                    >
+                    <button className="scroll-arrow right" onClick={() => scroll("right")}>
                       <i className="bi bi-chevron-right"></i>
                     </button>
                     <div className="fade-mask right"></div>
@@ -388,9 +365,7 @@ export default function ArticleListPage() {
 
             <div className="article-list d-flex flex-column gap-4">
               {isLoading ? (
-                <div className="text-neutral-400 py-5 text-center">
-                  文章載入中...
-                </div>
+                <div className="text-neutral-400 py-5 text-center">文章載入中...</div>
               ) : error ? (
                 <div className="text-danger py-5 text-center">{error}</div>
               ) : displayedArticles.length > 0 ? (
@@ -398,9 +373,7 @@ export default function ArticleListPage() {
                   <ArticleListItem key={article.id} data={article} />
                 ))
               ) : (
-                <div className="text-neutral-400 py-5 text-center">
-                  沒有找到相關標籤的文章
-                </div>
+                <div className="text-neutral-400 py-5 text-center">沒有找到相關標籤的文章</div>
               )}
             </div>
 

@@ -1,4 +1,3 @@
-import React from "react";
 import ProductTop from "../components/ProductList/ProductTop";
 import ProductList from "../components/ProductList/ProductList";
 

@@ -1,118 +1,113 @@
-// ============================
-// Global Toast Styles
-// ============================
-
 .cb-toast-wrapper {
-    position: fixed;
-    top: 100px;
-    left: 50%;
-    transform: translateX(-50%) translateY(-20px);
-    z-index: 9999;
-    pointer-events: none;
-    opacity: 0;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
-    &.show {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-    }
+  &.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 .cb-toast {
-    display: flex;
-    align-items: center;
-    padding: 12px 24px;
-    background: rgba(#0d1117, 0.85);
-    backdrop-filter: blur(12px) saturate(180%);
-    border: 1px solid rgba(#ffffff, 0.1);
-    border-radius: 100px;
-    box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.4),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-    min-width: 320px;
-    position: relative;
-    overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  background: rgba(#0d1117, 0.85);
+  backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(#ffffff, 0.1);
+  border-radius: 100px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  min-width: 320px;
+  position: relative;
+  overflow: hidden;
 
-    &::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
-        pointer-events: none;
-    }
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+    pointer-events: none;
+  }
 }
 
 .cb-toast-icon {
-    margin-right: 12px;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
+  margin-right: 12px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
 }
 
 .cb-toast-content {
-    color: #ffffff;
-    font-size: 15px;
-    font-weight: 500;
-    white-space: nowrap;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-// 不同類型的發光邊框與進度條
 .cb-toast-success {
-    border-color: rgba(#10b981, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(#10b981, 0.15);
+  border-color: rgba(#10b981, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(#10b981, 0.15);
 
-    .cb-toast-progress {
-        background: #10b981;
-    }
+  .cb-toast-progress {
+    background: #10b981;
+  }
 }
 
 .cb-toast-error {
-    border-color: rgba(#ef4444, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(#ef4444, 0.15);
+  border-color: rgba(#ef4444, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(#ef4444, 0.15);
 
-    .cb-toast-progress {
-        background: #ef4444;
-    }
+  .cb-toast-progress {
+    background: #ef4444;
+  }
 }
 
 .cb-toast-warning {
-    border-color: rgba(#f59e0b, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(#f59e0b, 0.15);
+  border-color: rgba(#f59e0b, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(#f59e0b, 0.15);
 
-    .cb-toast-progress {
-        background: #f59e0b;
-    }
+  .cb-toast-progress {
+    background: #f59e0b;
+  }
 }
 
 .cb-toast-info {
-    border-color: rgba(#3b82f6, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(#3b82f6, 0.15);
+  border-color: rgba(#3b82f6, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(#3b82f6, 0.15);
 
-    .cb-toast-progress {
-        background: #3b82f6;
-    }
+  .cb-toast-progress {
+    background: #3b82f6;
+  }
 }
 
 .cb-toast-progress {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 3px;
-    width: 0;
-    border-radius: 0 100px 100px 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  border-radius: 0 100px 100px 0;
 }
 
 .show .cb-toast-progress {
-    animation: cb-toast-progress-anim 3s linear forwards;
+  animation: cb-toast-progress-anim 3s linear forwards;
 }
 
 @keyframes cb-toast-progress-anim {
-    from {
-        width: 0%;
-    }
+  from {
+    width: 0%;
+  }
 
-    to {
-        width: 100%;
-    }
-}
+  to {
+    width: 100%;
+  }
+}

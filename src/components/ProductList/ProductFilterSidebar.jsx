@@ -35,14 +35,11 @@ const ProductFilterSidebar = ({
 
   return (
     <>
-      {/* 背景遮罩 (手機版) */}
       {isMobileOpen && (
         <div className="product_filter_overlay" onClick={onCloseMobile} />
       )}
 
-      {/* 篩選邊欄容器 */}
       <div className={`product_filter_sidebar ${isMobileOpen ? 'product_filter_sidebar_show' : ''}`}>
-        {/* 手機版: 關閉按鈕 */}
         <div className="product_filter_header d-lg-none">
           <h5 className="text-white mb-0">篩選選項</h5>
           <button
@@ -52,7 +49,6 @@ const ProductFilterSidebar = ({
           />
         </div>
 
-        {/* 排序區塊 */}
         <div className="product_filter_block">
           <h5 className="product_filter_title">排序</h5>
           <div className="product_filter_options">
@@ -77,7 +73,6 @@ const ProductFilterSidebar = ({
           </div>
         </div>
 
-        {/* 技術棧篩選 */}
         <FilterBlock
           title="技術棧"
           options={technologies}
@@ -86,7 +81,6 @@ const ProductFilterSidebar = ({
           filterType="technology"
         />
 
-        {/* 難度篩選 */}
         <FilterBlock
           title="難度等級"
           options={difficulties}
@@ -95,7 +89,6 @@ const ProductFilterSidebar = ({
           filterType="difficulty"
         />
 
-        {/* 分類篩選 */}
         <FilterBlock
           title="專案分類"
           options={categories}
@@ -104,7 +97,6 @@ const ProductFilterSidebar = ({
           filterType="category"
         />
 
-        {/* 手機版: 完成篩選按鈕 */}
         <button
           className="btn btn-primary mt-24px d-lg-none"
           onClick={onCloseMobile}

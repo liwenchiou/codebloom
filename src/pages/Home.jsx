@@ -5,7 +5,6 @@ import RollSection from "../components/Roll/RollSection";
 import CTASection from "../components/CTASection/CTASection";
 import ArticleSection from "../components/ArticleSection/ArticleSection";
 
-
 export default function Home() {
   return (
     <div className="home-page-wrap overflow-hidden">

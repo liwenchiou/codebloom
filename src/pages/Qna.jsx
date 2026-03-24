@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import QnaTop from "../components/Qna/QnaTop";
 import FilterBar from "../components/Qna/FilterBar";
 import QnaList from "../components/Qna/QnaList";

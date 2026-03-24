@@ -1,21 +1,19 @@
 .IndexTop-title {
-    font-weight: 700;
-    font-size: 96px;
-    line-height: 1.2;
-    color: #fff;
+  font-weight: 700;
+  font-size: 96px;
+  line-height: 1.2;
+  color: #fff;
 }
 
 .IndexTop-title-span {
-    /* 語法：h-shadow v-shadow blur-radius color */
-    text-shadow: 0 0 16px #4EDCF1;
+  text-shadow: 0 0 16px #4EDCF1;
 }
 
 @media (max-width: 768px) {
-    .IndexTop-title {
-        font-weight: 700;
-        font-size: 40px;
-        line-height: 48px;
-        color: #fff;
-    }
-
-}
+  .IndexTop-title {
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+    color: #fff;
+  }
+}
